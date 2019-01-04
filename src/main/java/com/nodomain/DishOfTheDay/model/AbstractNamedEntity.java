@@ -1,5 +1,8 @@
 package com.nodomain.DishOfTheDay.model;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class AbstractNamedEntity extends AbstractBaseEntity {
 
     protected String name;
