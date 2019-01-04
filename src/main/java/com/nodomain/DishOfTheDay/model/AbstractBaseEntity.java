@@ -2,12 +2,17 @@ package com.nodomain.DishOfTheDay.model;
 
 import com.nodomain.DishOfTheDay.HasId;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class AbstractBaseEntity implements HasId {
 
     public static final int START_SEQ = 100000;
 
+    @Id
+    @SequenceGenerator(name = "global_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
 
     public AbstractBaseEntity() {

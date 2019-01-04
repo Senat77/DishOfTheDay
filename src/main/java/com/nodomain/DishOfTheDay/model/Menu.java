@@ -1,4 +1,12 @@
 package com.nodomain.DishOfTheDay.model;
 
-public class Menu {
+import java.time.LocalDate;
+
+public class Menu extends AbstractBaseEntity {
+
+    private LocalDate date;
+
+    private Restaurant restaurant;
+
+    private Dish dish;
 }
