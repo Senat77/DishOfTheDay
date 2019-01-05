@@ -13,7 +13,7 @@ public class Dish extends AbstractNamedEntity {
     }
 
     public Dish(Integer id, String name, Float price) {
-        super(id, name);
+        //super(id, name);
         this.price = price;
     }
 

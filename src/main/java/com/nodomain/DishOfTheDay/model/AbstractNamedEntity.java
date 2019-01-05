@@ -1,13 +1,19 @@
 package com.nodomain.DishOfTheDay.model;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class AbstractNamedEntity extends AbstractBaseEntity {
 
+    @Column (nullable = false, unique = true, length = 100)
     protected String name;
 
     public AbstractNamedEntity() {
+    }
+
+    public AbstractNamedEntity(String name) {
+        this(null, name);
     }
 
     public AbstractNamedEntity(Integer id, String name) {
