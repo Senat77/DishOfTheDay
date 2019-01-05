@@ -1,6 +1,6 @@
-package com.nodomain.DishOfTheDay.repository;
+package rest.DishOfTheDay.repository;
 
-import com.nodomain.DishOfTheDay.model.Restaurant;
+import rest.DishOfTheDay.model.Restaurant;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RestaurantRepository extends CrudRepository<Restaurant, Integer> {

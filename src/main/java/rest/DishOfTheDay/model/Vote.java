@@ -1,6 +1,4 @@
-package com.nodomain.DishOfTheDay.model;
-
-import java.time.LocalDate;
+package rest.DishOfTheDay.model;
 
 public class Vote {
 

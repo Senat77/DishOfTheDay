@@ -1,4 +1,4 @@
-package com.nodomain.DishOfTheDay.model;
+package rest.DishOfTheDay.model;
 
 import org.springframework.util.CollectionUtils;
 

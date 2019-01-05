@@ -1,7 +1,7 @@
-package com.nodomain.DishOfTheDay.controller;
+package rest.DishOfTheDay.controller;
 
-import com.nodomain.DishOfTheDay.model.Restaurant;
-import com.nodomain.DishOfTheDay.repository.RestaurantRepository;
+import rest.DishOfTheDay.model.Restaurant;
+import rest.DishOfTheDay.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController {
 
-    static final String REST_URL = "/restaurants";
+    static final String REST_URL = "/api/restaurants";
 
     @Autowired
     private RestaurantRepository repository;

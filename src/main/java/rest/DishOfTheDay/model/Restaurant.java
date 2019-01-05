@@ -1,4 +1,4 @@
-package com.nodomain.DishOfTheDay.model;
+package rest.DishOfTheDay.model;
 
 import javax.persistence.Entity;
 

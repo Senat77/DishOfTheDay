@@ -1,6 +1,6 @@
-package com.nodomain.DishOfTheDay.model;
+package rest.DishOfTheDay.model;
 
-import com.nodomain.DishOfTheDay.HasId;
+import rest.DishOfTheDay.HasId;
 
 import javax.persistence.*;
 import java.util.Objects;

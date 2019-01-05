@@ -1,4 +1,4 @@
-package com.nodomain.DishOfTheDay.model;
+package rest.DishOfTheDay.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
