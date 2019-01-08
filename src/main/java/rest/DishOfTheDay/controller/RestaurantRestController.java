@@ -1,7 +1,7 @@
 package rest.DishOfTheDay.controller;
 
-import rest.DishOfTheDay.model.Restaurant;
-import rest.DishOfTheDay.model.Vote;
+import rest.DishOfTheDay.domain.Restaurant;
+import rest.DishOfTheDay.domain.Vote;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package rest.DishOfTheDay.model;
+package rest.DishOfTheDay.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

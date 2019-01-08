@@ -1,11 +1,13 @@
-package rest.DishOfTheDay.model;
+package rest.DishOfTheDay.domain;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
 
 @MappedSuperclass
 public class AbstractNamedEntity extends AbstractBaseEntity {
 
+    @NotBlank
     @Column (nullable = false, unique = true, length = 100)
     protected String name;
 
