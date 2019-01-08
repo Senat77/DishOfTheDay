@@ -2,11 +2,13 @@ package rest.DishOfTheDay.model;
 
 import org.springframework.util.CollectionUtils;
 
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
 
+@Entity
 public class User extends AbstractNamedEntity {
 
     private String email;
@@ -17,6 +19,10 @@ public class User extends AbstractNamedEntity {
 
     private Date registered = new Date();
 
+    @Enumerated(value = EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public User() {

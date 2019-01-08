@@ -9,7 +9,11 @@ public class Restaurant extends AbstractNamedEntity {
     }
 
     public Restaurant(String name) {
-        super(name);
+        this(null, name);
+    }
+
+    public Restaurant(Integer id, String name) {
+        super(id, name);
     }
 
     @Override

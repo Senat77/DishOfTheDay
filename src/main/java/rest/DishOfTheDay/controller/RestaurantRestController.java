@@ -1,6 +1,7 @@
 package rest.DishOfTheDay.controller;
 
 import rest.DishOfTheDay.model.Restaurant;
+import rest.DishOfTheDay.model.Vote;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -35,5 +36,16 @@ public class RestaurantRestController {
             return null;
         else
             return repository.save(new Restaurant(name));
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public void delete(@PathVariable Integer id) {
+        if(repository.findById(id).isPresent())
+            repository.deleteById(id);
+    }
+
+    @PostMapping("/{id}/vote")
+    public Vote addVote(@PathVariable Integer id) {
+        return null;
     }
 }
