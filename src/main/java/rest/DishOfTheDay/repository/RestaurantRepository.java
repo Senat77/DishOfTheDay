@@ -1,11 +1,18 @@
 package rest.DishOfTheDay.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import rest.DishOfTheDay.domain.Restaurant;
-import org.springframework.data.repository.CrudRepository;
 
-public interface RestaurantRepository extends CrudRepository<Restaurant, Integer> {
+import java.util.List;
 
-    Object findByName(String name);
+@Repository
+public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
-    Object findByNameOrderByName(String name);
+    @Query (value = "select r from Restaurant r order by name")
+    List<Restaurant> getAllOrderByName();
+
+    @Query (value = "select r from Restaurant r where r.id = ?1")
+    Restaurant get(Integer id);
 }

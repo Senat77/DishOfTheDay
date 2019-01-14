@@ -1,35 +1,37 @@
 package rest.DishOfTheDay.controller;
 
 import rest.DishOfTheDay.domain.Restaurant;
-import rest.DishOfTheDay.domain.Vote;
-import rest.DishOfTheDay.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import rest.DishOfTheDay.service.RestaurantService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController {
 
-    static final String REST_URL = "/api/restaurants";
+    static final String REST_URL = "/api/admin/restaurants";
+
+    private final RestaurantService service;
 
     @Autowired
-    private RestaurantRepository repository;
+    public RestaurantRestController(RestaurantService service) {
+        this.service = service;
+    }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurant> getAll() {
-        return (List<Restaurant>) repository.findAll();
+        return service.getAll();
     }
 
-    @GetMapping("/{id}")
-    public Restaurant getById(@PathVariable Integer id) {
-        Optional restaurant = repository.findById(id);
-        return restaurant.isPresent() ? (Restaurant) restaurant.get() : null;
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Restaurant getRestaurant(@PathVariable Integer id) {
+        return service.get(id);
     }
 
+    /*
     @PostMapping
     public Restaurant add (@RequestParam String name) {
         if(repository.findByName(name) != null)
@@ -48,4 +50,5 @@ public class RestaurantRestController {
     public Vote addVote(@PathVariable Integer id) {
         return null;
     }
+    */
 }

@@ -1,4 +1,4 @@
-package rest.DishOfTheDay;
+package rest.DishOfTheDay.domain;
 
 public interface HasId {
 

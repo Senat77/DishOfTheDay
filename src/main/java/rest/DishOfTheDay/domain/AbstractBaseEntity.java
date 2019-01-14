@@ -1,7 +1,5 @@
 package rest.DishOfTheDay.domain;
 
-import rest.DishOfTheDay.HasId;
-
 import javax.persistence.*;
 import java.util.Objects;
 
