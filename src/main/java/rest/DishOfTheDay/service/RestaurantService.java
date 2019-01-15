@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.repository.RestaurantRepository;
-import rest.DishOfTheDay.util.exception.NotFoundException;
+import rest.DishOfTheDay.util.exception.NotFoundEntityException;
 
 import java.util.List;
-
-import static rest.DishOfTheDay.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class RestaurantService {
@@ -24,7 +22,11 @@ public class RestaurantService {
         return repository.getAllOrderByName();
     }
 
-    public Restaurant get(Integer id) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id), id);
+    public Restaurant get(Integer id) {
+        Restaurant restaurant = repository.get(id);
+        if(restaurant == null) {
+            throw new NotFoundEntityException(Restaurant.class);
+        }
+        return restaurant;
     }
 }
