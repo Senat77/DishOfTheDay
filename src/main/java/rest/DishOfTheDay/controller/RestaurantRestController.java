@@ -21,13 +21,13 @@ public class RestaurantRestController {
         this.service = service;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public List<Restaurant> getAll() {
         return service.getAll();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant getRestaurant(@PathVariable Integer id) {
+    @GetMapping(value = "/{id}")
+    public Restaurant getRestaurant(@PathVariable("id") Integer id) {
         return service.get(id);
     }
 
