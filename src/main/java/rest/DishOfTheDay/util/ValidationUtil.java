@@ -11,19 +11,19 @@ import java.util.StringJoiner;
 
 public class ValidationUtil {
 
-    public static <T> T checkNotFoundWithId(T object, int id) {
-        return checkNotFound(object, "id=" + id);
+    public static <T> T checkNotFoundWithId(T object, int id, Class aClass) {
+        return checkNotFound(object, "id=" + id, aClass);
     }
 
     private ValidationUtil() {
     }
 
-    public static void checkNotFoundWithId(boolean found, int id) {
-        checkNotFound(found, "id=" + id);
+    public static void checkNotFoundWithId(boolean found, int id, Class aClass) {
+        checkNotFound(found, "id=" + id, aClass);
     }
 
-    public static <T> T checkNotFound(T object, String msg) {
-        checkNotFound(object != null, msg, object.getClass());
+    public static <T> T checkNotFound(T object, String msg, Class aClass) {
+        checkNotFound(object != null, msg, aClass);
         return object;
     }
 

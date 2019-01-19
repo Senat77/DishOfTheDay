@@ -24,6 +24,6 @@ public class RestaurantService {
     }
 
     public Restaurant get(Integer id) {
-        return checkNotFoundWithId(repository.get(id), id);
+        return checkNotFoundWithId(repository.get(id), id, Restaurant.class);
     }
 }
