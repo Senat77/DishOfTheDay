@@ -2,6 +2,7 @@ package rest.DishOfTheDay.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 
@@ -25,5 +26,15 @@ public class RestaurantService {
 
     public Restaurant get(Integer id) {
         return checkNotFoundWithId(repository.get(id), id, Restaurant.class);
+    }
+
+    public Restaurant create(Restaurant restaurant) {
+        Assert.notNull(restaurant, "restaurant must not be null");
+        return repository.save(restaurant);
+    }
+
+    public void update(Restaurant restaurant) {
+        Assert.notNull(restaurant, "restaurant must not be null");
+        repository.save(restaurant);
     }
 }
