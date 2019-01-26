@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,12 @@ public class ParticularExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleNotFoundException(Exception ex, Object body, WebRequest request) {
         log.info("In handleNotFoundException");
         return new ResponseEntity<>(new ErrorInfo(request, ex, true, HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ResponseEntity<Object> duplicateDataException(Exception ex, Object body, WebRequest request) {
+        log.info("In duplicateDataException");
+        return new ResponseEntity<>(new ErrorInfo(request, ex, true, HttpStatus.CONFLICT), HttpStatus.CONFLICT);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package rest.DishOfTheDay.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class RestaurantRestController {
 
     static final String REST_URL = "/api/admin/restaurants";
 
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final RestaurantService service;
 
@@ -41,7 +42,7 @@ public class RestaurantRestController {
         return service.get(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create (@RequestBody Restaurant restaurant) {
         log.info("Create restaurant {}", restaurant);
         ValidationUtil.checkNew(restaurant);

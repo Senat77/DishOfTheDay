@@ -1,12 +1,14 @@
 package rest.DishOfTheDay.domain;
 
+import org.springframework.data.domain.Persistable;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractBaseEntity implements HasId {
 
-    public static final int START_SEQ = 100000;
+    private static final int START_SEQ = 100000;
 
     @Id
     @SequenceGenerator(name = "global_seq", allocationSize = 1, initialValue = START_SEQ)
