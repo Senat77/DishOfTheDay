@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.repository.RestaurantRepository;
+import rest.DishOfTheDay.util.exception.NotFoundException;
 
 import java.util.List;
 
@@ -31,6 +32,10 @@ public class RestaurantService {
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         return repository.save(restaurant);
+    }
+
+    public void delete (int id) throws NotFoundException {
+        checkNotFoundWithId(repository.delete(id), id, Restaurant.class);
     }
 
     public void update(Restaurant restaurant) {

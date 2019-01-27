@@ -5,20 +5,20 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 
 @MappedSuperclass
-public class AbstractNamedEntity extends AbstractBaseEntity {
+public class NamedEntity extends BaseEntity {
 
     @NotBlank
     @Column (nullable = false, unique = true, length = 100)
     protected String name;
 
-    public AbstractNamedEntity() {
+    public NamedEntity() {
     }
 
-    public AbstractNamedEntity(String name) {
+    public NamedEntity(String name) {
         this(null, name);
     }
 
-    public AbstractNamedEntity(Integer id, String name) {
+    public NamedEntity(Integer id, String name) {
         super(id);
         this.name = name;
     }

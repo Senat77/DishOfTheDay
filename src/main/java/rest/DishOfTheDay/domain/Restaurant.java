@@ -4,15 +4,18 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @NamedQueries({
-        @NamedQuery(name = Restaurant.BY_NAME, query = "select r from Restaurant r order by r.name")
+        @NamedQuery(name = Restaurant.BY_NAME, query = "select r from Restaurant r order by r.name"),
+        @NamedQuery(name = Restaurant.DELETE, query = "delete from Restaurant r where r.id = :id"),
+
 })
 
 @Entity
 //@Access(AccessType.FIELD)
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "address"}, name = "restaurants_idx")})
-public class Restaurant extends AbstractNamedEntity {
+public class Restaurant extends NamedEntity {
 
     public static final String BY_NAME = "Restaurant.getAllOrderByName";
+    public static final String DELETE = "Restaurant.delete";
 
     @Column (name = "address", unique = true, nullable = false)
     private String address;

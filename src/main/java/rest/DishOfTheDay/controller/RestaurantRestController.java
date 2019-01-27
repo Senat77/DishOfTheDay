@@ -55,13 +55,13 @@ public class RestaurantRestController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    /*
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping(value = "/{id}/delete")
     public void delete(@PathVariable Integer id) {
-        if(repository.findById(id).isPresent())
-            repository.deleteById(id);
+        log.info("Delete Restaurant id = {}", id);
+        service.delete(id);
     }
 
+    /*
     @PostMapping("/{id}/vote")
     public Vote addVote(@PathVariable Integer id) {
         return null;

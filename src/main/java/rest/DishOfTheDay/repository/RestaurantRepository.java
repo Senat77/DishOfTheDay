@@ -32,4 +32,11 @@ public class RestaurantRepository {
             return em.merge(restaurant);
         }
     }
+
+    @Transactional
+    public boolean delete(Integer id) {
+        return em.createNamedQuery(Restaurant.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
+    }
 }

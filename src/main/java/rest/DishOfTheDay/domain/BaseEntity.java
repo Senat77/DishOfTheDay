@@ -1,12 +1,10 @@
 package rest.DishOfTheDay.domain;
 
-import org.springframework.data.domain.Persistable;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class AbstractBaseEntity implements HasId {
+public abstract class BaseEntity implements HasId {
 
     private static final int START_SEQ = 100000;
 
@@ -15,10 +13,10 @@ public abstract class AbstractBaseEntity implements HasId {
     @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
 
-    public AbstractBaseEntity() {
+    public BaseEntity() {
     }
 
-    public AbstractBaseEntity(Integer id) {
+    public BaseEntity(Integer id) {
         this.id = id;
     }
 
@@ -41,7 +39,7 @@ public abstract class AbstractBaseEntity implements HasId {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractBaseEntity that = (AbstractBaseEntity) o;
+        BaseEntity that = (BaseEntity) o;
         return Objects.equals(id, that.id);
     }
 

@@ -142,6 +142,92 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "POST.DuplicateValue",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Воронцов\",\n    \"address\": \"ул.Ришельевская, 55\",\n    \"email\": \"vorontsov@od.ua\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/restaurants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/restaurants/100001/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"restaurants",
+								"100001",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete.NonExistingID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/restaurants/999999/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"restaurants",
+								"999999",
+								"delete"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
