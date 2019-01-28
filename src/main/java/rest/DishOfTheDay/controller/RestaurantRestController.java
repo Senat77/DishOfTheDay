@@ -61,10 +61,8 @@ public class RestaurantRestController {
         service.delete(id);
     }
 
-    /*
-    @PostMapping("/{id}/vote")
-    public Vote addVote(@PathVariable Integer id) {
-        return null;
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update (@RequestBody Restaurant restaurant) {
+        log.info("Update restaurant {}", restaurant);
     }
-    */
 }

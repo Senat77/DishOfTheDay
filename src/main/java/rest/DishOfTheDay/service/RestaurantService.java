@@ -1,6 +1,7 @@
 package rest.DishOfTheDay.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Restaurant;
@@ -22,11 +23,11 @@ public class RestaurantService {
     }
 
     public List<Restaurant> getAll() {
-        return repository.getAllOrderByName();
+        return repository.findAll(new Sort(Sort.Direction.ASC, "name"));
     }
 
     public Restaurant get(Integer id) {
-        return checkNotFoundWithId(repository.get(id), id, Restaurant.class);
+        return checkNotFoundWithId(repository.getOne(id), id, Restaurant.class);
     }
 
     public Restaurant create(Restaurant restaurant) {
@@ -35,7 +36,8 @@ public class RestaurantService {
     }
 
     public void delete (int id) throws NotFoundException {
-        checkNotFoundWithId(repository.delete(id), id, Restaurant.class);
+        checkNotFoundWithId(repository.existsById(id), id, Restaurant.class);
+        repository.deleteById(id);
     }
 
     public void update(Restaurant restaurant) {

@@ -1,17 +1,15 @@
 package rest.DishOfTheDay.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import rest.DishOfTheDay.domain.Restaurant;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
-
 @Repository
 @Transactional(readOnly = true)
-public class RestaurantRepository {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
+    /*
     @PersistenceContext
     private EntityManager em;
 
@@ -39,4 +37,5 @@ public class RestaurantRepository {
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
+    */
 }
