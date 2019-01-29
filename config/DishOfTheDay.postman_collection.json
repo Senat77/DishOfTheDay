@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"id\": null,\r\n   \"name\": \"Тихая гавань\",\r\n   \"address\": \"ул.Уютная, 2\",\r\n   \"email\": \"sea_bar@od.ua\",\r\n   \"new\": true\r\n}"
+							"raw": "{\r\n   \"name\": \"Тихая гавань\",\r\n   \"address\": \"ул.Уютная, 2\",\r\n   \"email\": \"sea_bar@od.ua\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/admin/restaurants",
@@ -224,6 +224,39 @@
 								"restaurants",
 								"999999",
 								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 100000,\n    \"name\": \"Odessa\",\n    \"address\": \"пр-т Шевченко, 8\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/restaurants/100000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"restaurants",
+								"100000"
 							]
 						}
 					},
