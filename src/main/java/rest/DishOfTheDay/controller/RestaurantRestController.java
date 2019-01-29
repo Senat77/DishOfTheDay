@@ -1,6 +1,5 @@
 package rest.DishOfTheDay.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +36,10 @@ public class RestaurantRestController {
     }
 
     @GetMapping(value = "/{id}")
-    public Restaurant getRestaurant(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> getRestaurant(@PathVariable("id") Integer id) {
         log.info("get restaurant with id = {}", id);
-        return service.get(id);
+        //return service.get(id);
+        return ResponseEntity.of(service.get(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

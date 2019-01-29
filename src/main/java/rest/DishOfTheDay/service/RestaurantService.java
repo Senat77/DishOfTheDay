@@ -9,6 +9,7 @@ import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.util.exception.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static rest.DishOfTheDay.util.ValidationUtil.checkNotFoundWithId;
 
@@ -26,8 +27,9 @@ public class RestaurantService {
         return repository.findAll(new Sort(Sort.Direction.ASC, "name"));
     }
 
-    public Restaurant get(Integer id) {
-        return checkNotFoundWithId(repository.getOne(id), id, Restaurant.class);
+    public Optional<Restaurant> get(Integer id) {
+        return repository.findById(id);
+        //return checkNotFoundWithId(repository.findById(id).get(), id, Restaurant.class);
     }
 
     public Restaurant create(Restaurant restaurant) {

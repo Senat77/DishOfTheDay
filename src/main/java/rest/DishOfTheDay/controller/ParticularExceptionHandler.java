@@ -46,6 +46,12 @@ public class ParticularExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new ErrorInfo(request, ex, true, HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        log.info("In handleExceptionInternal");
+        return super.handleExceptionInternal(ex, body, headers, status, request);
+    }
+
     @Data
     public static class ErrorInfo {
         private Instant timestamp = Instant.now();
