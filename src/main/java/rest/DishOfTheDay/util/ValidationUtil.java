@@ -11,6 +11,7 @@ import java.util.StringJoiner;
 
 public class ValidationUtil {
 
+    /*
     public static <T> T checkNotFoundWithId(T object, int id, Class aClass) {
         return checkNotFound(object, "id=" + id, aClass);
     }
@@ -29,9 +30,10 @@ public class ValidationUtil {
 
     public static void checkNotFound(boolean found, String msg, Class aClass) {
         if (!found) {
-            throw new NotFoundException("Not found entity with " + msg, aClass);
+            throw new NotFoundException(aClass);
         }
     }
+    */
 
     public static void checkNew(HasId bean) {
         if (!bean.isNew()) {

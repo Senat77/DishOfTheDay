@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rest.DishOfTheDay.service.RestaurantService;
 import rest.DishOfTheDay.util.ValidationUtil;
+import rest.DishOfTheDay.util.exception.IllegalRequestDataException;
 
 import java.net.URI;
 import java.util.List;
@@ -36,17 +37,16 @@ public class RestaurantRestController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<?> getRestaurant(@PathVariable("id") Integer id) {
+    public Restaurant getRestaurant(@PathVariable("id") Integer id) {
         log.info("get restaurant with id = {}", id);
-        //return service.get(id);
-        return ResponseEntity.of(service.get(id));
+        return service.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> create (@RequestBody Restaurant restaurant) {
+    public ResponseEntity<?> create (@RequestBody Restaurant restaurant) {
         log.info("Create restaurant {}", restaurant);
         ValidationUtil.checkNew(restaurant);
-        Restaurant created = service.create(restaurant);
+        Restaurant created = service.save(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -56,13 +56,17 @@ public class RestaurantRestController {
     }
 
     @DeleteMapping(value = "/{id}/delete")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable ("id") Integer id) {
         log.info("Delete Restaurant id = {}", id);
         service.delete(id);
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update (@RequestBody Restaurant restaurant) {
-        log.info("Update restaurant {}", restaurant);
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Restaurant update (@RequestBody Restaurant restaurant, @PathVariable("id") Integer id) {
+        Restaurant updated = service.get(id);
+        log.info("Patch restaurant {}. New values {}", updated, restaurant);
+        if(!updated.getId().equals(restaurant.getId()))
+            throw new IllegalRequestDataException("Id's do not match!");
+        return service.save(restaurant);
     }
 }
