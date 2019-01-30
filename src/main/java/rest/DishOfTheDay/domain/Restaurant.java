@@ -2,11 +2,16 @@ package rest.DishOfTheDay.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "address"}, name = "restaurants_idx")})
-public class Restaurant extends NamedEntity {
+public class Restaurant extends BaseEntity {
+
+    @NotBlank
+    @Column (name = "name", nullable = false, unique = true, length = 100)
+    private String name;
 
     @Column (name = "address", unique = true, nullable = false)
     private String address;
@@ -30,9 +35,17 @@ public class Restaurant extends NamedEntity {
     }
 
     public Restaurant(Integer id, String name, String address, String email) {
-        super(id, name);
+        super(id);
         this.address = address;
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {

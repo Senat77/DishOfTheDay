@@ -1,16 +1,28 @@
 package rest.DishOfTheDay.domain;
 
 import javax.persistence.*;
-import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @MappedSuperclass
-public abstract class BaseEntity implements HasId {
+public abstract class BaseEntity { //implements HasId {
+
+    /* https://habr.com/ru/post/343960/ */
+    interface New {
+    }
+
+    interface Exist {
+    }
 
     private static final int START_SEQ = 100000;
 
     @Id
+    //@Setter
+    //@Getter
     @SequenceGenerator(name = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @Null(groups = {New.class})
+    @NotNull(groups = {Exist.class})
     protected Integer id;
 
     public BaseEntity() {
@@ -20,12 +32,10 @@ public abstract class BaseEntity implements HasId {
         this.id = id;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -40,7 +50,7 @@ public abstract class BaseEntity implements HasId {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BaseEntity that = (BaseEntity) o;
-        return Objects.equals(id, that.id);
+        return id.equals(that.id);
     }
 
     @Override

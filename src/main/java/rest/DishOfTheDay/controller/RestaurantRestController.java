@@ -45,8 +45,8 @@ public class RestaurantRestController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create (@RequestBody Restaurant restaurant) {
         log.info("Create restaurant {}", restaurant);
-        ValidationUtil.checkNew(restaurant);
-        Restaurant created = service.save(restaurant);
+        //ValidationUtil.checkNew(restaurant);
+        Restaurant created = service.create(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -63,10 +63,6 @@ public class RestaurantRestController {
 
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Restaurant update (@RequestBody Restaurant restaurant, @PathVariable("id") Integer id) {
-        Restaurant updated = service.get(id);
-        log.info("Patch restaurant {}. New values {}", updated, restaurant);
-        if(!updated.getId().equals(restaurant.getId()))
-            throw new IllegalRequestDataException("Id's do not match!");
-        return service.save(restaurant);
+        return service.update(id, restaurant);
     }
 }

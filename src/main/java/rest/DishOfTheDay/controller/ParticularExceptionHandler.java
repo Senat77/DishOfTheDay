@@ -3,16 +3,13 @@ package rest.DishOfTheDay.controller;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -22,8 +19,7 @@ import rest.DishOfTheDay.util.exception.NotFoundException;
 import java.time.Instant;
 
 
-@ControllerAdvice//(annotations = RestController.class)
-//@Order(Ordered.HIGHEST_PRECEDENCE + 5)
+@ControllerAdvice
 public class ParticularExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static Logger log = LoggerFactory.getLogger(ParticularExceptionHandler.class);
