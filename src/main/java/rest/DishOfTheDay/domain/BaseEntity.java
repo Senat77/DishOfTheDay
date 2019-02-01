@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 @MappedSuperclass
-public abstract class BaseEntity { //implements HasId {
+public abstract class BaseEntity {
 
     /* https://habr.com/ru/post/343960/ */
     interface New {
@@ -17,8 +17,6 @@ public abstract class BaseEntity { //implements HasId {
     private static final int START_SEQ = 100000;
 
     @Id
-    //@Setter
-    //@Getter
     @SequenceGenerator(name = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @Null(groups = {New.class})

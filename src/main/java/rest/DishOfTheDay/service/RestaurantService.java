@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Restaurant;
+import rest.DishOfTheDay.domain.dto.RestaurantDTO;
 import rest.DishOfTheDay.repository.RestaurantRepository;
+import rest.DishOfTheDay.service.mapper.RestaurantMapper;
 import rest.DishOfTheDay.util.exception.NotFoundException;
 
 import java.util.List;
@@ -21,6 +23,8 @@ public class RestaurantService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final RestaurantRepository repository;
+
+    private final RestaurantMapper mapper = RestaurantMapper.INSTANCE;
 
     @Autowired
     public RestaurantService(RestaurantRepository repository) {
@@ -40,11 +44,15 @@ public class RestaurantService {
     }
 
     @Transactional
-    public Restaurant create(Restaurant restaurant) {
-        Assert.notNull(restaurant, "restaurant must not be null");
-        Restaurant created = repository.saveAndFlush(restaurant);
+    public RestaurantDTO create(RestaurantDTO restaurantDTO) {
+        Assert.notNull(restaurantDTO, "restaurant must not be null");
+        log.info("Input Restaurant = {}", mapper.toRestaurant(restaurantDTO));
+        /*
+        RestaurantDTO created = mapper.fromRestaurant(repository.save(mapper.toRestaurant(restaurantDTO)));
         log.debug("[i] Restaurant created : {}", created);
         return created;
+        */
+        return null;
     }
 
     @Transactional
