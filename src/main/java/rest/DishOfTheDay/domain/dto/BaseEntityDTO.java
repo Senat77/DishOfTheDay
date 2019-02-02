@@ -12,5 +12,5 @@ public class BaseEntityDTO implements ITransfer{
 
     @Null(groups = {New.class}) // autogeneration in DB
     @NotNull(groups = {Exist.class})
-    private Integer Id;
+    private Integer id;
 }

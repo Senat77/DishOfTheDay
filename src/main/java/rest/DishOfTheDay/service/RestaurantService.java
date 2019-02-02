@@ -1,5 +1,6 @@
 package rest.DishOfTheDay.service;
 
+import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,12 @@ public class RestaurantService {
 
     private final RestaurantRepository repository;
 
-    private final RestaurantMapper mapper = RestaurantMapper.INSTANCE;
+    private final RestaurantMapper mapper;
 
     @Autowired
     public RestaurantService(RestaurantRepository repository) {
         this.repository = repository;
+        this.mapper = RestaurantMapper.INSTANCE;
     }
 
     public List<Restaurant> getAll() {
@@ -46,13 +48,9 @@ public class RestaurantService {
     @Transactional
     public RestaurantDTO create(RestaurantDTO restaurantDTO) {
         Assert.notNull(restaurantDTO, "restaurant must not be null");
-        log.info("Input Restaurant = {}", mapper.toRestaurant(restaurantDTO));
-        /*
         RestaurantDTO created = mapper.fromRestaurant(repository.save(mapper.toRestaurant(restaurantDTO)));
-        log.debug("[i] Restaurant created : {}", created);
+        log.info("Restaurant created : {}", created);
         return created;
-        */
-        return null;
     }
 
     @Transactional
