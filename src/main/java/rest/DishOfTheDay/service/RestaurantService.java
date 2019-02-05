@@ -12,7 +12,6 @@ import rest.DishOfTheDay.domain.dto.RestaurantDTO;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.service.mapper.RestaurantMapper;
 import rest.DishOfTheDay.util.exception.NotFoundException;
-
 import java.util.List;
 import java.util.Optional;
 
