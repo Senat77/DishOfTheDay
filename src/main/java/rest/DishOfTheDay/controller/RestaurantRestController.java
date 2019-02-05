@@ -5,18 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import rest.DishOfTheDay.domain.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import rest.DishOfTheDay.domain.dto.ITransfer;
 import rest.DishOfTheDay.domain.dto.RestaurantDTO;
 import rest.DishOfTheDay.service.RestaurantService;
-import rest.DishOfTheDay.util.ValidationUtil;
-import rest.DishOfTheDay.util.exception.IllegalRequestDataException;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,13 +29,13 @@ public class RestaurantRestController {
     }
 
     @GetMapping
-    public List<Restaurant> getAll() {
+    public List<RestaurantDTO> getAll() {
         log.info("get all restaurants");
         return service.getAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Restaurant getRestaurant(@PathVariable("id") Integer id) {
+    public RestaurantDTO getRestaurant(@PathVariable("id") Integer id) {
         log.info("get restaurant with id = {}", id);
         return service.get(id);
     }
@@ -49,15 +43,6 @@ public class RestaurantRestController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create (@Validated(RestaurantDTO.New.class) @RequestBody RestaurantDTO restaurantDTO) {//(@RequestBody Restaurant restaurant) {
         log.info("Create restaurant {}", restaurantDTO);
-        /*
-        RestaurantDTO createdDTO = service.create(restaurantDTO);
-
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(createdDTO.getId()).toUri();
-
-        return ResponseEntity.created(uriOfNewResource).body(createdDTO);
-        */
         return new ResponseEntity<> (service.create(restaurantDTO), HttpStatus.CREATED);
     }
 
@@ -68,7 +53,7 @@ public class RestaurantRestController {
     }
 
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant update (@RequestBody Restaurant restaurant, @PathVariable("id") Integer id) {
-        return service.update(id, restaurant);
+    public RestaurantDTO update (@RequestBody RestaurantDTO restaurantDTO, @PathVariable("id") Integer id) {
+        return service.update(id, restaurantDTO);
     }
 }

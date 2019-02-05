@@ -6,14 +6,18 @@ import org.mapstruct.factory.Mappers;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.dto.RestaurantDTO;
 
+import java.util.List;
+
 @Mapper
 public interface RestaurantMapper {
 
     RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
 
-    //@Mapping(source = "name", target = "name")
     RestaurantDTO fromRestaurant (Restaurant restaurant);
 
-    //@Mapping(source = "name", target = "name")
     Restaurant toRestaurant (RestaurantDTO restaurantDTO);
+
+    List<RestaurantDTO> fromRestaurants (List<Restaurant> restaurants);
+
+    List<Restaurant> toRestaurants (List<RestaurantDTO> restaurantDTOS);
 }

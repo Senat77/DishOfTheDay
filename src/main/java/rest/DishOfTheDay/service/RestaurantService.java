@@ -1,6 +1,5 @@
 package rest.DishOfTheDay.service;
 
-import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +32,14 @@ public class RestaurantService {
         this.mapper = RestaurantMapper.INSTANCE;
     }
 
-    public List<Restaurant> getAll() {
-        return repository.findAll(new Sort(Sort.Direction.ASC, "name"));
+    public List<RestaurantDTO> getAll() {
+        return mapper.fromRestaurants(repository.findAll(new Sort(Sort.Direction.ASC, "name")));
     }
 
-    public Restaurant get(Integer id) {
+    public RestaurantDTO get(Integer id) {
         Optional<Restaurant> restaurant = repository.findById(id);
         if(restaurant.isPresent())
-            return restaurant.get();
+            return mapper.fromRestaurant(restaurant.get());
         else
             throw new NotFoundException(Restaurant.class);
     }
@@ -54,22 +53,15 @@ public class RestaurantService {
     }
 
     @Transactional
-    public Restaurant update(int id, Restaurant restaurant) {
-        Assert.notNull(restaurant, "restaurant must not be null");
+    public RestaurantDTO update(int id, RestaurantDTO restaurantDTO) {
+        Assert.notNull(restaurantDTO, "restaurant must not be null");
         Optional<Restaurant> foundOptional = repository.findById(id);
         if(foundOptional.isEmpty())
             throw new NotFoundException(Restaurant.class);
-        Restaurant found = foundOptional.get();
-
-        // Dirty code ... Temporary ! :)
-        found.setName(restaurant.getName());
-        found.setAddress(restaurant.getAddress());
-        found.setEmail(restaurant.getEmail());
-
-        repository.saveAndFlush(found);
+        Restaurant found = mapper.toRestaurant(restaurantDTO);
+        repository.save(found);
         log.debug("[i] Restaurant with id={} updated : {}", id, found);
-
-        return found;
+        return mapper.fromRestaurant(found);
     }
 
     @Transactional
