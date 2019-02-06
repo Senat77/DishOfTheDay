@@ -3,6 +3,9 @@ package rest.DishOfTheDay.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@EnableCaching
 public class RestaurantService {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
@@ -31,6 +35,7 @@ public class RestaurantService {
         this.mapper = RestaurantMapper.INSTANCE;
     }
 
+    @Cacheable("restaurants")
     public List<RestaurantDTO> getAll() {
         return mapper.fromRestaurants(repository.findAll(new Sort(Sort.Direction.ASC, "name")));
     }
@@ -43,6 +48,7 @@ public class RestaurantService {
             throw new NotFoundException(Restaurant.class);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public RestaurantDTO create(RestaurantDTO restaurantDTO) {
         Assert.notNull(restaurantDTO, "restaurant must not be null");
@@ -51,6 +57,7 @@ public class RestaurantService {
         return created;
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public RestaurantDTO update(int id, RestaurantDTO restaurantDTO) {
         Assert.notNull(restaurantDTO, "restaurant must not be null");
@@ -63,6 +70,7 @@ public class RestaurantService {
         return mapper.fromRestaurant(found);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public void delete (int id) {
         if (repository.existsById(id))
