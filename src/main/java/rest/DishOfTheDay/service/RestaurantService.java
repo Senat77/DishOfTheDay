@@ -78,4 +78,11 @@ public class RestaurantService {
         else
             throw new NotFoundException(Restaurant.class);
     }
+
+    // For populating data only
+    @CacheEvict(value = "restaurants", allEntries = true)
+    @Transactional
+    public void saveAll (List<Restaurant> restaurants) {
+        repository.saveAll(restaurants);
+    }
 }

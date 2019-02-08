@@ -1,22 +1,19 @@
 package rest.DishOfTheDay.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-
-import static org.springframework.security.config.Elements.PASSWORD_ENCODER;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User extends BaseEntity {
 
     @NotNull
@@ -35,45 +32,36 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private boolean enabled = true;
 
-    /*
     @NotNull
-    @Column(nullable = false)
-    private Role role = ROLE_USER;
-    */
+    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "id"))
+    @ElementCollection
+    private Set<Role> roles;
 
     @NotNull
     @Column(nullable = false)
     private LocalDateTime registered;
 
-    /*
-    public User(@NotNull String email, @NotNull String name, @NotNull String password, @NotNull boolean enabled, Role role, @NotNull LocalDateTime registered) {
-        this.email = email;
-        this.name = name;
-        setPassword(password);
-        this.enabled = enabled;
-        //this.role = role;
-        this.registered = registered;
-    }
-    */
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    /*
-    @PrePersist
-    private void encodePassword() {
-        password = (password != null) ? PASSWORD_ENCODER.encode(password) : null;
-    }
-
-
     public enum Role implements GrantedAuthority {
+
+        ROLE_USER ("USER"),
+        ROLE_ADMIN ("ADMIN");
+
+        private String title;
+
+        Role(String title) {
+            this.title = title;
+        }
+
+        @Override
+        public String toString() {
+            return "Role{" +
+                    "title='" + title + '\'' +
+                    '}';
+        }
 
         @Override
         public String getAuthority() {
-            return null;
+            return name();
         }
     }
-    */
 }
