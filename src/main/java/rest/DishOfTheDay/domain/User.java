@@ -5,7 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -29,17 +28,17 @@ public class User extends BaseEntity {
     private String password;
 
     @NotNull
-    @Column(nullable = false)
-    private boolean enabled = true;
-
-    @NotNull
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "id"))
     @ElementCollection
     private Set<Role> roles;
 
-    @NotNull
-    @Column(nullable = false)
-    private LocalDateTime registered;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public enum Role implements GrantedAuthority {
 

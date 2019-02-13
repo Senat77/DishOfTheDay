@@ -1,15 +1,19 @@
 package rest.DishOfTheDay.config;
 
-import lombok.EqualsAndHashCode;
-import lombok.Value;
-import org.springframework.security.core.GrantedAuthority;
-import java.util.Collection;
+import lombok.*;
+import rest.DishOfTheDay.domain.User;
+
+import java.util.Collections;
+import java.util.Set;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
 public class AuthUser extends org.springframework.security.core.userdetails.User {
 
-    public AuthUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
+    private String email;
+
+    public AuthUser(final String username, final String password, final String email, final User.Role ... roles) {
+        super(username, password, Set.of(roles));
+        this.email = email;
     }
 }
