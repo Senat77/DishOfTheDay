@@ -1,7 +1,11 @@
 package rest.DishOfTheDay.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import rest.DishOfTheDay.config.SecurityConfig;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,15 +13,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends BaseEntity {
-
-    @NotNull
-    @Column(unique = true)
-    private String email;
 
     @NotNull
     @Column(unique = true)
@@ -28,16 +28,17 @@ public class User extends BaseEntity {
     private String password;
 
     @NotNull
+    @Column(unique = true)
+    private String email;
+
+    @NotNull
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "id"))
     @ElementCollection
     private Set<Role> roles;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    @PrePersist
+    private void encodePassword() {
+        password = (password != null) ? SecurityConfig.PASSWORD_ENCODER.encode(password) : null;
     }
 
     public enum Role implements GrantedAuthority {
