@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import rest.DishOfTheDay.config.SecurityConfig;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.User;
 import rest.DishOfTheDay.repository.RestaurantRepository;
@@ -35,11 +38,16 @@ public class DishOfTheDayApplication {
 	}
 
 	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+
+	@Bean
 	public CommandLineRunner demoData(RestaurantRepository restaurantRepository, UserRepository userRepository) {
 		return args -> {
 			userRepository.saveAll(List.of(
-					new User("admin1", "admin1", "admin1@site.com", Set.of(User.Role.ROLE_ADMIN)),
-					new User("user1", "user1", "user1@site.com", Set.of(User.Role.ROLE_USER))
+					new User("admin1", passwordEncoder().encode("admin1"), "admin1@site.com", Set.of(User.Role.ROLE_ADMIN)),
+					new User("user1", passwordEncoder().encode("user1"), "user1@site.com", Set.of(User.Role.ROLE_USER))
 			));
 			restaurantRepository.saveAll(List.of(
 					new Restaurant("Воронцов", "ул.Ришельевская, 55", "vorontsov@od.ua"),

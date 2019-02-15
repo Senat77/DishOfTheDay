@@ -36,11 +36,6 @@ public class User extends BaseEntity {
     @ElementCollection
     private Set<Role> roles;
 
-    @PrePersist
-    private void encodePassword() {
-        password = (password != null) ? SecurityConfig.PASSWORD_ENCODER.encode(password) : null;
-    }
-
     public enum Role implements GrantedAuthority {
 
         ROLE_USER ("USER"),
