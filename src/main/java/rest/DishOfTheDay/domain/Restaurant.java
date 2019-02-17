@@ -3,6 +3,7 @@ package rest.DishOfTheDay.domain;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.FIELD)

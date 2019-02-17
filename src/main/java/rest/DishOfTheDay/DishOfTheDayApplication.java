@@ -9,6 +9,7 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import rest.DishOfTheDay.config.SecurityConfig;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.User;
@@ -44,9 +45,15 @@ public class DishOfTheDayApplication {
 
 	@Bean
 	public CommandLineRunner demoData(RestaurantRepository restaurantRepository, UserRepository userRepository) {
+		return args -> TestData.populate(restaurantRepository, userRepository);
+	}
+
+	/*
+	@Bean
+	public CommandLineRunner demoData(RestaurantRepository restaurantRepository, UserRepository userRepository) {
 		return args -> {
 			userRepository.saveAll(List.of(
-					new User("admin1", passwordEncoder().encode("admin1"), "admin1@site.com", Set.of(User.Role.ROLE_ADMIN)),
+					new User(100,"admin1", passwordEncoder().encode("admin1"), "admin1@site.com", Set.of(User.Role.ROLE_ADMIN)),
 					new User("user1", passwordEncoder().encode("user1"), "user1@site.com", Set.of(User.Role.ROLE_USER))
 			));
 			restaurantRepository.saveAll(List.of(
@@ -56,5 +63,6 @@ public class DishOfTheDayApplication {
 			));
 		};
 	}
+	*/
 }
 
