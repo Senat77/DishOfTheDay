@@ -20,7 +20,6 @@ public class RestaurantServiceTest {
 
     @Test
     public void getAll() {
-        TestData.populate();
         assertThat(service.getAll()).isEqualTo(mapper.fromRestaurants(TestData.restaurants));
     }
 

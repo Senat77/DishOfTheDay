@@ -1,15 +1,9 @@
 package rest.DishOfTheDay.domain.dto;
 
 import lombok.Data;
-import lombok.NonNull;
 import rest.DishOfTheDay.domain.User;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.JoinColumn;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -22,7 +16,8 @@ public class UserDTO extends BaseEntityDTO {
     @NotNull
     private String email;
 
-    @NotNull
+    @NotNull(groups = {toObject.class})
+    @Null(groups = {fromObject.class})
     private String password;
 
     @NotNull

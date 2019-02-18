@@ -9,4 +9,10 @@ public interface ITransfer {
 
     interface Exist {
     }
+
+    interface fromObject {
+    }
+
+    interface toObject {
+    }
 }

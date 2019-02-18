@@ -9,11 +9,7 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
-import rest.DishOfTheDay.config.SecurityConfig;
-import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.User;
-import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
 import java.sql.SQLException;
@@ -44,25 +40,10 @@ public class DishOfTheDayApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demoData(RestaurantRepository restaurantRepository, UserRepository userRepository) {
-		return args -> TestData.populate(restaurantRepository, userRepository);
+	public CommandLineRunner demoData(UserRepository userRepository) {
+		return args -> 	userRepository.saveAll(List.of(
+				new User("admin", passwordEncoder().encode("admin"), "admin1@site.com", Set.of(User.Role.ROLE_ADMIN, User.Role.ROLE_USER)),
+				new User("user", passwordEncoder().encode("user"), "user@site.com", Set.of(User.Role.ROLE_USER))));
 	}
-
-	/*
-	@Bean
-	public CommandLineRunner demoData(RestaurantRepository restaurantRepository, UserRepository userRepository) {
-		return args -> {
-			userRepository.saveAll(List.of(
-					new User(100,"admin1", passwordEncoder().encode("admin1"), "admin1@site.com", Set.of(User.Role.ROLE_ADMIN)),
-					new User("user1", passwordEncoder().encode("user1"), "user1@site.com", Set.of(User.Role.ROLE_USER))
-			));
-			restaurantRepository.saveAll(List.of(
-					new Restaurant("Воронцов", "ул.Ришельевская, 55", "vorontsov@od.ua"),
-					new Restaurant("Мистер Кэт", "ул.Екатерининская, 11", null),
-					new Restaurant("Галактика", "пр.Маршала Жукова, 33", "admin@galactica.od.ua")
-			));
-		};
-	}
-	*/
 }
 

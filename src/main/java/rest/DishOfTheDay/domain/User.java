@@ -1,12 +1,8 @@
 package rest.DishOfTheDay.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import rest.DishOfTheDay.config.SecurityConfig;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;

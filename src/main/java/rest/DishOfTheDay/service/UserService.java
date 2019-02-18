@@ -3,11 +3,18 @@ package rest.DishOfTheDay.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import rest.DishOfTheDay.domain.dto.UserDTO;
 import rest.DishOfTheDay.repository.UserRepository;
 import rest.DishOfTheDay.service.mapper.UserMapper;
+import org.springframework.data.domain.Sort;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,5 +31,19 @@ public class UserService {
     public UserService(UserRepository repository) {
         this.repository = repository;
         this.mapper = UserMapper.INSTANCE;
+    }
+
+    @Cacheable("users")
+    public List<UserDTO> getAll() {
+        return mapper.fromUsers(repository.findAll(new Sort(Sort.Direction.ASC, "name")));
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
+    public UserDTO create(UserDTO userDTO) {
+        Assert.notNull(userDTO, "User must not be null");
+        UserDTO created = mapper.fromUser(repository.save(mapper.toUser(userDTO)));
+        log.info("User created : {}", created);
+        return created;
     }
 }
