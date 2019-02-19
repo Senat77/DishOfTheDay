@@ -4,7 +4,6 @@ import lombok.Data;
 import rest.DishOfTheDay.domain.User;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -21,11 +20,5 @@ public class UserDTO extends BaseEntityDTO {
     private String password;
 
     @NotNull
-    private boolean enabled;
-
-    @NotNull
     private Set<User.Role> roles;
-
-    @NotNull
-    private LocalDateTime registered;
 }
