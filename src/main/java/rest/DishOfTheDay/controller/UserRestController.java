@@ -8,7 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import rest.DishOfTheDay.domain.dto.UserDTO;
+import rest.DishOfTheDay.domain.dto.UserRequestDTO;
+import rest.DishOfTheDay.domain.dto.UserResponseDTO;
 import rest.DishOfTheDay.service.UserService;
 
 import java.util.List;
@@ -29,13 +30,13 @@ public class UserRestController {
     }
 
     @GetMapping
-    public List<UserDTO> getAll() {
+    public List<UserResponseDTO> getAll() {
         log.info("Get all users");
         return service.getAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create (@Validated({UserDTO.New.class, UserDTO.toObject.class}) @RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> create (@Validated({UserRequestDTO.New.class}) @RequestBody UserRequestDTO userDTO) {
         log.info("Create user {}", userDTO);
         return new ResponseEntity<> (service.create(userDTO), HttpStatus.CREATED);
     }

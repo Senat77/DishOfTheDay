@@ -9,7 +9,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import rest.DishOfTheDay.domain.dto.UserDTO;
+import rest.DishOfTheDay.domain.User;
+import rest.DishOfTheDay.domain.dto.UserRequestDTO;
+import rest.DishOfTheDay.domain.dto.UserResponseDTO;
 import rest.DishOfTheDay.repository.UserRepository;
 import rest.DishOfTheDay.service.mapper.UserMapper;
 import org.springframework.data.domain.Sort;
@@ -34,15 +36,15 @@ public class UserService {
     }
 
     @Cacheable("users")
-    public List<UserDTO> getAll() {
+    public List<UserResponseDTO> getAll() {
         return mapper.fromUsers(repository.findAll(new Sort(Sort.Direction.ASC, "name")));
     }
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public UserDTO create(UserDTO userDTO) {
+    public UserResponseDTO create(UserRequestDTO userDTO) {
         Assert.notNull(userDTO, "User must not be null");
-        UserDTO created = mapper.fromUser(repository.save(mapper.toUser(userDTO)));
+        UserResponseDTO created = mapper.fromUser(repository.save(mapper.toUser(userDTO)));
         log.info("User created : {}", created);
         return created;
     }
