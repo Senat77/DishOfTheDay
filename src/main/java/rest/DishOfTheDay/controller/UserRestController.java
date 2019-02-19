@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import rest.DishOfTheDay.domain.dto.UserRequestDTO;
@@ -29,15 +30,24 @@ public class UserRestController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<UserResponseDTO> getAll() {
-        log.info("Get all users");
-        return service.getAll();
-    }
+    // All allowed endpoint
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create (@Validated({UserRequestDTO.New.class}) @RequestBody UserRequestDTO userDTO) {
         log.info("Create user {}", userDTO);
         return new ResponseEntity<> (service.create(userDTO), HttpStatus.CREATED);
     }
+
+    // ADMIN-role's allowed endpoints
+
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<UserResponseDTO> getAll() {
+        log.info("Get all users");
+        return service.getAll();
+    }
+
+    // USER-role's allowed endpoints
+
+
 }

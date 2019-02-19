@@ -40,6 +40,7 @@ public class RestaurantService {
         return mapper.fromRestaurants(repository.findAll(new Sort(Sort.Direction.ASC, "name")));
     }
 
+    @Cacheable("restaurants")
     public RestaurantDTO get(Integer id) {
         Optional<Restaurant> restaurant = repository.findById(id);
         if(restaurant.isPresent())
@@ -77,12 +78,5 @@ public class RestaurantService {
             repository.deleteById(id);
         else
             throw new NotFoundException(Restaurant.class);
-    }
-
-    // For populating data only
-    @CacheEvict(value = "restaurants", allEntries = true)
-    @Transactional
-    public void saveAll (List<Restaurant> restaurants) {
-        repository.saveAll(restaurants);
     }
 }
