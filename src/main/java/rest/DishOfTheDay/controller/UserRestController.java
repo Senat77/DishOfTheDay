@@ -30,7 +30,7 @@ public class UserRestController {
         this.service = service;
     }
 
-    // All allowed endpoint
+    // All allowed entry(registration) endpoint
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create (@Validated({UserRequestDTO.New.class}) @RequestBody UserRequestDTO userDTO) {
