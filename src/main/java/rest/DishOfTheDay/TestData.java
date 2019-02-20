@@ -1,13 +1,10 @@
 package rest.DishOfTheDay;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.User;
-import rest.DishOfTheDay.domain.dto.RestaurantDTO;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
@@ -34,7 +31,7 @@ public class TestData {
 
     public static List<Restaurant> restaurants = List.of(RESTAURANT1, RESTAURANT2, RESTAURANT3);
 
-    public static void populate(RestaurantRepository restaurantRepository, UserRepository userRepository) {
+    public void populate(RestaurantRepository restaurantRepository, UserRepository userRepository) {
             userRepository.saveAll(users);
             restaurantRepository.saveAll(restaurants);
         }

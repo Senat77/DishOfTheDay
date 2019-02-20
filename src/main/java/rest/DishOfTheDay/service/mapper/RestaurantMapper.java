@@ -1,22 +1,22 @@
 package rest.DishOfTheDay.service.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 import rest.DishOfTheDay.domain.Restaurant;
-import rest.DishOfTheDay.domain.dto.RestaurantDTO;
+import rest.DishOfTheDay.domain.dto.RestaurantReqDTO;
+import rest.DishOfTheDay.domain.dto.RestaurantRespDTO;
 
 import java.util.List;
 
+@Component
 @Mapper
 public interface RestaurantMapper {
 
-    RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
+    RestaurantRespDTO fromRestaurant (Restaurant restaurant);
 
-    RestaurantDTO fromRestaurant (Restaurant restaurant);
+    Restaurant toRestaurant (RestaurantReqDTO restaurantDTO);
 
-    Restaurant toRestaurant (RestaurantDTO restaurantDTO);
+    List<RestaurantRespDTO> fromRestaurants (List<Restaurant> restaurants);
 
-    List<RestaurantDTO> fromRestaurants (List<Restaurant> restaurants);
-
-    List<Restaurant> toRestaurants (List<RestaurantDTO> restaurantDTOS);
+    List<Restaurant> toRestaurants (List<RestaurantReqDTO> restaurantDTOS);
 }

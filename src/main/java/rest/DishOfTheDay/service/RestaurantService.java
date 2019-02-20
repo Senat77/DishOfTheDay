@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Restaurant;
-import rest.DishOfTheDay.domain.dto.RestaurantDTO;
+import rest.DishOfTheDay.domain.dto.RestaurantReqDTO;
+import rest.DishOfTheDay.domain.dto.RestaurantRespDTO;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.service.mapper.RestaurantMapper;
 import rest.DishOfTheDay.util.exception.NotFoundException;
@@ -30,18 +31,18 @@ public class RestaurantService {
     private final RestaurantMapper mapper;
 
     @Autowired
-    public RestaurantService(RestaurantRepository repository) {
+    public RestaurantService(RestaurantRepository repository, RestaurantMapper mapper) {
         this.repository = repository;
-        this.mapper = RestaurantMapper.INSTANCE;
+        this.mapper = mapper;
     }
 
     @Cacheable("restaurants")
-    public List<RestaurantDTO> getAll() {
+    public List<RestaurantRespDTO> getAll() {
         return mapper.fromRestaurants(repository.findAll(new Sort(Sort.Direction.ASC, "name")));
     }
 
     @Cacheable("restaurants")
-    public RestaurantDTO get(Integer id) {
+    public RestaurantRespDTO get(Integer id) {
         Optional<Restaurant> restaurant = repository.findById(id);
         if(restaurant.isPresent())
             return mapper.fromRestaurant(restaurant.get());
@@ -51,16 +52,16 @@ public class RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
-    public RestaurantDTO create(RestaurantDTO restaurantDTO) {
+    public RestaurantRespDTO create(RestaurantReqDTO restaurantDTO) {
         Assert.notNull(restaurantDTO, "restaurant must not be null");
-        RestaurantDTO created = mapper.fromRestaurant(repository.save(mapper.toRestaurant(restaurantDTO)));
+        RestaurantRespDTO created = mapper.fromRestaurant(repository.save(mapper.toRestaurant(restaurantDTO)));
         log.info("Restaurant created : {}", created);
         return created;
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
-    public RestaurantDTO update(int id, RestaurantDTO restaurantDTO) {
+    public RestaurantRespDTO update(int id, RestaurantReqDTO restaurantDTO) {
         Assert.notNull(restaurantDTO, "restaurant must not be null");
         Optional<Restaurant> foundOptional = repository.findById(id);
         if(foundOptional.isEmpty())

@@ -8,7 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import rest.DishOfTheDay.domain.dto.RestaurantDTO;
+import rest.DishOfTheDay.domain.dto.RestaurantReqDTO;
+import rest.DishOfTheDay.domain.dto.RestaurantRespDTO;
 import rest.DishOfTheDay.service.RestaurantService;
 
 import java.util.List;
@@ -29,19 +30,19 @@ public class RestaurantRestController {
     }
 
     @GetMapping
-    public List<RestaurantDTO> getAll() {
+    public List<RestaurantRespDTO> getAll() {
         log.info("get all restaurants");
         return service.getAll();
     }
 
     @GetMapping(value = "/{id}")
-    public RestaurantDTO getRestaurant(@PathVariable("id") Integer id) {
+    public RestaurantRespDTO getRestaurant(@PathVariable("id") Integer id) {
         log.info("get restaurant with id = {}", id);
         return service.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create (@Validated(RestaurantDTO.New.class) @RequestBody RestaurantDTO restaurantDTO) {//(@RequestBody Restaurant restaurant) {
+    public ResponseEntity<?> create (@Validated(RestaurantReqDTO.New.class) @RequestBody RestaurantReqDTO restaurantDTO) {//(@RequestBody Restaurant restaurant) {
         log.info("Create restaurant {}", restaurantDTO);
         return new ResponseEntity<> (service.create(restaurantDTO), HttpStatus.CREATED);
     }
@@ -53,7 +54,7 @@ public class RestaurantRestController {
     }
 
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RestaurantDTO update (@RequestBody RestaurantDTO restaurantDTO, @PathVariable("id") Integer id) {
+    public RestaurantRespDTO update (@RequestBody RestaurantReqDTO restaurantDTO, @PathVariable("id") Integer id) {
         return service.update(id, restaurantDTO);
     }
 }

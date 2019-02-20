@@ -14,8 +14,6 @@ import java.util.List;
 @DecoratedWith(UserMapperDecorator.class)
 public interface UserMapper {
 
-    //UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
     UserRespDTO fromUser (User user);
 
     User toUser (UserReqDTO userDTO);
