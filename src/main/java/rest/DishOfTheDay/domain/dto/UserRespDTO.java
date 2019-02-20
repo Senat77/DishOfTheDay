@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserResponseDTO extends BaseEntityDTO{
+public class UserRespDTO extends BaseEntityDTO{
 
     private String name;
     private String email;

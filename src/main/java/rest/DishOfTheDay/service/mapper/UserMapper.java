@@ -2,11 +2,10 @@ package rest.DishOfTheDay.service.mapper;
 
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 import rest.DishOfTheDay.domain.User;
-import rest.DishOfTheDay.domain.dto.UserRequestDTO;
-import rest.DishOfTheDay.domain.dto.UserResponseDTO;
+import rest.DishOfTheDay.domain.dto.UserReqDTO;
+import rest.DishOfTheDay.domain.dto.UserRespDTO;
 
 import java.util.List;
 
@@ -15,13 +14,13 @@ import java.util.List;
 @DecoratedWith(UserMapperDecorator.class)
 public interface UserMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+    //UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    UserResponseDTO fromUser (User user);
+    UserRespDTO fromUser (User user);
 
-    User toUser (UserRequestDTO userDTO);
+    User toUser (UserReqDTO userDTO);
 
-    List<UserResponseDTO> fromUsers (List<User> users);
+    List<UserRespDTO> fromUsers (List<User> users);
 
-    List<User> toUsers (List<UserRequestDTO> userDTOS);
+    List<User> toUsers (List<UserReqDTO> userDTOS);
 }

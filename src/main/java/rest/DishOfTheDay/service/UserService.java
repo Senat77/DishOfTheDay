@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.User;
-import rest.DishOfTheDay.domain.dto.UserRequestDTO;
-import rest.DishOfTheDay.domain.dto.UserResponseDTO;
+import rest.DishOfTheDay.domain.dto.UserReqDTO;
+import rest.DishOfTheDay.domain.dto.UserRespDTO;
 import rest.DishOfTheDay.repository.UserRepository;
 import rest.DishOfTheDay.service.mapper.UserMapper;
 import org.springframework.data.domain.Sort;
@@ -38,12 +38,12 @@ public class UserService {
     }
 
     @Cacheable("users")
-    public List<UserResponseDTO> getAll() {
+    public List<UserRespDTO> getAll() {
         return mapper.fromUsers(repository.findAll(new Sort(Sort.Direction.ASC, "name")));
     }
 
     @Cacheable("users")
-    public UserResponseDTO get(int id) {
+    public UserRespDTO get(int id) {
         Optional<User> user = repository.findById(id);
         if(user.isPresent())
             return mapper.fromUser(user.get());
@@ -53,20 +53,20 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public UserResponseDTO create(UserRequestDTO userDTO) {
+    public UserRespDTO create(UserReqDTO userDTO) {
         Assert.notNull(userDTO, "User must not be null");
-        UserResponseDTO created = mapper.fromUser(repository.save(mapper.toUser(userDTO)));
+        UserRespDTO created = mapper.fromUser(repository.save(mapper.toUser(userDTO)));
         log.info("User created : {}", created);
         return created;
     }
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public UserResponseDTO update(int id, UserRequestDTO userRequestDTO) {
-        Assert.notNull(userRequestDTO, "User must not be null");
+    public UserRespDTO update(int id, UserReqDTO userReqDTO) {
+        Assert.notNull(userReqDTO, "User must not be null");
         if(repository.findById(id).isEmpty())
             throw new NotFoundException(User.class);
-        User updated = mapper.toUser(userRequestDTO);
+        User updated = mapper.toUser(userReqDTO);
         repository.save(updated);
         log.info("User with id={} updated : {}", id, updated);
         return mapper.fromUser(updated);
