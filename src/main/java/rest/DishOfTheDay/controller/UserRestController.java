@@ -47,6 +47,13 @@ public class UserRestController {
         return service.getAll();
     }
 
+    @DeleteMapping(value = "/{id}/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void delete(@PathVariable ("id") Integer id) {
+        log.info("Delete User id = {}", id);
+        service.delete(id);
+    }
+
     // USER-role's allowed endpoints
 
 
