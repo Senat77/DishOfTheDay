@@ -36,9 +36,9 @@ public class UserRestController {
     // All allowed entry(registration) endpoint
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create (@Validated({UserReqDTO.New.class}) @RequestBody UserReqDTO userDTO) {
+    public ResponseEntity<?> create(@Validated({UserReqDTO.New.class}) @RequestBody UserReqDTO userDTO) {
         log.info("Create user {}", userDTO);
-        return new ResponseEntity<> (service.create(userDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(service.create(userDTO), HttpStatus.CREATED);
     }
 
     // ADMIN-role's allowed endpoints
@@ -52,7 +52,7 @@ public class UserRestController {
 
     @DeleteMapping(value = "/{id}/delete")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void delete(@PathVariable ("id") Integer id) {
+    public void delete(@PathVariable("id") Integer id) {
         log.info("Delete User id = {}", id);
         service.delete(id);
     }
@@ -61,7 +61,22 @@ public class UserRestController {
 
     @GetMapping("/profile")
     public UserRespDTO getMe(@NonNull final Authentication authentication) {
-        Integer userId = ((AuthUser) authentication.getPrincipal()).getUserId();
-        return service.get(userId);
+        return service.get(getAuthUserId(authentication));
+    }
+
+    @PatchMapping("/profile")
+    public UserRespDTO editMe(@NonNull final Authentication authentication, @Validated({UserReqDTO.Exist.class}) @RequestBody UserReqDTO userDTO) {
+        return service.update(getAuthUserId(authentication), userDTO);
+    }
+
+    @DeleteMapping("/profile")
+    public void deleteMe(@NonNull final Authentication authentication) {
+        service.delete(getAuthUserId(authentication));
+    }
+
+    // private method for AuthUser.id
+
+    private int getAuthUserId (Authentication authentication) {
+        return ((AuthUser) authentication.getPrincipal()).getUserId();
     }
 }
