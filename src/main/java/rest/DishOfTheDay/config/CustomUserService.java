@@ -17,12 +17,7 @@ public class CustomUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
 
         return userRepository.findByName(name)
-                .map(user -> new AuthUser(
-                        user.getName(),
-                        user.getPassword(),
-                        user.getEmail(),
-                        user.getRoles()
-                        ))
+                .map(user -> new AuthUser(user))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
     }
 }
