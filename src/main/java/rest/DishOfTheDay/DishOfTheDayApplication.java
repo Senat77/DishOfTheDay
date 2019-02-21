@@ -9,13 +9,10 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import rest.DishOfTheDay.domain.User;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class DishOfTheDayApplication {
@@ -25,6 +22,7 @@ public class DishOfTheDayApplication {
 		SpringApplication.run(DishOfTheDayApplication.class, args);
 	}
 
+    // https://stackoverflow.com/questions/9318116/how-to-run-h2-database-in-server-mode
 	@Bean(initMethod = "start", destroyMethod = "stop")
 	public Server h2Server() throws SQLException {
 		return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
@@ -41,18 +39,8 @@ public class DishOfTheDayApplication {
 	}
 
 	@Bean
-	public TestData testData() {
-		return new TestData();
-	}
-
-	@Bean
-	public CommandLineRunner demoData(UserRepository userRepository, RestaurantRepository restaurantRepository) {
-		/*
-		return args -> 	userRepository.saveAll(List.of(
-				new User("admin", passwordEncoder().encode("admin"), "admin1@site.com", Set.of(User.Role.ROLE_ADMIN, User.Role.ROLE_USER)),
-				new User("user", passwordEncoder().encode("user"), "user@site.com", Set.of(User.Role.ROLE_USER))));
-		*/
-		return args -> testData().populate(restaurantRepository, userRepository);
+	public CommandLineRunner demoData(TestData testData, UserRepository userRepository, RestaurantRepository restaurantRepository) {
+		return args -> testData.populate(restaurantRepository, userRepository);
 	}
 }
 

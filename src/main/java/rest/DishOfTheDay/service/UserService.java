@@ -67,6 +67,7 @@ public class UserService {
         if(repository.findById(id).isEmpty())
             throw new NotFoundException(User.class);
         User updated = mapper.toUser(userReqDTO);
+        updated.setId(id);
         repository.save(updated);
         log.info("User with id={} updated : {}", id, updated);
         return mapper.fromUser(updated);

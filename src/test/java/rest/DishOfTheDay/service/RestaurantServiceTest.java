@@ -18,9 +18,11 @@ public class RestaurantServiceTest {
     @Autowired
     private RestaurantService service;
 
+    @Autowired TestData testData;
+
     @Test
     public void getAll() {
-        assertThat(service.getAll()).isEqualTo(mapper.fromRestaurants(TestData.restaurants));
+        assertThat(service.getAll()).isEqualTo(mapper.fromRestaurants(testData.restaurants));
     }
 
     @Test

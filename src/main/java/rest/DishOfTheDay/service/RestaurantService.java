@@ -62,14 +62,15 @@ public class RestaurantService {
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public RestaurantRespDTO update(int id, RestaurantReqDTO restaurantDTO) {
-        Assert.notNull(restaurantDTO, "restaurant must not be null");
+        Assert.notNull(restaurantDTO, "Restaurant must not be null");
         Optional<Restaurant> foundOptional = repository.findById(id);
         if(foundOptional.isEmpty())
             throw new NotFoundException(Restaurant.class);
-        Restaurant found = mapper.toRestaurant(restaurantDTO);
-        repository.save(found);
-        log.debug("[i] Restaurant with id={} updated : {}", id, found);
-        return mapper.fromRestaurant(found);
+        Restaurant update = mapper.toRestaurant(restaurantDTO);
+        update.setId(id);
+        repository.save(update);
+        log.debug("[i] Restaurant with id={} updated : {}", id, update);
+        return mapper.fromRestaurant(update);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
