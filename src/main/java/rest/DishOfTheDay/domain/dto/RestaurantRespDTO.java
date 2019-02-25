@@ -1,12 +1,11 @@
 package rest.DishOfTheDay.domain.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class RestaurantRespDTO extends BaseEntityDTO {
+public class RestaurantRespDTO {
 
+    private Integer id;
     private String name;
     private String address;
     private String email;

@@ -3,6 +3,8 @@ package rest.DishOfTheDay.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import rest.DishOfTheDay.domain.base.BaseEntity;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package rest.DishOfTheDay.domain.dto;
+package rest.DishOfTheDay.domain.base;
 
 /* https://habr.com/ru/post/343960/ */
 

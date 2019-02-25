@@ -56,6 +56,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- @TypeDef(name = "json", typeClass = JsonStringType.class) -->
+		<dependency>
+			<groupId>com.vladmihalcea</groupId>
+			<artifactId>hibernate-types-52</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+
 		<!-- H2 database -->
         <dependency>
             <groupId>com.h2database</groupId>

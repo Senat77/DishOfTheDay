@@ -1,6 +1,8 @@
 package rest.DishOfTheDay.domain.dto;
 
 import lombok.Data;
+import rest.DishOfTheDay.domain.base.ITransfer;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

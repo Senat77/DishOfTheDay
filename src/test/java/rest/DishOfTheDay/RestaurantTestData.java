@@ -4,7 +4,7 @@ import rest.DishOfTheDay.domain.Restaurant;
 
 import java.util.List;
 
-import static rest.DishOfTheDay.domain.BaseEntity.START_SEQ;
+import static rest.DishOfTheDay.domain.base.BaseEntity.START_SEQ;
 
 public class RestaurantTestData {
 

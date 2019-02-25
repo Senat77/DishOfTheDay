@@ -1,18 +1,11 @@
-package rest.DishOfTheDay.domain;
+package rest.DishOfTheDay.domain.base;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 @MappedSuperclass
-public abstract class BaseEntity {
-
-    /* https://habr.com/ru/post/343960/ */
-    interface New {
-    }
-
-    interface Exist {
-    }
+public abstract class BaseEntity implements ITransfer {
 
     public static final int START_SEQ = 100000;
 

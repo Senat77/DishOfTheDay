@@ -4,10 +4,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import rest.DishOfTheDay.domain.Dish;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.User;
-import rest.DishOfTheDay.repository.DishRepository;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
@@ -35,20 +33,9 @@ public class TestData {
 
     public final List<Restaurant> restaurants = List.of(RESTAURANT1, RESTAURANT2, RESTAURANT3);
 
-    public final Dish DISH1_1 = new Dish("Дичь", 1, RESTAURANT1);
-    public final Dish DISH1_2 = new Dish("Компот", 2, RESTAURANT1);
-    public final Dish DISH2_1 = new Dish("Рыба заливная", 3, RESTAURANT2);
-    public final Dish DISH2_2 = new Dish("Чай зеленый", 4, RESTAURANT2);
-    public final Dish DISH3_1 = new Dish("Пицца", 5, RESTAURANT3);
-    public final Dish DISH3_2 = new Dish("Кока-Кола", 6, RESTAURANT3);
-
-    public final List<Dish> dishes = List.of(DISH1_1, DISH1_2, DISH2_1, DISH2_2, DISH3_1, DISH3_2);
-
     public void populate(RestaurantRepository restaurantRepository,
-                         UserRepository userRepository,
-                         DishRepository dishRepository) {
+                         UserRepository userRepository) {
             userRepository.saveAll(users);
             restaurantRepository.saveAll(restaurants);
-            dishRepository.saveAll(dishes);
         }
 }

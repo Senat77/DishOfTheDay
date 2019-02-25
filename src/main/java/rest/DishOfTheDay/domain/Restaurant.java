@@ -1,15 +1,10 @@
 package rest.DishOfTheDay.domain;
 
+import rest.DishOfTheDay.domain.base.BaseEntity;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Access(AccessType.FIELD)
@@ -26,10 +21,6 @@ public class Restaurant extends BaseEntity {
     @Column (name = "email", unique = true)
     @Email
     private String email;
-
-    @OneToMany(cascade = ALL, orphanRemoval = true)
-    @JoinColumn(name = "restaurant_id")
-    private List<Dish> dishes = new ArrayList<>();
 
     public Restaurant() {
     }
