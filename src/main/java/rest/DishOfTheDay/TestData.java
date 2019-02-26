@@ -4,8 +4,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import rest.DishOfTheDay.domain.Dish;
+import rest.DishOfTheDay.domain.Menu;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.User;
+import rest.DishOfTheDay.repository.MenuRepository;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
@@ -18,6 +21,8 @@ public class TestData {
 
     private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
+    // Users
+
     public final User ADMIN = new User("admin", passwordEncoder.encode("admin"), "admin1@site.com", Set.of(User.Role.ROLE_ADMIN));
     public final User USER1 = new User("user1", passwordEncoder.encode("user1"), "user1@site.com", Set.of(User.Role.ROLE_USER));
     public final User USER2 = new User("user2", passwordEncoder.encode("user2"), "user2@site.com", Set.of(User.Role.ROLE_USER));
@@ -27,15 +32,27 @@ public class TestData {
 
     public final List<User> users = List.of(ADMIN, USER1, USER2, USER3, USER4, USER5);
 
+    // Restaurants
+
     public final Restaurant RESTAURANT1 = new Restaurant("Воронцов", "ул.Ришельевская, 55", "vorontsov@od.ua");
     public final Restaurant RESTAURANT2 = new Restaurant("Мистер Кэт", "ул.Екатерининская, 11", null);
     public final Restaurant RESTAURANT3 = new Restaurant("Галактика", "пр.Маршала Жукова, 33", "admin@galactica.od.ua");
 
     public final List<Restaurant> restaurants = List.of(RESTAURANT1, RESTAURANT2, RESTAURANT3);
 
+    // Menus
+
+    public final Menu MENU1 = new Menu(RESTAURANT1, List.of(new Dish("Первое", 1), new Dish("Второе", 2)));
+    public final Menu MENU2 = new Menu(RESTAURANT2, List.of(new Dish("Борщ", 3), new Dish("Котлета", 4)));
+    public final Menu MENU3 = new Menu(RESTAURANT3, List.of(new Dish("Суши", 5), new Dish("Чай", 6)));
+
+    public final List<Menu> menus = List.of(MENU1, MENU2, MENU3);
+
     public void populate(RestaurantRepository restaurantRepository,
-                         UserRepository userRepository) {
+                         UserRepository userRepository,
+                         MenuRepository menuRepository) {
             userRepository.saveAll(users);
             restaurantRepository.saveAll(restaurants);
+            menuRepository.saveAll(menus);
         }
 }

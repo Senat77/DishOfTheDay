@@ -1,31 +1,46 @@
 package rest.DishOfTheDay.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 import rest.DishOfTheDay.domain.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Access(AccessType.FIELD)
-@Table(name = "menues", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "restaurant_id"}, name = "menus_idx")})
+@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "restaurant_id"}, name = "menus_idx")})
 public class Menu extends BaseEntity {
 
-    @NotBlank
+    @NotNull
     @Column (name = "date", nullable = false)
     private LocalDate date;
 
+    @NonNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Restaurant restaurant;
 
-    /*
+    @NotNull
     @Type(type = "json")
     @Column(columnDefinition = "clob")
     private List<Dish> dishes;
-    */
 
-    @Type(type = "json")
-    @Column(columnDefinition = "clob")
-    private String dishes;
+    public Menu(@NotNull LocalDate date, @NonNull Restaurant restaurant, List<Dish> dishes) {
+        this.date = date;
+        this.restaurant = restaurant;
+        this.dishes = dishes;
+    }
+
+    public Menu(@NotNull Restaurant restaurant, List<Dish> dishes) {
+        this(LocalDate.now(), restaurant, dishes);
+    }
 }
