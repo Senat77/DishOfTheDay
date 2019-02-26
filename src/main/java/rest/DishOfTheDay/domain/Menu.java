@@ -1,9 +1,6 @@
 package rest.DishOfTheDay.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 import rest.DishOfTheDay.domain.base.BaseEntity;
 
@@ -14,7 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 @Access(AccessType.FIELD)
@@ -34,7 +30,11 @@ public class Menu extends BaseEntity {
     @Column(columnDefinition = "clob")
     private List<Dish> dishes;
 
+    public Menu() {
+    }
+
     public Menu(@NotNull LocalDate date, @NonNull Restaurant restaurant, List<Dish> dishes) {
+        this.id = null;
         this.date = date;
         this.restaurant = restaurant;
         this.dishes = dishes;
