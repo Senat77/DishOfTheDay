@@ -8,7 +8,6 @@ import rest.DishOfTheDay.domain.dto.RestaurantRespDTO;
 
 import java.util.List;
 
-@Component
 @Mapper
 public interface RestaurantMapper {
 

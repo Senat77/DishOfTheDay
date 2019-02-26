@@ -23,15 +23,12 @@ public class MenuService {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final RestaurantRepository restaurantRepository;
-
     private final MenuRepository repository;
 
     private final MenuMapper mapper;
 
     @Autowired
     public MenuService(RestaurantRepository restaurantRepository, MenuRepository repository, MenuMapper mapper) {
-        this.restaurantRepository = restaurantRepository;
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -39,8 +36,10 @@ public class MenuService {
     @Cacheable("menus")
     public MenuRespDTO get(Integer id) {
         Optional<Menu> menu = repository.findById(id);
-        if(menu.isPresent())
-            return mapper.fromMenu(menu.get());
+        if(menu.isPresent()) {
+            MenuRespDTO dto = mapper.fromMenu(menu.get());
+            return dto;
+        }
         else
             throw new NotFoundException(Menu.class);
     }

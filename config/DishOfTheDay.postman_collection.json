@@ -12,6 +12,139 @@
 					"name": "users",
 					"item": [
 						{
+							"name": "profile",
+							"item": [
+								{
+									"name": "getMe",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "user4",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user4",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/users/profile",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"users",
+												"profile"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "user3",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user3",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/users/profile",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"users",
+												"profile"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "user4",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user4",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Four\",\n    \"email\": \"four@site.com\",\n    \"password\": \"four\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/users/profile",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"users",
+												"profile"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "getAll",
 							"request": {
 								"auth": {
@@ -54,6 +187,40 @@
 							"name": "AddUser",
 							"request": {
 								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\": 100002,\n    \"name\": \"newuser3\",\n    \"email\": \"new_user3@site.com\",\n    \"password\": \"newuser\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
 									"type": "basic",
 									"basic": [
 										{
@@ -68,21 +235,14 @@
 										}
 									]
 								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
+								"method": "DELETE",
+								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"newuser\",\n    \"email\": \"new_user@site.com\",\n    \"password\": \"newuser\"\n}"
+									"raw": ""
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/users",
+									"raw": "http://localhost:8080/api/users/100002/delete",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -90,7 +250,9 @@
 									"port": "8080",
 									"path": [
 										"api",
-										"users"
+										"users",
+										"100002",
+										"delete"
 									]
 								}
 							},
@@ -108,6 +270,21 @@
 								{
 									"name": "AddRestaurant",
 									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
 										"method": "POST",
 										"header": [
 											{
@@ -145,12 +322,12 @@
 											"basic": [
 												{
 													"key": "password",
-													"value": "{{password}}",
+													"value": "admin",
 													"type": "string"
 												},
 												{
 													"key": "username",
-													"value": "{{username}}",
+													"value": "admin",
 													"type": "string"
 												}
 											]
@@ -296,7 +473,7 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/100002",
+											"raw": "http://localhost:8080/api/admin/restaurants/100007",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -306,7 +483,7 @@
 												"api",
 												"admin",
 												"restaurants",
-												"100002"
+												"100007"
 											]
 										}
 									},
@@ -380,7 +557,7 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/100001/delete",
+											"raw": "http://localhost:8080/api/admin/restaurants/100007/delete",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -390,7 +567,7 @@
 												"api",
 												"admin",
 												"restaurants",
-												"100001",
+												"100007",
 												"delete"
 											]
 										}
@@ -423,8 +600,56 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Update",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Старый Воронцов\",\n    \"address\": \"Новый адрес\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/admin/restaurants/100006",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"admin",
+												"restaurants",
+												"100006"
+											]
+										}
+									},
+									"response": []
 								}
 							],
+							"auth": {
+								"type": "basic",
+								"basic": [
+									{
+										"key": "password",
+										"value": "admin",
+										"type": "string"
+									},
+									{
+										"key": "username",
+										"value": "admin",
+										"type": "string"
+									}
+								]
+							},
 							"event": [
 								{
 									"listen": "prerequest",
@@ -445,6 +670,53 @@
 											""
 										]
 									}
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "menus",
+							"item": [
+								{
+									"name": "getById",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/admin/menus/100010",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"admin",
+												"menus",
+												"100010"
+											]
+										}
+									},
+									"response": []
 								}
 							],
 							"_postman_isSubFolder": true

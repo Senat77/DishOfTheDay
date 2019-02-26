@@ -11,7 +11,7 @@ import java.util.List;
 public class MenuRespDTO {
 
     private Integer id;
-    private Restaurant restaurant;
+    private RestaurantRespDTO restaurant;
     private LocalDate date;
     private List<Dish> dishes;
 }

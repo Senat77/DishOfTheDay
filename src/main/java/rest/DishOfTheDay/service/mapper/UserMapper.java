@@ -9,7 +9,6 @@ import rest.DishOfTheDay.domain.dto.UserRespDTO;
 
 import java.util.List;
 
-@Component
 @Mapper
 @DecoratedWith(UserMapperDecorator.class)
 public interface UserMapper {
