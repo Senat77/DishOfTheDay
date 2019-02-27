@@ -12,8 +12,11 @@ import rest.DishOfTheDay.repository.MenuRepository;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+
+import static java.time.LocalDate.now;
 
 @Component
 @NoArgsConstructor
@@ -42,11 +45,13 @@ public class TestData {
 
     // Menus
 
-    public final Menu MENU1 = new Menu(RESTAURANT1, List.of(new Dish("Первое", 1), new Dish("Второе", 2)));
+    public final Menu MENU1_1 = new Menu(RESTAURANT1, List.of(new Dish("Первое", 1), new Dish("Второе", 2)));
+    public final Menu MENU1_3 = new Menu(LocalDate.of(2019, 2, 23), RESTAURANT1, List.of(new Dish("Беляш", 11), new Dish("Кофе", 21)));
+    public final Menu MENU1_2 = new Menu(LocalDate.of(2019, 2, 28), RESTAURANT1, List.of(new Dish("Гуляш", 1), new Dish("Чай", 2), new Dish("Салат Весенний", 10)));
     public final Menu MENU2 = new Menu(RESTAURANT2, List.of(new Dish("Борщ", 3), new Dish("Котлета", 4)));
     public final Menu MENU3 = new Menu(RESTAURANT3, List.of(new Dish("Суши", 5), new Dish("Чай", 6)));
 
-    public final List<Menu> menus = List.of(MENU1, MENU2, MENU3);
+    public final List<Menu> menus = List.of(MENU1_1, MENU1_2, MENU1_3, MENU2, MENU3);
 
     public void populate(RestaurantRepository restaurantRepository,
                          UserRepository userRepository,

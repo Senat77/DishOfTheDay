@@ -15,6 +15,7 @@ import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.service.mapper.MenuMapper;
 import rest.DishOfTheDay.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +62,7 @@ public class MenuService {
         }
         else
             throw new NotFoundException(Restaurant.class);
-        Optional<Menu> oMenu = repository.findByRestaurantId(restaurant.getId());
+        Optional<Menu> oMenu = repository.findFirstByRestaurantIdAndDateIsLessThanEqualOrderByDateDesc(restaurant.getId(), LocalDate.now());
         if(oMenu.isPresent()) {
             return mapper.fromMenu(oMenu.get());
         }
