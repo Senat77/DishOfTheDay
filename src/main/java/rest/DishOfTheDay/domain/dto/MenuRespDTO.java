@@ -2,8 +2,6 @@ package rest.DishOfTheDay.domain.dto;
 
 import lombok.Data;
 import rest.DishOfTheDay.domain.Dish;
-import rest.DishOfTheDay.domain.Restaurant;
-
 import java.time.LocalDate;
 import java.util.List;
 

@@ -43,11 +43,7 @@ public class RestaurantService {
 
     @Cacheable("restaurants")
     public RestaurantRespDTO get(Integer id) {
-        Optional<Restaurant> restaurant = repository.findById(id);
-        if(restaurant.isPresent())
-            return mapper.fromRestaurant(restaurant.get());
-        else
-            throw new NotFoundException(Restaurant.class);
+        return mapper.fromRestaurant(findById(id));
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
@@ -78,6 +74,14 @@ public class RestaurantService {
     public void delete (int id) {
         if (repository.existsById(id))
             repository.deleteById(id);
+        else
+            throw new NotFoundException(Restaurant.class);
+    }
+
+    private Restaurant findById (Integer id) {
+        Optional<Restaurant> restaurant = repository.findById(id);
+        if(restaurant.isPresent())
+            return restaurant.get();
         else
             throw new NotFoundException(Restaurant.class);
     }
