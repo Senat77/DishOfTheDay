@@ -74,13 +74,7 @@ public class MenuService {
     public MenuRespDTO create(MenuReqDTO menuDTO) {
         Assert.notNull(menuDTO, "Menu must not be null");
         Menu menu = mapper.toMenu(menuDTO);
-        Optional<Restaurant> oRestaurant = restaurantRepository.findById(menuDTO.getRestaurant_id());
-        if(oRestaurant.isPresent()) {
-            menu.setRestaurant(oRestaurant.get());
-            repository.save(menu);
-        }
-        else
-            throw new NotFoundException(Restaurant.class);
+        repository.save(menu);
         log.info("Menu created : {}", menu);
         return mapper.fromMenu(menu);
     }

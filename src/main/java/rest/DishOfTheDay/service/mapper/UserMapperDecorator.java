@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import rest.DishOfTheDay.domain.User;
 import rest.DishOfTheDay.domain.dto.UserReqDTO;
 
-public abstract class UserMapperDecorator implements UserMapper{
+public abstract class UserMapperDecorator implements UserMapper {
 
     @Autowired
     @Qualifier("delegate")

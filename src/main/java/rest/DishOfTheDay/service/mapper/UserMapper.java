@@ -2,7 +2,6 @@ package rest.DishOfTheDay.service.mapper;
 
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 import rest.DishOfTheDay.domain.User;
 import rest.DishOfTheDay.domain.dto.UserReqDTO;
 import rest.DishOfTheDay.domain.dto.UserRespDTO;
