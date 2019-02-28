@@ -3,12 +3,15 @@ package rest.DishOfTheDay.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Menu;
 import rest.DishOfTheDay.domain.Restaurant;
+import rest.DishOfTheDay.domain.dto.MenuReqDTO;
 import rest.DishOfTheDay.domain.dto.MenuRespDTO;
 import rest.DishOfTheDay.repository.MenuRepository;
 import rest.DishOfTheDay.repository.RestaurantRepository;
@@ -40,11 +43,6 @@ public class MenuService {
     }
 
     @Cacheable("menus")
-    public List<MenuRespDTO> getAll() {
-        return mapper.fromMenus(repository.findAll());
-    }
-
-    @Cacheable("menus")
     public MenuRespDTO get(Integer id) {
         Optional<Menu> menu = repository.findById(id);
         if(menu.isPresent()) {
@@ -54,19 +52,36 @@ public class MenuService {
             throw new NotFoundException(Menu.class);
     }
 
+    @Cacheable("menus")
     public MenuRespDTO getLastByRestaurantId(Integer id) {
-        Optional<Restaurant> oResataurant = restaurantRepository.findById(id);
-        Restaurant restaurant = null;
-        if(oResataurant.isPresent()) {
-            restaurant = oResataurant.get();
+        Optional<Restaurant> oRestaurant = restaurantRepository.findById(id);
+        Restaurant restaurant;
+        if(oRestaurant.isPresent()) {
+            restaurant = oRestaurant.get();
         }
         else
             throw new NotFoundException(Restaurant.class);
-        Optional<Menu> oMenu = repository.findFirstByRestaurantIdAndDateIsLessThanEqualOrderByDateDesc(restaurant.getId(), LocalDate.now());
+        Optional<Menu> oMenu = repository.findLastMenuByRestaurantId(restaurant.getId(), LocalDate.now());
         if(oMenu.isPresent()) {
             return mapper.fromMenu(oMenu.get());
         }
         else
             throw new NotFoundException(Menu.class);
+    }
+
+    @CacheEvict(value = "menus", allEntries = true)
+    @Transactional
+    public MenuRespDTO create(MenuReqDTO menuDTO) {
+        Assert.notNull(menuDTO, "Menu must not be null");
+        Menu menu = mapper.toMenu(menuDTO);
+        Optional<Restaurant> oRestaurant = restaurantRepository.findById(menuDTO.getRestaurant_id());
+        if(oRestaurant.isPresent()) {
+            menu.setRestaurant(oRestaurant.get());
+            repository.save(menu);
+        }
+        else
+            throw new NotFoundException(Restaurant.class);
+        log.info("Menu created : {}", menu);
+        return mapper.fromMenu(menu);
     }
 }
