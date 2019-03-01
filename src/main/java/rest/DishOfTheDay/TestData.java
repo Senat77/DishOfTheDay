@@ -4,19 +4,15 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import rest.DishOfTheDay.domain.Dish;
-import rest.DishOfTheDay.domain.Menu;
-import rest.DishOfTheDay.domain.Restaurant;
-import rest.DishOfTheDay.domain.User;
+import rest.DishOfTheDay.domain.*;
 import rest.DishOfTheDay.repository.MenuRepository;
+import rest.DishOfTheDay.repository.PollRepository;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-
-import static java.time.LocalDate.now;
 
 @Component
 @NoArgsConstructor
@@ -54,11 +50,17 @@ public class TestData {
 
     public final List<Menu> menus = List.of(MENU1_1, MENU1_2, MENU1_3, MENU2, MENU3);
 
+    // Polls
+
+    public final Poll POLL = new Poll(date, Set.of(MENU1_2,MENU3));
+
     public void populate(RestaurantRepository restaurantRepository,
                          UserRepository userRepository,
-                         MenuRepository menuRepository) {
+                         MenuRepository menuRepository,
+                         PollRepository pollRepository) {
             userRepository.saveAll(users);
             restaurantRepository.saveAll(restaurants);
             menuRepository.saveAll(menus);
+            //pollRepository.saveAll(Set.of(POLL));
         }
 }

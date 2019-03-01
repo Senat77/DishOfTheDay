@@ -1,13 +1,10 @@
 package rest.DishOfTheDay.domain.base;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import org.hibernate.annotations.TypeDef;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
-import java.io.Serializable;
 
 @MappedSuperclass
 @TypeDef(name = "json", typeClass = JsonStringType.class)
@@ -53,6 +50,5 @@ public abstract class BaseEntity implements ITransfer {
     @Override
     public int hashCode() {
         return 31;
-        // return id == null ? 0 : id;
     }
 }

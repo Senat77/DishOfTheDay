@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import rest.DishOfTheDay.repository.MenuRepository;
+import rest.DishOfTheDay.repository.PollRepository;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
@@ -44,8 +45,9 @@ public class DishOfTheDayApplication {
 	public CommandLineRunner demoData(TestData testData,
 									  UserRepository userRepository,
 									  RestaurantRepository restaurantRepository,
-									  MenuRepository menuRepository) {
-		return args -> testData.populate(restaurantRepository, userRepository, menuRepository);
+									  MenuRepository menuRepository,
+									  PollRepository pollRepository) {
+		return args -> testData.populate(restaurantRepository, userRepository, menuRepository, pollRepository);
 	}
 }
 

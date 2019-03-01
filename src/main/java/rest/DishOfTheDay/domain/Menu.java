@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -42,5 +43,21 @@ public class Menu extends BaseEntity {
 
     public Menu(@NotNull Restaurant restaurant, List<Dish> dishes) {
         this(LocalDate.now(), restaurant, dishes);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Menu)) return false;
+        if (!super.equals(o)) return false;
+        Menu menu = (Menu) o;
+        return getDate().equals(menu.getDate()) &&
+                getRestaurant().equals(menu.getRestaurant()) &&
+                getDishes().equals(menu.getDishes());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getDate(), getRestaurant(), getDishes());
     }
 }
