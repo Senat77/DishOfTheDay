@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import rest.DishOfTheDay.domain.Menu;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.dto.MenuReqDTO;
@@ -19,7 +23,6 @@ import rest.DishOfTheDay.service.mapper.MenuMapper;
 import rest.DishOfTheDay.util.exception.NotFoundException;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -77,5 +80,30 @@ public class MenuService {
         repository.save(menu);
         log.info("Menu created : {}", menu);
         return mapper.fromMenu(menu);
+    }
+
+    @CacheEvict(value = "menus", allEntries = true)
+    @Transactional
+    public MenuRespDTO update(int id, MenuReqDTO menuDTO) {
+        Assert.notNull(menuDTO, "Menu must not be null");
+        Optional<Menu> oMenu = repository.findById(id);
+        if(oMenu.isPresent()) {
+            Menu update = mapper.toMenu(menuDTO);
+            update.setId(id);
+            repository.save(update);
+            log.debug("[i] Menu with id={} updated : {}", id, update);
+            return mapper.fromMenu(update);
+        }
+        else
+            throw new NotFoundException(Menu.class);
+    }
+
+    @CacheEvict(value = "menus", allEntries = true)
+    @Transactional
+    public void delete(int id) {
+        if(repository.findById(id).isPresent())
+            repository.deleteById(id);
+        else
+            throw new NotFoundException(Menu.class);
     }
 }

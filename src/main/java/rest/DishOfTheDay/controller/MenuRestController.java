@@ -45,4 +45,14 @@ public class MenuRestController {
         log.info("Create restaurant {}", menuDTO);
         return new ResponseEntity<> (service.create(menuDTO), HttpStatus.CREATED);
     }
+
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public MenuRespDTO update (@RequestBody MenuReqDTO menuDTO, @PathVariable("id") Integer id) {
+        return service.update(id, menuDTO);
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public void delete(@PathVariable("id") Integer id) {
+        service.delete(id);
+    }
 }
