@@ -45,6 +45,7 @@ public class Menu extends BaseEntity {
         this(LocalDate.now(), restaurant, dishes);
     }
 
+    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,6 +59,8 @@ public class Menu extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getDate(), getRestaurant(), getDishes());
+        return super.hashCode();
+        //return Objects.hash(super.hashCode(), getDate(), getRestaurant(), getDishes());
     }
+    */
 }

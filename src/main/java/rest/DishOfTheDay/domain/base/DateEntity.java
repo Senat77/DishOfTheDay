@@ -1,9 +1,6 @@
 package rest.DishOfTheDay.domain.base;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -18,7 +15,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Setter
 @Getter
-public abstract class DateEntity {
+@EqualsAndHashCode(callSuper = false)
+public abstract class DateEntity implements ITransfer {
 
     @Id
     @Column(unique = true, nullable = false) //columnDefinition = "date default now()", - unsupported in MySQL
@@ -32,6 +30,7 @@ public abstract class DateEntity {
         return String.format("Entity %s (%s", getClass().getName(), id);
     }
 
+    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,4 +43,5 @@ public abstract class DateEntity {
     public int hashCode() {
         return 31;
     }
+    */
 }

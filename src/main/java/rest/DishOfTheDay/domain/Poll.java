@@ -7,17 +7,18 @@ import rest.DishOfTheDay.domain.base.DateEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@Access(AccessType.FIELD)
-@Table(name = "polls", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"}, name = "polls_idx")})
+@Table(name = "polls")//, uniqueConstraints = {@UniqueConstraint(columnNames = {"id"}, name = "polls_idx")})
 public class Poll extends DateEntity {
 
     @NotNull
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany
     private Set<Menu> menus;
 
     public Poll() {

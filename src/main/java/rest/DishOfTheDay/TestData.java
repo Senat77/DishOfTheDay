@@ -11,6 +11,7 @@ import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -52,6 +53,8 @@ public class TestData {
 
     // Polls
 
+    //Set<Menu> menuSet = Set.of(MENU1_2,MENU3);
+
     public final Poll POLL = new Poll(date, Set.of(MENU1_2,MENU3));
 
     public void populate(RestaurantRepository restaurantRepository,
@@ -61,6 +64,6 @@ public class TestData {
             userRepository.saveAll(users);
             restaurantRepository.saveAll(restaurants);
             menuRepository.saveAll(menus);
-            //pollRepository.saveAll(Set.of(POLL));
+            pollRepository.saveAll(Set.of(POLL));
         }
 }
