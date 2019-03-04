@@ -1,7 +1,6 @@
 package rest.DishOfTheDay.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

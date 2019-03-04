@@ -45,7 +45,7 @@ public class TestData {
     LocalDate date = LocalDate.now();
     public final Menu MENU1_1 = new Menu(RESTAURANT1, List.of(new Dish("Первое", 1), new Dish("Второе", 2)));
     public final Menu MENU1_3 = new Menu(date.minusDays(1), RESTAURANT1, List.of(new Dish("Беляш", 11), new Dish("Кофе", 21)));
-    public final Menu MENU1_2 = new Menu(date.plusDays(1), RESTAURANT1, List.of(new Dish("Гуляш", 1), new Dish("Чай", 2), new Dish("Салат Весенний", 10)));
+    public final Menu MENU1_2 = new Menu(date.minusDays(2), RESTAURANT1, List.of(new Dish("Гуляш", 1), new Dish("Чай", 2), new Dish("Салат Весенний", 10)));
     public final Menu MENU2 = new Menu(RESTAURANT2, List.of(new Dish("Борщ", 3), new Dish("Котлета", 4)));
     public final Menu MENU3 = new Menu(RESTAURANT3, List.of(new Dish("Суши", 5), new Dish("Чай", 6)));
 

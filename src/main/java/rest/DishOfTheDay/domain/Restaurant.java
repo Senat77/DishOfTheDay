@@ -1,5 +1,7 @@
 package rest.DishOfTheDay.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import rest.DishOfTheDay.domain.base.BaseEntity;
 
 import javax.persistence.*;
@@ -7,7 +9,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Access(AccessType.FIELD)
+@Setter
+@Getter
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "address"}, name = "restaurants_idx")})
 public class Restaurant extends BaseEntity {
 
@@ -25,13 +28,6 @@ public class Restaurant extends BaseEntity {
     public Restaurant() {
     }
 
-    public Restaurant(Restaurant restaurant) {
-        this.id = restaurant.id;
-        this.name = restaurant.name;
-        this.address = restaurant.address;
-        this.email = restaurant.email;
-    }
-
     public Restaurant(String name, String address, @Email String email) {
         this(null, name, address, email);
     }
@@ -41,39 +37,5 @@ public class Restaurant extends BaseEntity {
         this.name = name;
         this.address = address;
         this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "Restaurant{" +
-                "id=" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email +
-                '}';
     }
 }

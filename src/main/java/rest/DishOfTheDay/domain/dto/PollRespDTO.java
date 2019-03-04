@@ -9,5 +9,6 @@ import java.util.Set;
 public class PollRespDTO {
 
     private LocalDate id;
+
     private Set<MenuRespDTO> menus;
 }

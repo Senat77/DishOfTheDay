@@ -14,6 +14,7 @@ import rest.DishOfTheDay.service.mapper.PollMapper;
 import rest.DishOfTheDay.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -41,11 +42,10 @@ public class PollService {
     }
 
     public PollRespDTO get(LocalDate id) {
-        Poll poll = repository.getOne(id);
-        if(poll == null)
+        Optional<Poll> oPoll = repository.findById(id);
+        if(oPoll.isPresent())
+            return mapper.fromPoll(oPoll.get());
+        else
             throw new NotFoundException(Poll.class);
-        else {
-            return mapper.fromPoll(poll);
-        }
     }
 }

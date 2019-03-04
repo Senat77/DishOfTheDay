@@ -48,7 +48,5 @@ public abstract class BaseEntity implements ITransfer {
     }
 
     @Override
-    public int hashCode() {
-        return 31;
-    }
+    public int hashCode() {return 31;}
 }

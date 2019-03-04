@@ -59,13 +59,6 @@ public class User extends BaseEntity {
         }
 
         @Override
-        public String toString() {
-            return "Role{" +
-                    "title='" + title + '\'' +
-                    '}';
-        }
-
-        @Override
         public String getAuthority() {
             return name();
         }

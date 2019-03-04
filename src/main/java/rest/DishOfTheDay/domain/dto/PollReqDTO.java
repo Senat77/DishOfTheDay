@@ -14,5 +14,5 @@ public class PollReqDTO implements ITransfer {
     private LocalDate id;
 
     @NotNull
-    private Set<MenuReqDTO> menus;
+    private Set<Integer> menu_id;
 }

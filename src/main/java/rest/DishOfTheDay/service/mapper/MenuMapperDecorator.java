@@ -11,14 +11,14 @@ public abstract class MenuMapperDecorator implements MenuMapper {
 
     @Autowired
     @Qualifier("delegate")
-    private MenuMapper delegate;
+    private MenuMapper delegate_MenuMapper;
 
     @Autowired
     private RestaurantRepository repository;
 
     @Override
     public Menu toMenu(MenuReqDTO menuDTO) {
-        Menu menu = delegate.toMenu(menuDTO);
+        Menu menu = delegate_MenuMapper.toMenu(menuDTO);
         Restaurant restaurant = repository.getOne(menuDTO.getRestaurant_id());
         menu.setRestaurant(restaurant);
         return menu;
