@@ -12,7 +12,6 @@ import javax.validation.constraints.Null;
 import java.time.LocalDate;
 
 @MappedSuperclass
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -27,6 +26,8 @@ public abstract class DateEntity implements ITransfer {
 
     @Version
     private Long version;
+
+    public DateEntity (LocalDate date) {id = date;}
 
     @Override
     public String toString() {return String.format("Entity %s (%s", getClass().getName(), id);}

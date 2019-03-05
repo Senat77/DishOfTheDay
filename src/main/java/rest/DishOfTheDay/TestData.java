@@ -53,8 +53,6 @@ public class TestData {
 
     // Polls
 
-    //Set<Menu> menuSet = Set.of(MENU1_2,MENU3);
-
     public final Poll POLL = new Poll(date, Set.of(MENU1_2,MENU3));
 
     public void populate(RestaurantRepository restaurantRepository,
