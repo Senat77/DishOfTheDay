@@ -11,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import rest.DishOfTheDay.config.AuthUser;
 import rest.DishOfTheDay.domain.dto.UserReqDTO;
 import rest.DishOfTheDay.domain.dto.UserRespDTO;
 import rest.DishOfTheDay.service.UserService;
@@ -20,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserRestController {
+public class UserRestController extends AbstractRestController {
 
     static final String REST_URL = "/api/users";
 
@@ -72,11 +71,5 @@ public class UserRestController {
     @DeleteMapping("/profile")
     public void deleteMe(@NonNull final Authentication authentication) {
         service.delete(getAuthUserId(authentication));
-    }
-
-    // private method for AuthUser.id
-
-    private int getAuthUserId (Authentication authentication) {
-        return ((AuthUser) authentication.getPrincipal()).getUserId();
     }
 }

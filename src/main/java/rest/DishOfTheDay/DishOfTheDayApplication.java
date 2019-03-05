@@ -9,10 +9,7 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import rest.DishOfTheDay.repository.MenuRepository;
-import rest.DishOfTheDay.repository.PollRepository;
-import rest.DishOfTheDay.repository.RestaurantRepository;
-import rest.DishOfTheDay.repository.UserRepository;
+import rest.DishOfTheDay.repository.*;
 
 import java.sql.SQLException;
 
@@ -46,8 +43,9 @@ public class DishOfTheDayApplication {
 									  UserRepository userRepository,
 									  RestaurantRepository restaurantRepository,
 									  MenuRepository menuRepository,
-									  PollRepository pollRepository) {
-		return args -> testData.populate(restaurantRepository, userRepository, menuRepository, pollRepository);
+									  PollRepository pollRepository,
+									  VoteRepository voteRepository) {
+		return args -> testData.populate(restaurantRepository, userRepository, menuRepository, pollRepository, voteRepository);
 	}
 }
 

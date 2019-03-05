@@ -5,10 +5,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import rest.DishOfTheDay.domain.*;
-import rest.DishOfTheDay.repository.MenuRepository;
-import rest.DishOfTheDay.repository.PollRepository;
-import rest.DishOfTheDay.repository.RestaurantRepository;
-import rest.DishOfTheDay.repository.UserRepository;
+import rest.DishOfTheDay.repository.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -49,19 +46,30 @@ public class TestData {
     public final Menu MENU2 = new Menu(RESTAURANT2, List.of(new Dish("Борщ", 3), new Dish("Котлета", 4)));
     public final Menu MENU3 = new Menu(RESTAURANT3, List.of(new Dish("Суши", 5), new Dish("Чай", 6)));
 
-    public final List<Menu> menus = List.of(MENU1_1, MENU1_2, MENU1_3, MENU2, MENU3);
+    public final Set<Menu> menus = Set.of(MENU1_2, MENU2, MENU3);
 
     // Polls
 
-    public final Poll POLL = new Poll(date, Set.of(MENU1_2,MENU3));
+    public final Poll POLL = new Poll(date, menus);
+
+    // Votes
+    public final Vote VOTE1 = new Vote(POLL, USER1, MENU1_2);
+    public final Vote VOTE2 = new Vote(POLL, USER2, MENU2);
+    public final Vote VOTE3 = new Vote(POLL, USER3, MENU3);
+    public final Vote VOTE4 = new Vote(POLL, USER4, MENU2);
+    public final Vote VOTE5 = new Vote(POLL, USER5, MENU2);
+
+    public final List<Vote> votes = List.of(VOTE1, VOTE2, VOTE3, VOTE4, VOTE5);
 
     public void populate(RestaurantRepository restaurantRepository,
                          UserRepository userRepository,
                          MenuRepository menuRepository,
-                         PollRepository pollRepository) {
+                         PollRepository pollRepository,
+                         VoteRepository voteRepository) {
             userRepository.saveAll(users);
             restaurantRepository.saveAll(restaurants);
             menuRepository.saveAll(menus);
             pollRepository.saveAll(Set.of(POLL));
+            voteRepository.saveAll(votes);
         }
 }
