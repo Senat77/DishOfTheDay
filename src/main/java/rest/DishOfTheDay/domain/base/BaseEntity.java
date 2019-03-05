@@ -1,12 +1,16 @@
 package rest.DishOfTheDay.domain.base;
 
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.TypeDef;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 @MappedSuperclass
+@Setter
+@Getter
 @TypeDef(name = "json", typeClass = JsonStringType.class)
 public abstract class BaseEntity implements ITransfer {
 
@@ -19,18 +23,13 @@ public abstract class BaseEntity implements ITransfer {
     @NotNull(groups = {Exist.class})
     protected Integer id;
 
+    @Version
+    private Long version;
+
     public BaseEntity() {
     }
 
     public BaseEntity(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
         this.id = id;
     }
 

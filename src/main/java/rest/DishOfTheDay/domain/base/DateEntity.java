@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.time.LocalDate;
@@ -23,6 +24,9 @@ public abstract class DateEntity implements ITransfer {
     @Null(groups = {ITransfer.New.class})
     @NotNull(groups = {ITransfer.Exist.class})
     protected LocalDate id;
+
+    @Version
+    private Long version;
 
     @Override
     public String toString() {return String.format("Entity %s (%s", getClass().getName(), id);}
