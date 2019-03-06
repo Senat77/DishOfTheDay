@@ -38,7 +38,7 @@ public class VoteRestController extends AbstractRestController {
         return service.getVote(getAuthUserId(authentication), LocalDate.now());
     }
 
-    @GetMapping("/bydate/{date}")
+    @GetMapping("/getbydate/{date}")
     public VoteRespDTO getMyVoteByDate(@NonNull final Authentication authentication, @PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         return service.getVote(getAuthUserId(authentication), date);
     }

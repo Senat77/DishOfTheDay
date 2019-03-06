@@ -40,15 +40,13 @@ public class VoteService {
             throw new NotFoundException(Vote.class);
     }
 
+    @Transactional
     public VoteRespDTO create(int userId, VoteReqDTO voteDTO) {
         Assert.notNull(voteDTO, "Vote must not be null");
         voteDTO.setUser_id(userId);
         Vote vote = mapper.toVote(voteDTO);
-        /*
-        Vote poll = mapper.toPoll(pollDTO);
-        repository.save(poll);
-        log.info("Poll created : {}", poll);
-        return mapper.fromPoll(poll);
-        */
+        repository.save(vote);
+        log.info("Vote created : {}", vote);
+        return mapper.fromVote(vote);
     }
 }

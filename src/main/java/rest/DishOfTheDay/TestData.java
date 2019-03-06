@@ -56,10 +56,8 @@ public class TestData {
     public final Vote VOTE1 = new Vote(POLL, USER1, MENU1_2);
     public final Vote VOTE2 = new Vote(POLL, USER2, MENU2);
     public final Vote VOTE3 = new Vote(POLL, USER3, MENU3);
-    public final Vote VOTE4 = new Vote(POLL, USER4, MENU2);
-    public final Vote VOTE5 = new Vote(POLL, USER5, MENU2);
 
-    public final List<Vote> votes = List.of(VOTE1, VOTE2, VOTE3, VOTE4, VOTE5);
+    public final List<Vote> votes = List.of(VOTE1, VOTE2, VOTE3);
 
     public void populate(RestaurantRepository restaurantRepository,
                          UserRepository userRepository,
