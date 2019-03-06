@@ -4,16 +4,19 @@ import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import rest.DishOfTheDay.domain.dto.VoteReqDTO;
 import rest.DishOfTheDay.domain.dto.VoteRespDTO;
 import rest.DishOfTheDay.service.VoteService;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,5 +36,17 @@ public class VoteRestController extends AbstractRestController {
     @GetMapping
     public VoteRespDTO getMyVote(@NonNull final Authentication authentication) {
         return service.getVote(getAuthUserId(authentication), LocalDate.now());
+    }
+
+    @GetMapping("/bydate/{date}")
+    public VoteRespDTO getMyVoteByDate(@NonNull final Authentication authentication, @PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+        return service.getVote(getAuthUserId(authentication), date);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> create(@NonNull final Authentication authentication,
+                                    @Validated({VoteReqDTO.New.class}) @RequestBody VoteReqDTO voteDTO) {
+        log.info("Create vote {}", voteDTO);
+        return new ResponseEntity<>(service.create(getAuthUserId(authentication),voteDTO), HttpStatus.CREATED);
     }
 }
