@@ -49,4 +49,15 @@ public class VoteRestController extends AbstractRestController {
         log.info("Create vote {}", voteDTO);
         return new ResponseEntity<>(service.create(getAuthUserId(authentication),voteDTO), HttpStatus.CREATED);
     }
+
+    @DeleteMapping
+    public void delete(@NonNull final Authentication authentication) {
+        service.delete(getAuthUserId(authentication));
+    }
+
+    @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public VoteRespDTO update(@NonNull final Authentication authentication,
+                              @Validated({VoteReqDTO.New.class}) @RequestBody VoteReqDTO voteDTO) {
+        return service.update(getAuthUserId(authentication), voteDTO);
+    }
 }
