@@ -47,14 +47,16 @@ public class RestaurantRestController {
         return new ResponseEntity<> (service.create(restaurantDTO), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/{id}/delete")
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable ("id") Integer id) {
         log.info("Delete Restaurant id = {}", id);
         service.delete(id);
     }
 
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RestaurantRespDTO update (@RequestBody RestaurantReqDTO restaurantDTO, @PathVariable("id") Integer id) {
-        return service.update(id, restaurantDTO);
+    public RestaurantRespDTO update (@RequestBody RestaurantReqDTO restaurantDTO,
+                                     @PathVariable("id") Integer id) {
+        restaurantDTO.setId(id);
+        return service.update(restaurantDTO);
     }
 }

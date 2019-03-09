@@ -167,6 +167,9 @@
 						<compilerArg>
 							-Amapstruct.defaultComponentModel=spring
 						</compilerArg>
+						<compilerArg>
+							-Amapstruct.unmappedTargetPolicy=ignore
+						</compilerArg>
 					</compilerArgs>
 				</configuration>
 			</plugin>

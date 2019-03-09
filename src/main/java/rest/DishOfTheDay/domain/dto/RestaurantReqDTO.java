@@ -1,14 +1,11 @@
 package rest.DishOfTheDay.domain.dto;
 
 import lombok.Data;
-import rest.DishOfTheDay.domain.base.ITransfer;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
-public class RestaurantReqDTO implements ITransfer {
+public class RestaurantReqDTO extends BaseEntityDTO {
 
     @NotBlank(groups = {New.class})
     @Size(min = 3, max = 32)

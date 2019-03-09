@@ -64,13 +64,15 @@ public class VoteService {
     public VoteRespDTO update(int userId, VoteReqDTO voteDTO) {
         Assert.notNull(voteDTO, "Vote must not be null");
         Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
+        Vote vote;
         if(oVote.isEmpty())
            throw new NotFoundException(Vote.class);
-        Vote update = mapper.toVote(voteDTO);
-        int id = oVote.get().getId();
-        update.setId(id);
-        repository.save(update);
-        log.debug("[i] Vote with id={} updated : {}", id, update);
-        return mapper.fromVote(update);
+        else
+            vote = oVote.get();
+        voteDTO.setUser_id(userId);
+        vote = mapper.toVote(voteDTO);
+        repository.save(vote);
+        log.debug("[i] Vote with id={} updated : {}", vote.getId(), vote);
+        return mapper.fromVote(vote);
     }
 }

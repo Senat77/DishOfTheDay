@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "votes")
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"poll_id", "user_id"}, name = "one_vote_per_user")})
 public class Vote extends BaseEntity {
 
     @ManyToOne

@@ -57,16 +57,17 @@ public class RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
-    public RestaurantRespDTO update(int id, RestaurantReqDTO restaurantDTO) {
+    public RestaurantRespDTO update(RestaurantReqDTO restaurantDTO) {
         Assert.notNull(restaurantDTO, "Restaurant must not be null");
-        Optional<Restaurant> foundOptional = repository.findById(id);
-        if(foundOptional.isEmpty())
+        Restaurant restaurant;
+        Optional<Restaurant> oRestaurant = repository.findById(restaurantDTO.getId());
+        if(oRestaurant.isPresent())
+            restaurant = oRestaurant.get();
+        else
             throw new NotFoundException(Restaurant.class);
-        Restaurant update = mapper.toRestaurant(restaurantDTO);
-        update.setId(id);
-        repository.save(update);
-        log.debug("[i] Restaurant with id={} updated : {}", id, update);
-        return mapper.fromRestaurant(update);
+        mapper.toUpdate(restaurant,restaurantDTO);
+        log.debug("[i] Restaurant with id={} updated : {}", restaurant.getId(), restaurant);
+        return mapper.fromRestaurant(restaurant);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
