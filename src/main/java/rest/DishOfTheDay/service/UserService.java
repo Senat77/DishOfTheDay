@@ -44,11 +44,7 @@ public class UserService {
 
     @Cacheable("users")
     public UserRespDTO get(int id) {
-        Optional<User> user = repository.findById(id);
-        if(user.isPresent())
-            return mapper.fromUser(user.get());
-        else
-            throw new NotFoundException(User.class);
+        return mapper.fromUser(getById(id));
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -64,20 +60,22 @@ public class UserService {
     @Transactional
     public UserRespDTO update(int id, UserReqDTO userReqDTO) {
         Assert.notNull(userReqDTO, "User must not be null");
-        if(repository.findById(id).isEmpty())
-            throw new NotFoundException(User.class);
-        User updated = mapper.toUser(userReqDTO);
-        updated.setId(id);
-        repository.save(updated);
-        log.info("User with id={} updated : {}", id, updated);
-        return mapper.fromUser(updated);
+        User user = getById(id);
+        mapper.toUpdate(user, userReqDTO);
+        log.info("User with id={} updated : {}", id, user);
+        return mapper.fromUser(user);
     }
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
     public void delete (int id) {
-        if(repository.existsById(id))
-            repository.deleteById(id);
+        repository.delete(getById(id));
+    }
+
+    private User getById(Integer id) {
+        Optional<User> oUser = repository.findById(id);
+        if(oUser.isPresent())
+            return oUser.get();
         else
             throw new NotFoundException(User.class);
     }

@@ -1,6 +1,5 @@
 package rest.DishOfTheDay.service;
 
-import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +68,16 @@ public class VoteService {
            throw new NotFoundException(Vote.class);
         else
             vote = oVote.get();
-        voteDTO.setUser_id(userId);
-        vote = mapper.toVote(voteDTO);
-        repository.save(vote);
+        mapper.toUpdate(vote, voteDTO);
         log.debug("[i] Vote with id={} updated : {}", vote.getId(), vote);
         return mapper.fromVote(vote);
+    }
+
+    private Vote getById(Integer id) {
+        Optional<Vote> oVote = repository.findById(id);
+        if(oVote.isPresent())
+            return oVote.get();
+        else
+            throw new NotFoundException(Vote.class);
     }
 }

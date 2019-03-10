@@ -47,12 +47,7 @@ public class MenuService {
 
     @Cacheable("menus")
     public MenuRespDTO get(Integer id) {
-        Optional<Menu> menu = repository.findById(id);
-        if(menu.isPresent()) {
-            return mapper.fromMenu(menu.get());
-        }
-        else
-            throw new NotFoundException(Menu.class);
+        return mapper.fromMenu(getById(id));
     }
 
     @Cacheable("menus")
@@ -86,23 +81,22 @@ public class MenuService {
     @Transactional
     public MenuRespDTO update(int id, MenuReqDTO menuDTO) {
         Assert.notNull(menuDTO, "Menu must not be null");
-        Optional<Menu> oMenu = repository.findById(id);
-        if(oMenu.isPresent()) {
-            Menu update = mapper.toMenu(menuDTO);
-            update.setId(id);
-            repository.save(update);
-            log.debug("[i] Menu with id={} updated : {}", id, update);
-            return mapper.fromMenu(update);
-        }
-        else
-            throw new NotFoundException(Menu.class);
+        Menu menu = getById(id);
+        mapper.toUpdate(menu, menuDTO);
+        log.debug("[i] Menu with id={} updated : {}", id, menu);
+        return mapper.fromMenu(menu);
     }
 
     @CacheEvict(value = "menus", allEntries = true)
     @Transactional
     public void delete(int id) {
-        if(repository.findById(id).isPresent())
-            repository.deleteById(id);
+        repository.delete(getById(id));
+    }
+
+    private Menu getById(Integer id) {
+        Optional<Menu> oMenu = repository.findById(id);
+        if(oMenu.isPresent())
+            return oMenu.get();
         else
             throw new NotFoundException(Menu.class);
     }

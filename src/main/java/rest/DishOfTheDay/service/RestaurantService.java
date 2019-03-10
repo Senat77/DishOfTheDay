@@ -59,12 +59,7 @@ public class RestaurantService {
     @Transactional
     public RestaurantRespDTO update(RestaurantReqDTO restaurantDTO) {
         Assert.notNull(restaurantDTO, "Restaurant must not be null");
-        Restaurant restaurant;
-        Optional<Restaurant> oRestaurant = repository.findById(restaurantDTO.getId());
-        if(oRestaurant.isPresent())
-            restaurant = oRestaurant.get();
-        else
-            throw new NotFoundException(Restaurant.class);
+        Restaurant restaurant = findById(restaurantDTO.getId());
         mapper.toUpdate(restaurant,restaurantDTO);
         log.debug("[i] Restaurant with id={} updated : {}", restaurant.getId(), restaurant);
         return mapper.fromRestaurant(restaurant);
