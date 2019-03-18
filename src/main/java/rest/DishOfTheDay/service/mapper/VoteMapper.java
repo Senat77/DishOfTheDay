@@ -7,6 +7,9 @@ import org.mapstruct.MappingTarget;
 import rest.DishOfTheDay.domain.Vote;
 import rest.DishOfTheDay.domain.dto.VoteReqDTO;
 import rest.DishOfTheDay.domain.dto.VoteRespDTO;
+import rest.DishOfTheDay.domain.dto.VotingResult;
+
+import java.util.List;
 
 import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
 import static org.mapstruct.NullValueMappingStrategy.RETURN_DEFAULT;

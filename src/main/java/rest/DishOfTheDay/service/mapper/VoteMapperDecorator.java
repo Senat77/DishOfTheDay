@@ -3,14 +3,21 @@ package rest.DishOfTheDay.service.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import rest.DishOfTheDay.domain.Menu;
 import rest.DishOfTheDay.domain.Vote;
 import rest.DishOfTheDay.domain.dto.VoteReqDTO;
+import rest.DishOfTheDay.domain.dto.VotingResult;
 import rest.DishOfTheDay.repository.MenuRepository;
 import rest.DishOfTheDay.repository.PollRepository;
 import rest.DishOfTheDay.repository.UserRepository;
 import rest.DishOfTheDay.repository.VoteRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 public abstract class VoteMapperDecorator implements VoteMapper {
 
@@ -29,6 +36,9 @@ public abstract class VoteMapperDecorator implements VoteMapper {
 
     @Autowired
     private PollRepository pollRepository;
+
+    @Autowired
+    private MenuMapper menuMapper;
 
     @Override
     public Vote toVote(VoteReqDTO voteDTO) {
