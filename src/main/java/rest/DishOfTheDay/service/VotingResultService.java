@@ -43,7 +43,7 @@ public class VotingResultService {
     @Transactional
     public VotingResult getResult(LocalDate date) {
         if(date.isBefore(LocalDate.now())) {
-            return votingHistoryRepository.findById(date).get().getVotingResult();
+            return votingHistoryRepository.getOne(date).getVotingResult();
         }
         else {
             List<Vote> voteCounter = voteRepository.findByPollId(date);
@@ -53,14 +53,11 @@ public class VotingResultService {
             map.forEach((menu, aLong) -> list.add(new MenuWithVotes(mapper.fromMenu(menu), aLong)));
             VotingResult result = new VotingResult(date, list);
 
-            Optional<VotingHistory> optionalVotingHistory = votingHistoryRepository.findById(date);
-            if(optionalVotingHistory.isPresent()) {
-                VotingHistory votingHistory = optionalVotingHistory.get();
-                votingHistory.setVotingResult(result);
-            }
-            else {
+            Optional<VotingHistory> oHistory = votingHistoryRepository.findById(date);
+            if(oHistory.isEmpty())
                 votingHistoryRepository.save(new VotingHistory(date, result));
-            }
+            else
+                oHistory.get().setVotingResult(result);
 
             return result;
         }

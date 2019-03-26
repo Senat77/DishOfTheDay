@@ -42,7 +42,6 @@ public class PollRestController {
     public ResponseEntity<?> create(@Validated({PollReqDTO.Exist.class}) @RequestBody PollReqDTO pollDTO) {
         log.info("Create poll {}", pollDTO);
         PollRespDTO pollRespDTO = service.create(pollDTO);
-        votingResultService.getResult(LocalDate.now());
         return new ResponseEntity<>(pollRespDTO, HttpStatus.CREATED);
     }
 

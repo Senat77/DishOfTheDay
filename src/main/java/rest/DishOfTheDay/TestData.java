@@ -8,7 +8,6 @@ import rest.DishOfTheDay.domain.*;
 import rest.DishOfTheDay.repository.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,14 +49,15 @@ public class TestData {
 
     // Polls
 
-    public final Poll POLL = new Poll(date, menus);
+    public final Poll POLL = new Poll(date, Set.of(MENU1_1,MENU2,MENU3));
 
     // Votes
-    public final Vote VOTE1 = new Vote(POLL, USER1, MENU1_2);
+    public final Vote VOTE1 = new Vote(POLL, USER1, MENU1_1);
     public final Vote VOTE2 = new Vote(POLL, USER2, MENU2);
     public final Vote VOTE3 = new Vote(POLL, USER3, MENU3);
+    public final Vote VOTE4 = new Vote(POLL, USER4, MENU2);
 
-    public final List<Vote> votes = List.of(VOTE1, VOTE2, VOTE3);
+    public final List<Vote> votes = List.of(VOTE1, VOTE2, VOTE3, VOTE4);
 
     public void populate(RestaurantRepository restaurantRepository,
                          UserRepository userRepository,
