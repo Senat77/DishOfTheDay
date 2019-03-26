@@ -13,11 +13,6 @@ import rest.DishOfTheDay.repository.UserRepository;
 import rest.DishOfTheDay.repository.VoteRepository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
 
 public abstract class VoteMapperDecorator implements VoteMapper {
 

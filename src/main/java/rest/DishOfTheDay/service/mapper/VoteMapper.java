@@ -20,7 +20,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
         nullValueMappingStrategy = RETURN_DEFAULT,
         nullValuePropertyMappingStrategy = IGNORE
 )
-@DecoratedWith(VoteMapperDecorator.class)
+//@DecoratedWith(VoteMapperDecorator.class)
 public interface VoteMapper {
 
     @Mapping(source = "vote.poll.id", target = "date")

@@ -46,7 +46,7 @@ public class TestData {
     public final Menu MENU2 = new Menu(RESTAURANT2, List.of(new Dish("Борщ", 3), new Dish("Котлета", 4)));
     public final Menu MENU3 = new Menu(RESTAURANT3, List.of(new Dish("Суши", 5), new Dish("Чай", 6)));
 
-    public final Set<Menu> menus = Set.of(MENU1_2, MENU2, MENU3);
+    public final Set<Menu> menus = Set.of(MENU1_1,MENU1_3,MENU1_2, MENU2, MENU3);
 
     // Polls
 

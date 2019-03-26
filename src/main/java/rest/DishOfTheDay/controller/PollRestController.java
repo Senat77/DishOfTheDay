@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import rest.DishOfTheDay.domain.dto.PollReqDTO;
 import rest.DishOfTheDay.domain.dto.PollRespDTO;
 import rest.DishOfTheDay.service.PollService;
+import rest.DishOfTheDay.service.VotingResultService;
 
 import java.time.LocalDate;
 
@@ -26,9 +27,12 @@ public class PollRestController {
 
     private final PollService service;
 
+    private VotingResultService votingResultService;
+
     @Autowired
-    public PollRestController(PollService service) {
+    public PollRestController(PollService service, VotingResultService votingResultService) {
         this.service = service;
+        this.votingResultService = votingResultService;
     }
 
     // ADMIN-role's allowed endpoints
@@ -37,7 +41,9 @@ public class PollRestController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@Validated({PollReqDTO.Exist.class}) @RequestBody PollReqDTO pollDTO) {
         log.info("Create poll {}", pollDTO);
-        return new ResponseEntity<>(service.create(pollDTO), HttpStatus.CREATED);
+        PollRespDTO pollRespDTO = service.create(pollDTO);
+        votingResultService.getResult(LocalDate.now());
+        return new ResponseEntity<>(pollRespDTO, HttpStatus.CREATED);
     }
 
     // USER-role's allowed endpoints

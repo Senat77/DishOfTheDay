@@ -59,7 +59,7 @@ public class MenuService {
         }
         else
             throw new NotFoundException(Restaurant.class);
-        Optional<Menu> oMenu = repository.findLastMenuByRestaurantId(restaurant.getId(), LocalDate.now());
+        Optional<Menu> oMenu = repository.findFirstByRestaurant_IdOrderByDateDesc(id);
         if(oMenu.isPresent()) {
             return mapper.fromMenu(oMenu.get());
         }

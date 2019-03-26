@@ -34,7 +34,7 @@ public class MenuRestController {
         return service.get(id);
     }
 
-    @GetMapping("/last/{restaurant_id}")
+    @GetMapping("/last_by_restaurant/{restaurant_id}")
     public MenuRespDTO getLastMenu(@PathVariable("restaurant_id") Integer id) {
         log.info("Last menu for Restaurant with id = {}", id);
         return service.getLastByRestaurantId(id);
