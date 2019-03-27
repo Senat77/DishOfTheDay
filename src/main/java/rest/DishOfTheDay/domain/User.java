@@ -28,6 +28,10 @@ public class User extends BaseEntity {
     private String email;
 
     @NotNull
+    @Column
+    private Boolean enable = true;
+
+    @NotNull
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "id"))
     @ElementCollection
     private Set<Role> roles = Set.of(Role.ROLE_USER);
