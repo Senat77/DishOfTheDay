@@ -51,7 +51,7 @@ public class MenuRestController {
         return service.update(id, menuDTO);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Integer id) {
         service.delete(id);
     }

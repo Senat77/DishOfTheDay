@@ -39,7 +39,7 @@ public class PollRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> create(@Validated({PollReqDTO.Exist.class}) @RequestBody PollReqDTO pollDTO) {
+    public ResponseEntity<?> create(@RequestBody PollReqDTO pollDTO) {
         log.info("Create poll {}", pollDTO);
         PollRespDTO pollRespDTO = service.create(pollDTO);
         return new ResponseEntity<>(pollRespDTO, HttpStatus.CREATED);

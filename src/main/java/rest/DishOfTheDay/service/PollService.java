@@ -47,9 +47,10 @@ public class PollService {
         if(checkSetOfMenus(poll.getMenus()))
             throw new IllegalMenuSetOfPollException();
         repository.save(poll);
-        history.save(new VotingHistory(pollDTO.getId(), null));
+        //history.save(new VotingHistory(pollDTO.getId(), null));
         log.info("Poll created : {}", poll);
-        return mapper.fromPoll(poll);
+        PollRespDTO pollRespDTO = mapper.fromPoll(poll);
+        return pollRespDTO;
     }
 
     public PollRespDTO get(LocalDate id) {
@@ -75,8 +76,8 @@ public class PollService {
         }
         for(Map.Entry<Restaurant, Long> e : map.entrySet()) {
             if(e.getValue() > 1L)
-                return false;
+                return true;
         }
-        return true;
+        return false;
     }
 }
