@@ -16,6 +16,7 @@ import rest.DishOfTheDay.service.PollService;
 import rest.DishOfTheDay.service.VotingResultService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @RestController
 @RequestMapping(value = PollRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,12 +28,12 @@ public class PollRestController {
 
     private final PollService service;
 
-    private VotingResultService votingResultService;
+    //private VotingResultService votingResultService;
 
     @Autowired
     public PollRestController(PollService service, VotingResultService votingResultService) {
         this.service = service;
-        this.votingResultService = votingResultService;
+        //this.votingResultService = votingResultService;
     }
 
     // ADMIN-role's allowed endpoints

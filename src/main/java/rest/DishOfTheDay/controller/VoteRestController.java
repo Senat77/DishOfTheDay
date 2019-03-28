@@ -4,7 +4,6 @@ import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +16,7 @@ import rest.DishOfTheDay.domain.dto.VoteRespDTO;
 import rest.DishOfTheDay.service.VoteService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)

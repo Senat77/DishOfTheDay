@@ -41,25 +41,26 @@ public class VotingResultService {
     }
 
     @Transactional
+    public void updateResult() {
+        LocalDate date = LocalDate.now();
+        List<Vote> voteCounter = voteRepository.findByPollId(date);
+        Map<Menu, Long> map = voteCounter.stream()
+                .collect(Collectors.groupingBy(Vote::getMenu, Collectors.counting()));
+        List<MenuWithVotes> list = new ArrayList<>();
+        map.forEach((menu, aLong) -> list.add(new MenuWithVotes(mapper.fromMenu(menu), aLong)));
+        VotingResult result = new VotingResult(date, list);
+
+        Optional<VotingHistory> oHistory = votingHistoryRepository.findById(date);
+        if(oHistory.isEmpty())
+            votingHistoryRepository.save(new VotingHistory(date, result));
+        else
+            oHistory.get().setVotingResult(result);
+    }
+
     public VotingResult getResult(LocalDate date) {
-        if(date.isBefore(LocalDate.now())) {
-            return votingHistoryRepository.getOne(date).getVotingResult();
+        if (!date.isBefore(LocalDate.now())) {
+            updateResult();
         }
-        else {
-            List<Vote> voteCounter = voteRepository.findByPollId(date);
-            Map<Menu, Long> map = voteCounter.stream()
-                    .collect(Collectors.groupingBy(Vote::getMenu, Collectors.counting()));
-            List<MenuWithVotes> list = new ArrayList<>();
-            map.forEach((menu, aLong) -> list.add(new MenuWithVotes(mapper.fromMenu(menu), aLong)));
-            VotingResult result = new VotingResult(date, list);
-
-            Optional<VotingHistory> oHistory = votingHistoryRepository.findById(date);
-            if(oHistory.isEmpty())
-                votingHistoryRepository.save(new VotingHistory(date, result));
-            else
-                oHistory.get().setVotingResult(result);
-
-            return result;
-        }
+        return votingHistoryRepository.getOne(date).getVotingResult();
     }
 }

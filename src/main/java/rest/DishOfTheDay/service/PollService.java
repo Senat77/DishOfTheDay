@@ -19,6 +19,7 @@ import rest.DishOfTheDay.util.exception.IllegalMenuSetOfPollException;
 import rest.DishOfTheDay.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 @Service
@@ -32,6 +33,8 @@ public class PollService {
     private final VotingHistoryRepository history;
 
     private final PollMapper mapper;
+
+    public static LocalTime END_OF_POLL_TIME = LocalTime.of(11,0,0);
 
     @Autowired
     public PollService(PollRepository repository, VotingHistoryRepository history, PollMapper mapper) {
