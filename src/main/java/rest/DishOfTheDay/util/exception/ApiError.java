@@ -1,8 +1,12 @@
 package rest.DishOfTheDay.util.exception;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 
@@ -15,14 +19,19 @@ import java.util.List;
 @Setter
 public class ApiError {
 
-    private LocalDateTime dt = LocalDateTime.now();
+    @JsonProperty("Timestamp")
+    private LocalDateTime timestamp = LocalDateTime.now();
 
+    @JsonProperty(value = "HTTP status")
     private HttpStatus status;
 
+    @JsonProperty(value = "Message")
     private String message;
 
+    @JsonProperty(value = "Debug message")
     private String debugMessage;
 
+    @JsonProperty(value = "Field Validation Errors")
     private List<FieldValidationError> fieldValidationErrors;
 
     public ApiError() {

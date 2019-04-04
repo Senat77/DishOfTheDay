@@ -11,7 +11,7 @@ import rest.DishOfTheDay.domain.dto.VoteReqDTO;
 import rest.DishOfTheDay.domain.dto.VoteRespDTO;
 import rest.DishOfTheDay.repository.VoteRepository;
 import rest.DishOfTheDay.service.mapper.VoteMapper;
-import rest.DishOfTheDay.util.exception.NotFoundException;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -32,12 +32,12 @@ public class VoteService {
         this.mapper = mapper;
     }
 
-    public VoteRespDTO getVote(Integer userId, LocalDate date) {
+    public VoteRespDTO getVote(Integer userId, LocalDate date) throws EntityNotFoundException {
         Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, date);
         if(oVote.isPresent())
             return mapper.fromVote(oVote.get());
         else
-            throw new NotFoundException(Vote.class);
+            throw new EntityNotFoundException();
     }
 
     @Transactional
@@ -51,16 +51,16 @@ public class VoteService {
     }
 
     @Transactional
-    public void delete(int userId) {
+    public void delete(int userId) throws EntityNotFoundException {
         Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
         if(oVote.isPresent())
             repository.delete(oVote.get());
         else
-            throw new NotFoundException(Vote.class);
+            throw new EntityNotFoundException();
     }
 
     @Transactional
-    public VoteRespDTO update(int userId, VoteReqDTO voteDTO) {
+    public VoteRespDTO update(int userId, VoteReqDTO voteDTO) throws EntityNotFoundException {
         Assert.notNull(voteDTO, "Vote must not be null");
         Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
         Vote vote;
@@ -68,18 +68,18 @@ public class VoteService {
             vote = oVote.get();
         }
         else {
-            throw new NotFoundException(Vote.class);
+            throw new EntityNotFoundException();
         }
         mapper.toUpdate(vote, voteDTO);
         log.debug("[i] Vote with id={} updated : {}", vote.getId(), vote);
         return mapper.fromVote(vote);
     }
 
-    private Vote getById(Integer id) {
+    private Vote getById(Integer id) throws EntityNotFoundException {
         Optional<Vote> oVote = repository.findById(id);
         if(oVote.isPresent())
             return oVote.get();
         else
-            throw new NotFoundException(Vote.class);
-    }
+            throw new EntityNotFoundException();
+}
 }

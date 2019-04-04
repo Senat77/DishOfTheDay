@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import rest.DishOfTheDay.domain.dto.VoteReqDTO;
 import rest.DishOfTheDay.domain.dto.VoteRespDTO;
 import rest.DishOfTheDay.service.VoteService;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -34,12 +35,13 @@ public class VoteRestController extends AbstractRestController {
     }
 
     @GetMapping
-    public VoteRespDTO getMyVote(@NonNull final Authentication authentication) {
+    public VoteRespDTO getMyVote(@NonNull final Authentication authentication) throws EntityNotFoundException {
         return service.getVote(getAuthUserId(authentication), LocalDate.now());
     }
 
     @GetMapping("/getbydate/{date}")
-    public VoteRespDTO getMyVoteByDate(@NonNull final Authentication authentication, @PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+    public VoteRespDTO getMyVoteByDate(@NonNull final Authentication authentication, @PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date)
+            throws EntityNotFoundException {
         return service.getVote(getAuthUserId(authentication), date);
     }
 
@@ -51,13 +53,13 @@ public class VoteRestController extends AbstractRestController {
     }
 
     @DeleteMapping
-    public void delete(@NonNull final Authentication authentication) {
+    public void delete(@NonNull final Authentication authentication) throws EntityNotFoundException {
         service.delete(getAuthUserId(authentication));
     }
 
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public VoteRespDTO update(@NonNull final Authentication authentication,
-                              @Validated({VoteReqDTO.New.class}) @RequestBody VoteReqDTO voteDTO) {
+                              @Validated({VoteReqDTO.New.class}) @RequestBody VoteReqDTO voteDTO) throws EntityNotFoundException {
         return service.update(getAuthUserId(authentication), voteDTO);
     }
 }

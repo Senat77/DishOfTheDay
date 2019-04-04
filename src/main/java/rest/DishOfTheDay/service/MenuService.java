@@ -6,13 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import rest.DishOfTheDay.domain.Menu;
 import rest.DishOfTheDay.domain.Restaurant;
 import rest.DishOfTheDay.domain.dto.MenuReqDTO;
@@ -20,7 +16,7 @@ import rest.DishOfTheDay.domain.dto.MenuRespDTO;
 import rest.DishOfTheDay.repository.MenuRepository;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.service.mapper.MenuMapper;
-import rest.DishOfTheDay.util.exception.NotFoundException;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -46,25 +42,25 @@ public class MenuService {
     }
 
     @Cacheable("menus")
-    public MenuRespDTO get(Integer id) {
+    public MenuRespDTO get(Integer id) throws EntityNotFoundException {
         return mapper.fromMenu(getById(id));
     }
 
     @Cacheable("menus")
-    public MenuRespDTO getLastByRestaurantId(Integer id) {
+    public MenuRespDTO getLastByRestaurantId(Integer id) throws EntityNotFoundException {
         Optional<Restaurant> oRestaurant = restaurantRepository.findById(id);
         Restaurant restaurant;
         if(oRestaurant.isPresent()) {
             restaurant = oRestaurant.get();
         }
         else
-            throw new NotFoundException(Restaurant.class);
+            throw new EntityNotFoundException();
         Optional<Menu> oMenu = repository.findFirstByRestaurant_IdOrderByDateDesc(id);
         if(oMenu.isPresent()) {
             return mapper.fromMenu(oMenu.get());
         }
         else
-            throw new NotFoundException(Menu.class);
+            throw new EntityNotFoundException();
     }
 
     @CacheEvict(value = "menus", allEntries = true)
@@ -79,7 +75,7 @@ public class MenuService {
 
     @CacheEvict(value = "menus", allEntries = true)
     @Transactional
-    public MenuRespDTO update(int id, MenuReqDTO menuDTO) {
+    public MenuRespDTO update(int id, MenuReqDTO menuDTO) throws EntityNotFoundException {
         Assert.notNull(menuDTO, "Menu must not be null");
         Menu menu = getById(id);
         mapper.toUpdate(menu, menuDTO);
@@ -89,15 +85,15 @@ public class MenuService {
 
     @CacheEvict(value = "menus", allEntries = true)
     @Transactional
-    public void delete(int id) {
+    public void delete(int id) throws EntityNotFoundException {
         repository.delete(getById(id));
     }
 
-    private Menu getById(Integer id) {
+    private Menu getById(Integer id) throws EntityNotFoundException {
         Optional<Menu> oMenu = repository.findById(id);
         if(oMenu.isPresent())
             return oMenu.get();
         else
-            throw new NotFoundException(Menu.class);
+            throw new EntityNotFoundException();
     }
 }

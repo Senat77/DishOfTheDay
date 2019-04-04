@@ -9,14 +9,13 @@ import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Menu;
 import rest.DishOfTheDay.domain.Poll;
 import rest.DishOfTheDay.domain.Restaurant;
-import rest.DishOfTheDay.domain.VotingHistory;
 import rest.DishOfTheDay.domain.dto.PollReqDTO;
 import rest.DishOfTheDay.domain.dto.PollRespDTO;
 import rest.DishOfTheDay.repository.PollRepository;
 import rest.DishOfTheDay.repository.VotingHistoryRepository;
 import rest.DishOfTheDay.service.mapper.PollMapper;
 import rest.DishOfTheDay.util.exception.IllegalMenuSetOfPollException;
-import rest.DishOfTheDay.util.exception.NotFoundException;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -44,7 +43,7 @@ public class PollService {
     }
 
     @Transactional
-    public PollRespDTO create(PollReqDTO pollDTO) {
+    public PollRespDTO create(PollReqDTO pollDTO) throws IllegalMenuSetOfPollException {
         Assert.notNull(pollDTO, "Poll must not be null");
         Poll poll = mapper.toPoll(pollDTO);
         if(checkSetOfMenus(poll.getMenus()))
@@ -56,12 +55,12 @@ public class PollService {
         return pollRespDTO;
     }
 
-    public PollRespDTO get(LocalDate id) {
+    public PollRespDTO get(LocalDate id) throws EntityNotFoundException {
         Optional<Poll> oPoll = repository.findById(id);
         if(oPoll.isPresent())
             return mapper.fromPoll(oPoll.get());
         else
-            throw new NotFoundException(Poll.class);
+            throw new EntityNotFoundException();
     }
 
     // Check of unique menu for restaurant in poll menu's set

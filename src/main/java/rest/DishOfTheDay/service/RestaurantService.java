@@ -15,7 +15,7 @@ import rest.DishOfTheDay.domain.dto.RestaurantReqDTO;
 import rest.DishOfTheDay.domain.dto.RestaurantRespDTO;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.service.mapper.RestaurantMapper;
-import rest.DishOfTheDay.util.exception.NotFoundException;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +42,7 @@ public class RestaurantService {
     }
 
     @Cacheable("restaurants")
-    public RestaurantRespDTO get(Integer id) {
+    public RestaurantRespDTO get(Integer id) throws EntityNotFoundException {
         return mapper.fromRestaurant(findById(id));
     }
 
@@ -57,7 +57,7 @@ public class RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
-    public RestaurantRespDTO update(RestaurantReqDTO restaurantDTO) {
+    public RestaurantRespDTO update(RestaurantReqDTO restaurantDTO) throws EntityNotFoundException {
         Assert.notNull(restaurantDTO, "Restaurant must not be null");
         Restaurant restaurant = findById(restaurantDTO.getId());
         mapper.toUpdate(restaurant,restaurantDTO);
@@ -67,18 +67,18 @@ public class RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
-    public void delete (int id) {
+    public void delete (int id) throws EntityNotFoundException {
         if (repository.existsById(id))
             repository.deleteById(id);
         else
-            throw new NotFoundException(Restaurant.class);
+            throw new EntityNotFoundException();
     }
 
-    private Restaurant findById (Integer id) {
+    private Restaurant findById (Integer id) throws EntityNotFoundException {
         Optional<Restaurant> restaurant = repository.findById(id);
         if(restaurant.isPresent())
             return restaurant.get();
         else
-            throw new NotFoundException(Restaurant.class);
+            throw new EntityNotFoundException();
     }
 }

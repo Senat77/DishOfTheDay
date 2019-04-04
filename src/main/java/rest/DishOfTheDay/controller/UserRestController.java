@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import rest.DishOfTheDay.domain.dto.UserReqDTO;
 import rest.DishOfTheDay.domain.dto.UserRespDTO;
 import rest.DishOfTheDay.service.UserService;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class UserRestController extends AbstractRestController {
 
     @DeleteMapping(value = "/{id}/delete")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void delete(@PathVariable("id") Integer id) {
+    public void delete(@PathVariable("id") Integer id) throws EntityNotFoundException {
         log.info("Delete User id = {}", id);
         service.delete(id);
     }
@@ -59,17 +60,18 @@ public class UserRestController extends AbstractRestController {
     // USER-role's allowed endpoints
 
     @GetMapping("/profile")
-    public UserRespDTO getMe(@NonNull final Authentication authentication) {
+    public UserRespDTO getMe(@NonNull final Authentication authentication) throws EntityNotFoundException {
         return service.get(getAuthUserId(authentication));
     }
 
     @PatchMapping("/profile")
-    public UserRespDTO editMe(@NonNull final Authentication authentication, @Validated({UserReqDTO.Exist.class}) @RequestBody UserReqDTO userDTO) {
+    public UserRespDTO editMe(@NonNull final Authentication authentication, @Validated({UserReqDTO.Exist.class}) @RequestBody UserReqDTO userDTO)
+            throws EntityNotFoundException {
         return service.update(getAuthUserId(authentication), userDTO);
     }
 
     @DeleteMapping("/profile")
-    public void deleteMe(@NonNull final Authentication authentication) {
+    public void deleteMe(@NonNull final Authentication authentication) throws EntityNotFoundException {
         service.delete(getAuthUserId(authentication));
     }
 }

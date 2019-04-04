@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import rest.DishOfTheDay.domain.dto.MenuReqDTO;
 import rest.DishOfTheDay.domain.dto.MenuRespDTO;
 import rest.DishOfTheDay.service.MenuService;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 @RestController
 @RequestMapping(value = MenuRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,13 +30,13 @@ public class MenuRestController {
     }
 
     @GetMapping(value = "/{id}")
-    public MenuRespDTO getMenu(@PathVariable("id") Integer id) {
+    public MenuRespDTO getMenu(@PathVariable("id") Integer id) throws EntityNotFoundException {
         log.info("Get menu with id = {}", id);
         return service.get(id);
     }
 
     @GetMapping("/last_by_restaurant/{restaurant_id}")
-    public MenuRespDTO getLastMenu(@PathVariable("restaurant_id") Integer id) {
+    public MenuRespDTO getLastMenu(@PathVariable("restaurant_id") Integer id) throws EntityNotFoundException {
         log.info("Last menu for Restaurant with id = {}", id);
         return service.getLastByRestaurantId(id);
     }
@@ -47,12 +48,12 @@ public class MenuRestController {
     }
 
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public MenuRespDTO update (@RequestBody MenuReqDTO menuDTO, @PathVariable("id") Integer id) {
+    public MenuRespDTO update (@RequestBody MenuReqDTO menuDTO, @PathVariable("id") Integer id) throws EntityNotFoundException {
         return service.update(id, menuDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Integer id) {
+    public void delete(@PathVariable("id") Integer id) throws EntityNotFoundException {
         service.delete(id);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import rest.DishOfTheDay.domain.dto.RestaurantReqDTO;
 import rest.DishOfTheDay.domain.dto.RestaurantRespDTO;
 import rest.DishOfTheDay.service.RestaurantService;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class RestaurantRestController {
     }
 
     @GetMapping(value = "/{id}")
-    public RestaurantRespDTO getRestaurant(@PathVariable("id") Integer id) {
+    public RestaurantRespDTO getRestaurant(@PathVariable("id") Integer id) throws EntityNotFoundException {
         log.info("get restaurant with id = {}", id);
         return service.get(id);
     }
@@ -48,14 +49,14 @@ public class RestaurantRestController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable ("id") Integer id) {
+    public void delete(@PathVariable ("id") Integer id) throws EntityNotFoundException {
         log.info("Delete Restaurant id = {}", id);
         service.delete(id);
     }
 
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RestaurantRespDTO update (@RequestBody RestaurantReqDTO restaurantDTO,
-                                     @PathVariable("id") Integer id) {
+                                     @PathVariable("id") Integer id) throws EntityNotFoundException {
         restaurantDTO.setId(id);
         return service.update(restaurantDTO);
     }

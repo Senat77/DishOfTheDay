@@ -14,6 +14,8 @@ import rest.DishOfTheDay.domain.dto.PollReqDTO;
 import rest.DishOfTheDay.domain.dto.PollRespDTO;
 import rest.DishOfTheDay.service.PollService;
 import rest.DishOfTheDay.service.VotingResultService;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
+import rest.DishOfTheDay.util.exception.IllegalMenuSetOfPollException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -40,7 +42,7 @@ public class PollRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> create(@RequestBody PollReqDTO pollDTO) {
+    public ResponseEntity<?> create(@RequestBody PollReqDTO pollDTO) throws IllegalMenuSetOfPollException {
         log.info("Create poll {}", pollDTO);
         PollRespDTO pollRespDTO = service.create(pollDTO);
         return new ResponseEntity<>(pollRespDTO, HttpStatus.CREATED);
@@ -49,7 +51,7 @@ public class PollRestController {
     // USER-role's allowed endpoints
 
     @GetMapping("/{id}")
-    public PollRespDTO get(@PathVariable("id") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+    public PollRespDTO get(@PathVariable("id") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) throws EntityNotFoundException {
         return service.get(date);
     }
 }

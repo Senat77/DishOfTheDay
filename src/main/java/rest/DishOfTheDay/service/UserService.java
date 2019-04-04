@@ -15,7 +15,7 @@ import rest.DishOfTheDay.domain.dto.UserRespDTO;
 import rest.DishOfTheDay.repository.UserRepository;
 import rest.DishOfTheDay.service.mapper.UserMapper;
 import org.springframework.data.domain.Sort;
-import rest.DishOfTheDay.util.exception.NotFoundException;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public class UserService {
     }
 
     @Cacheable("users")
-    public UserRespDTO get(int id) {
+    public UserRespDTO get(int id) throws EntityNotFoundException {
         return mapper.fromUser(getById(id));
     }
 
@@ -58,7 +58,7 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public UserRespDTO update(int id, UserReqDTO userReqDTO) {
+    public UserRespDTO update(int id, UserReqDTO userReqDTO) throws EntityNotFoundException {
         Assert.notNull(userReqDTO, "User must not be null");
         User user = getById(id);
         mapper.toUpdate(user, userReqDTO);
@@ -68,15 +68,15 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public void delete (int id) {
+    public void delete (int id) throws EntityNotFoundException {
         repository.delete(getById(id));
     }
 
-    private User getById(Integer id) {
+    private User getById(Integer id) throws EntityNotFoundException {
         Optional<User> oUser = repository.findById(id);
         if(oUser.isPresent())
             return oUser.get();
         else
-            throw new NotFoundException(User.class);
+            throw new EntityNotFoundException();
     }
 }
