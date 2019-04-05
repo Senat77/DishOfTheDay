@@ -15,9 +15,10 @@ import rest.DishOfTheDay.domain.dto.VoteReqDTO;
 import rest.DishOfTheDay.domain.dto.VoteRespDTO;
 import rest.DishOfTheDay.service.VoteService;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
+import rest.DishOfTheDay.util.exception.PollNotActiveException;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,19 +48,19 @@ public class VoteRestController extends AbstractRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create(@NonNull final Authentication authentication,
-                                    @Validated({VoteReqDTO.New.class}) @RequestBody VoteReqDTO voteDTO) {
+                                    @Validated({VoteReqDTO.New.class}) @RequestBody VoteReqDTO voteDTO) throws PollNotActiveException, EntityNotFoundException {
         log.info("Create vote {}", voteDTO);
         return new ResponseEntity<>(service.create(getAuthUserId(authentication),voteDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping
-    public void delete(@NonNull final Authentication authentication) throws EntityNotFoundException {
+    public void delete(@NonNull final Authentication authentication) throws EntityNotFoundException, PollNotActiveException {
         service.delete(getAuthUserId(authentication));
     }
 
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public VoteRespDTO update(@NonNull final Authentication authentication,
-                              @Validated({VoteReqDTO.New.class}) @RequestBody VoteReqDTO voteDTO) throws EntityNotFoundException {
+                              @Validated({VoteReqDTO.New.class}) @RequestBody VoteReqDTO voteDTO) throws EntityNotFoundException, PollNotActiveException {
         return service.update(getAuthUserId(authentication), voteDTO);
     }
 }

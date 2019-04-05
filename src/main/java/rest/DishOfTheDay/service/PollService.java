@@ -33,8 +33,6 @@ public class PollService {
 
     private final PollMapper mapper;
 
-    public static LocalTime END_OF_POLL_TIME = LocalTime.of(11,0,0);
-
     @Autowired
     public PollService(PollRepository repository, VotingHistoryRepository history, PollMapper mapper) {
         this.repository = repository;
@@ -49,10 +47,8 @@ public class PollService {
         if(checkSetOfMenus(poll.getMenus()))
             throw new IllegalMenuSetOfPollException();
         repository.save(poll);
-        //history.save(new VotingHistory(pollDTO.getId(), null));
         log.info("Poll created : {}", poll);
-        PollRespDTO pollRespDTO = mapper.fromPoll(poll);
-        return pollRespDTO;
+        return mapper.fromPoll(poll);
     }
 
     public PollRespDTO get(LocalDate id) throws EntityNotFoundException {

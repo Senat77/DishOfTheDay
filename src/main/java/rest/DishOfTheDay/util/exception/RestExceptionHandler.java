@@ -52,6 +52,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(PollNotActiveException.class)
+    protected ResponseEntity<Object> handlePollNotActive(PollNotActiveException ex, WebRequest request) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, "Poll exist, but not active", ex);
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(IllegalMenuSetOfPollException.class)
     protected  ResponseEntity<Object> handleIllegalMenuSetOfPollException(IllegalMenuSetOfPollException ex, WebRequest request) {
         ApiError apiError = new ApiError(BAD_REQUEST, "Illegal Menu set of Poll", ex);

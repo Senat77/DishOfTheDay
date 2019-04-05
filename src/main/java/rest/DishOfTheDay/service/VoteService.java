@@ -9,11 +9,14 @@ import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Vote;
 import rest.DishOfTheDay.domain.dto.VoteReqDTO;
 import rest.DishOfTheDay.domain.dto.VoteRespDTO;
+import rest.DishOfTheDay.repository.PollRepository;
 import rest.DishOfTheDay.repository.VoteRepository;
 import rest.DishOfTheDay.service.mapper.VoteMapper;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
+import rest.DishOfTheDay.util.exception.PollNotActiveException;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @Service
@@ -24,11 +27,16 @@ public class VoteService {
 
     private final VoteRepository repository;
 
+    private final PollRepository pollRepository;
+
     private VoteMapper mapper;
 
+    public static LocalTime END_OF_POLL_TIME = LocalTime.of(11,0,0);
+
     @Autowired
-    public VoteService(VoteRepository repository, VoteMapper mapper) {
+    public VoteService(VoteRepository repository, PollRepository pollRepository, VoteMapper mapper) {
         this.repository = repository;
+        this.pollRepository = pollRepository;
         this.mapper = mapper;
     }
 
@@ -41,38 +49,43 @@ public class VoteService {
     }
 
     @Transactional
-    public VoteRespDTO create(int userId, VoteReqDTO voteDTO) {
-        Assert.notNull(voteDTO, "Vote must not be null");
-        voteDTO.setUser_id(userId);
-        Vote vote = mapper.toVote(voteDTO);
-        repository.save(vote);
-        log.info("Vote created : {}", vote);
-        return mapper.fromVote(vote);
+    public VoteRespDTO create(int userId, VoteReqDTO voteDTO) throws PollNotActiveException, EntityNotFoundException {
+        if(ifVotesEnabled()) {
+            voteDTO.setUser_id(userId);
+            Vote vote = mapper.toVote(voteDTO);
+            repository.save(vote);
+            log.info("Vote created : {}", vote);
+            return mapper.fromVote(vote);
+        }
+        return null;
     }
 
     @Transactional
-    public void delete(int userId) throws EntityNotFoundException {
-        Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
-        if(oVote.isPresent())
-            repository.delete(oVote.get());
-        else
-            throw new EntityNotFoundException();
+    public void delete(int userId) throws EntityNotFoundException, PollNotActiveException {
+        if(ifVotesEnabled()) {
+            Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
+            if (oVote.isPresent())
+                repository.delete(oVote.get());
+            else
+                throw new EntityNotFoundException();
+        }
     }
 
     @Transactional
-    public VoteRespDTO update(int userId, VoteReqDTO voteDTO) throws EntityNotFoundException {
-        Assert.notNull(voteDTO, "Vote must not be null");
-        Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
-        Vote vote;
-        if (oVote.isPresent()) {
-            vote = oVote.get();
+    public VoteRespDTO update(int userId, VoteReqDTO voteDTO) throws EntityNotFoundException, PollNotActiveException {
+        if(ifVotesEnabled()) {
+            Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
+            Vote vote;
+            if (oVote.isPresent()) {
+                vote = oVote.get();
+            } else {
+                throw new EntityNotFoundException();
+            }
+            mapper.toUpdate(vote, voteDTO);
+            log.debug("[i] Vote with id={} updated : {}", vote.getId(), vote);
+            return mapper.fromVote(vote);
         }
-        else {
-            throw new EntityNotFoundException();
-        }
-        mapper.toUpdate(vote, voteDTO);
-        log.debug("[i] Vote with id={} updated : {}", vote.getId(), vote);
-        return mapper.fromVote(vote);
+        return null;
     }
 
     private Vote getById(Integer id) throws EntityNotFoundException {
@@ -81,5 +94,21 @@ public class VoteService {
             return oVote.get();
         else
             throw new EntityNotFoundException();
-}
+    }
+
+    private boolean ifPollExist() {
+        return (pollRepository.getOne(LocalDate.now()) != null);
+    }
+
+    private boolean ifPollActive() {
+        return (LocalTime.now().isBefore(END_OF_POLL_TIME));
+    }
+
+    private boolean ifVotesEnabled() throws EntityNotFoundException, PollNotActiveException {
+        if(!ifPollExist())
+            throw new EntityNotFoundException();
+        if(!ifPollActive())
+            throw new PollNotActiveException();
+        return true;
+    }
 }
