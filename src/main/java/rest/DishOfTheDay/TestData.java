@@ -69,5 +69,9 @@ public class TestData {
             menuRepository.saveAll(menus);
             pollRepository.saveAll(Set.of(POLL));
             voteRepository.saveAll(votes);
-        }
+    }
+
+    public void populate(UserRepository userRepository) {
+        userRepository.save(ADMIN);
+    }
 }
