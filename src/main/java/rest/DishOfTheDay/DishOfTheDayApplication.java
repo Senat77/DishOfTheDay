@@ -38,7 +38,7 @@ public class DishOfTheDayApplication {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
-	@Profile("dev")
+	@Profile({"dev","demo"})
 	@Bean
 	public CommandLineRunner demoData(TestData testData,
 									  UserRepository userRepository,
