@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import rest.DishOfTheDay.repository.*;
@@ -38,7 +37,6 @@ public class DishOfTheDayApplication {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
-	@Profile({"dev","demo"})
 	@Bean
 	public CommandLineRunner demoData(TestData testData,
 									  UserRepository userRepository,
@@ -47,13 +45,6 @@ public class DishOfTheDayApplication {
 									  PollRepository pollRepository,
 									  VoteRepository voteRepository) {
 		return args -> testData.populate(restaurantRepository, userRepository, menuRepository, pollRepository, voteRepository);
-	}
-
-	@Profile("prod")
-	@Bean
-	public CommandLineRunner demoData(TestData testData,
-									  UserRepository userRepository) {
-		return args -> testData.populate(userRepository);
 	}
 }
 

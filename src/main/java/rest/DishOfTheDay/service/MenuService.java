@@ -55,9 +55,9 @@ public class MenuService {
         }
         else
             throw new EntityNotFoundException();
-        Optional<Menu> oMenu = repository.findFirstByRestaurant_IdOrderByDateDesc(id);
-        if(oMenu.isPresent()) {
-            return mapper.fromMenu(oMenu.get());
+        Menu menu = repository.getLastMenuByRestaurant(restaurant);
+        if(menu != null) {
+            return mapper.fromMenu(menu);
         }
         else
             throw new EntityNotFoundException();

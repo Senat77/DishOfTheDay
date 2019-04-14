@@ -140,13 +140,6 @@
             <scope>test</scope>
         </dependency>
 
-		<!-- For tests -->
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-			<version>5.2.4</version>
-		</dependency>
-
     </dependencies>
 
 	<build>
@@ -199,6 +192,8 @@
 							-Amapstruct.unmappedTargetPolicy=ignore
 						</compilerArg>
 					</compilerArgs>
+					<source>11</source>
+					<target>11</target>
 				</configuration>
 			</plugin>
 
