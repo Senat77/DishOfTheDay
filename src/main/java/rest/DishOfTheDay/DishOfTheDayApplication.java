@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import rest.DishOfTheDay.repository.*;
@@ -38,6 +39,7 @@ public class DishOfTheDayApplication {
 	}
 
 	@Bean
+	@Profile("demo")
 	public CommandLineRunner demoData(TestData testData,
 									  UserRepository userRepository,
 									  RestaurantRepository restaurantRepository,
@@ -45,6 +47,12 @@ public class DishOfTheDayApplication {
 									  PollRepository pollRepository,
 									  VoteRepository voteRepository) {
 		return args -> testData.populate(restaurantRepository, userRepository, menuRepository, pollRepository, voteRepository);
+	}
+
+	@Bean
+	@Profile("prod")
+	public CommandLineRunner prodData(TestData testData, UserRepository userRepository) {
+		return args -> testData.populate(userRepository);
 	}
 }
 

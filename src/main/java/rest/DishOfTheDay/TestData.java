@@ -70,4 +70,8 @@ public class TestData {
             pollRepository.saveAll(Set.of(POLL));
             voteRepository.saveAll(votes);
     }
+
+    public void populate(UserRepository userRepository) {
+        userRepository.save(ADMIN);
+    }
 }

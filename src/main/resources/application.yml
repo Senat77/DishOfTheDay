@@ -11,6 +11,8 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
+  profiles:
+    active: @spring.profiles.active@
 
 logging:
   level:
