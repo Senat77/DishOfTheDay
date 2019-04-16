@@ -6,4 +6,5 @@ import rest.DishOfTheDay.domain.Restaurant;
 
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
+    Restaurant findByName(String name);
 }
