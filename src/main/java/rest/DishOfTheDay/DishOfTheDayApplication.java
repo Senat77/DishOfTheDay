@@ -23,6 +23,7 @@ public class DishOfTheDayApplication {
 
     // https://stackoverflow.com/questions/9318116/how-to-run-h2-database-in-server-mode
 	// url : jdbc:h2:tcp://localhost:9092/mem:dishoftheday
+	@Profile("!test")
 	@Bean(initMethod = "start", destroyMethod = "stop")
 	public Server h2Server() throws SQLException {
 		return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");

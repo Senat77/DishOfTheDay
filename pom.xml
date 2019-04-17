@@ -25,12 +25,18 @@
 
 	<profiles>
 		<profile>
-			<id>demo</id>
+			<id>dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<spring.profiles.active>demo</spring.profiles.active>
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<spring.profiles.active>test</spring.profiles.active>
 			</properties>
 		</profile>
 		<profile>

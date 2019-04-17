@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import rest.DishOfTheDay.domain.User;
 import rest.DishOfTheDay.repository.UserRepository;
 
 @Component
@@ -16,8 +17,10 @@ public class CustomUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
 
-        return userRepository.findByName(name)
-                .map(user -> new AuthUser(user))
-                .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+        User user  = userRepository.findByName(name);
+        if(user != null)
+            return new AuthUser(user);
+        else
+            throw new UsernameNotFoundException("User not found!");
     }
 }
