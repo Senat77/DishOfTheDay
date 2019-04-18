@@ -10,6 +10,7 @@ import rest.DishOfTheDay.domain.Vote;
 import rest.DishOfTheDay.domain.VotingHistory;
 import rest.DishOfTheDay.domain.dto.MenuWithVotes;
 import rest.DishOfTheDay.domain.dto.VotingResult;
+import rest.DishOfTheDay.repository.PollRepository;
 import rest.DishOfTheDay.repository.VoteRepository;
 import rest.DishOfTheDay.repository.VotingHistoryRepository;
 import rest.DishOfTheDay.service.mapper.MenuMapper;
@@ -29,13 +30,16 @@ public class VotingResultService {
 
     private final VoteRepository voteRepository;
 
+    private final PollRepository pollRepository;
+
     private final VotingHistoryRepository votingHistoryRepository;
 
     private final MenuMapper mapper;
 
     @Autowired
-    public VotingResultService(VoteRepository voteRepository, VotingHistoryRepository votingHistoryRepository, MenuMapper mapper) {
+    public VotingResultService(VoteRepository voteRepository, PollRepository pollRepository, VotingHistoryRepository votingHistoryRepository, MenuMapper mapper) {
         this.voteRepository = voteRepository;
+        this.pollRepository = pollRepository;
         this.votingHistoryRepository = votingHistoryRepository;
         this.mapper = mapper;
     }
@@ -43,7 +47,7 @@ public class VotingResultService {
     @Transactional
     public void updateResult() {
         LocalDate date = LocalDate.now();
-        List<Vote> voteCounter = voteRepository.findByPollId(date);
+        List<Vote> voteCounter = voteRepository.findByPoll(pollRepository.getOne(date));
         Map<Menu, Long> map = voteCounter.stream()
                 .collect(Collectors.groupingBy(Vote::getMenu, Collectors.counting()));
         List<MenuWithVotes> list = new ArrayList<>();

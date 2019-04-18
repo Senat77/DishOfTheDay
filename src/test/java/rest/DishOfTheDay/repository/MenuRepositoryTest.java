@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @DataJpaTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 public class MenuRepositoryTest {
 
     @Autowired

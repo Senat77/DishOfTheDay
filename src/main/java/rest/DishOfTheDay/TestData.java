@@ -30,20 +30,20 @@ public class TestData {
 
     // Restaurants
 
-    public final Restaurant RESTAURANT1 = new Restaurant("Воронцов", "ул.Ришельевская, 55", "vorontsov@od.ua");
-    public final Restaurant RESTAURANT2 = new Restaurant("Мистер Кэт", "ул.Екатерининская, 11", null);
-    public final Restaurant RESTAURANT3 = new Restaurant("Галактика", "пр.Маршала Жукова, 33", "admin@galactica.od.ua");
+    public final Restaurant RESTAURANT1 = new Restaurant("Restaurant1", "Address1", "restaurant1@site.com");
+    public final Restaurant RESTAURANT2 = new Restaurant("Restaurant2", "Address2", null);
+    public final Restaurant RESTAURANT3 = new Restaurant("Restaurant3", "Address3", "restaurant3@site.com");
 
     public final List<Restaurant> restaurants = List.of(RESTAURANT1, RESTAURANT2, RESTAURANT3);
 
     // Menus
 
     LocalDate date = LocalDate.now();
-    public final Menu MENU1_1 = new Menu(RESTAURANT1, List.of(new Dish("Первое", 1), new Dish("Второе", 2)));
-    public final Menu MENU1_3 = new Menu(date.minusDays(1), RESTAURANT1, List.of(new Dish("Беляш", 11), new Dish("Кофе", 21)));
-    public final Menu MENU1_2 = new Menu(date.minusDays(2), RESTAURANT1, List.of(new Dish("Гуляш", 1), new Dish("Чай", 2), new Dish("Салат Весенний", 10)));
-    public final Menu MENU2 = new Menu(RESTAURANT2, List.of(new Dish("Борщ", 3), new Dish("Котлета", 4)));
-    public final Menu MENU3 = new Menu(RESTAURANT3, List.of(new Dish("Суши", 5), new Dish("Чай", 6)));
+    public final Menu MENU1_1 = new Menu(RESTAURANT1, List.of(new Dish("Dish1", 1), new Dish("Dish2", 2)));
+    public final Menu MENU1_3 = new Menu(date.minusDays(1), RESTAURANT1, List.of(new Dish("Dish3", 3), new Dish("Dish4", 4)));
+    public final Menu MENU1_2 = new Menu(date.minusDays(2), RESTAURANT1, List.of(new Dish("Dish5", 5), new Dish("Dish6", 6), new Dish("Dish7", 7)));
+    public final Menu MENU2 = new Menu(RESTAURANT2, List.of(new Dish("Dish8", 8), new Dish("Dish9", 9)));
+    public final Menu MENU3 = new Menu(RESTAURANT3, List.of(new Dish("Dish10", 10), new Dish("Dish11", 11)));
 
     public final Set<Menu> menus = Set.of(MENU1_1,MENU1_3,MENU1_2, MENU2, MENU3);
 

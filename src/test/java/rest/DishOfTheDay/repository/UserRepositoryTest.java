@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @DataJpaTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 class UserRepositoryTest {
 
     @Autowired

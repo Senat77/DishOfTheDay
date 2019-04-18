@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import rest.DishOfTheDay.domain.Vote;
 import rest.DishOfTheDay.domain.dto.VoteReqDTO;
 import rest.DishOfTheDay.domain.dto.VoteRespDTO;
 import rest.DishOfTheDay.repository.PollRepository;
+import rest.DishOfTheDay.repository.UserRepository;
 import rest.DishOfTheDay.repository.VoteRepository;
 import rest.DishOfTheDay.service.mapper.VoteMapper;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
@@ -29,21 +29,24 @@ public class VoteService {
 
     private final PollRepository pollRepository;
 
+    private final UserRepository userRepository;
+
     private VoteMapper mapper;
 
     public static LocalTime END_OF_POLL_TIME = LocalTime.of(11,0,0);
 
     @Autowired
-    public VoteService(VoteRepository repository, PollRepository pollRepository, VoteMapper mapper) {
+    public VoteService(VoteRepository repository, PollRepository pollRepository, UserRepository userRepository, VoteMapper mapper) {
         this.repository = repository;
         this.pollRepository = pollRepository;
+        this.userRepository = userRepository;
         this.mapper = mapper;
     }
 
     public VoteRespDTO getVote(Integer userId, LocalDate date) throws EntityNotFoundException {
-        Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, date);
-        if(oVote.isPresent())
-            return mapper.fromVote(oVote.get());
+        Vote vote = repository.findByUserAndPoll(userRepository.getOne(userId), pollRepository.getOne(date));
+        if(vote != null)
+            return mapper.fromVote(vote);
         else
             throw new EntityNotFoundException();
     }
@@ -63,9 +66,9 @@ public class VoteService {
     @Transactional
     public void delete(int userId) throws EntityNotFoundException, PollNotActiveException {
         if(ifVotesEnabled()) {
-            Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
-            if (oVote.isPresent())
-                repository.delete(oVote.get());
+            Vote vote = repository.findByUserAndPoll(userRepository.getOne(userId), pollRepository.getOne(LocalDate.now()));
+            if (vote != null)
+                repository.delete(vote);
             else
                 throw new EntityNotFoundException();
         }
@@ -74,13 +77,9 @@ public class VoteService {
     @Transactional
     public VoteRespDTO update(int userId, VoteReqDTO voteDTO) throws EntityNotFoundException, PollNotActiveException {
         if(ifVotesEnabled()) {
-            Optional<Vote> oVote = repository.findByUserIdAndPollId(userId, LocalDate.now());
-            Vote vote;
-            if (oVote.isPresent()) {
-                vote = oVote.get();
-            } else {
+            Vote vote = repository.findByUserAndPoll(userRepository.getOne(userId), pollRepository.getOne(LocalDate.now()));
+            if (vote == null)
                 throw new EntityNotFoundException();
-            }
             mapper.toUpdate(vote, voteDTO);
             log.debug("[i] Vote with id={} updated : {}", vote.getId(), vote);
             return mapper.fromVote(vote);
