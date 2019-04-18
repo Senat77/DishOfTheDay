@@ -4,11 +4,10 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import rest.DishOfTheDay.domain.Dish;
-import rest.DishOfTheDay.domain.Menu;
-import rest.DishOfTheDay.domain.Restaurant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static rest.DishOfTheDay.TestData.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,25 +21,19 @@ public class MenuRepositoryTest {
     @Autowired
     RestaurantRepository restaurantRepository;
 
-    private Restaurant restaurant1, restaurant2;
-
     @BeforeEach
     public void setUp() {
-        LocalDate date = LocalDate.now();
-        restaurant1 = new Restaurant("Name1", "Address1", "Email1@email.com");
-        restaurant2 = new Restaurant("Name2", "Address2", "Email2@email.com");
-        restaurantRepository.saveAll(List.of(restaurant1, restaurant2));
-        menuRepository.save(new Menu(date, restaurant1, List.of(new Dish("NewDish", 1))));
-        menuRepository.save(new Menu(date.minusDays(1), restaurant1, List.of(new Dish("NewDish2", 2))));
+        restaurantRepository.saveAll(List.of(RESTAURANT1, RESTAURANT2));
+        menuRepository.saveAll(List.of(MENU1_1));
     }
 
     @Test
     public void getLastMenuByRestaurant() {
-        assertThat(menuRepository.getLastMenuByRestaurant(restaurant1).getDate()).isEqualTo(LocalDate.now());
+        assertThat(menuRepository.getLastMenuByRestaurant(RESTAURANT1).getDate()).isEqualTo(LocalDate.now());
     }
 
     @Test
     public void getLastMenuByRestaurant_NotFound() {
-        assertNull(menuRepository.getLastMenuByRestaurant(restaurant2));
+        assertNull(menuRepository.getLastMenuByRestaurant(RESTAURANT2));
     }
 }

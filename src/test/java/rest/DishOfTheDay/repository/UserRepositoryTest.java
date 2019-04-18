@@ -21,7 +21,7 @@ class UserRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        admin = new User("admin", "admin", "admin@mail.com", Set.of(User.Role.ROLE_ADMIN));
+        admin = new User("admin", "admin", "admin@mail.com", Set.of(User.Role.ROLE_ADMIN, User.Role.ROLE_USER));
         user = new User("user", "user", "user@mail.com", Set.of(User.Role.ROLE_USER));
         repository.saveAll(List.of(admin, user));
     }

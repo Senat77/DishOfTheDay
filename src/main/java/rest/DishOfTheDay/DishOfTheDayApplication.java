@@ -41,19 +41,19 @@ public class DishOfTheDayApplication {
 
 	@Bean
 	@Profile("demo")
-	public CommandLineRunner demoData(TestData testData,
-									  UserRepository userRepository,
-									  RestaurantRepository restaurantRepository,
-									  MenuRepository menuRepository,
-									  PollRepository pollRepository,
-									  VoteRepository voteRepository) {
-		return args -> testData.populate(restaurantRepository, userRepository, menuRepository, pollRepository, voteRepository);
+	public CommandLineRunner demoData(DemoData demoData,
+                                      UserRepository userRepository,
+                                      RestaurantRepository restaurantRepository,
+                                      MenuRepository menuRepository,
+                                      PollRepository pollRepository,
+                                      VoteRepository voteRepository) {
+		return args -> demoData.populate(restaurantRepository, userRepository, menuRepository, pollRepository, voteRepository);
 	}
 
 	@Bean
 	@Profile("prod")
-	public CommandLineRunner prodData(TestData testData, UserRepository userRepository) {
-		return args -> testData.populate(userRepository);
+	public CommandLineRunner prodData(DemoData demoData, UserRepository userRepository) {
+		return args -> demoData.populate(userRepository);
 	}
 }
 

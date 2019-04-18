@@ -3,7 +3,6 @@ package rest.DishOfTheDay.domain;
 import lombok.*;
 import org.hibernate.annotations.Type;
 import rest.DishOfTheDay.domain.base.BaseEntity;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -20,7 +19,7 @@ public class Menu extends BaseEntity {
     @Column (name = "date", nullable = false)
     private LocalDate date;
 
-    @NonNull
+    @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Restaurant restaurant;
 
@@ -32,14 +31,14 @@ public class Menu extends BaseEntity {
     public Menu() {
     }
 
-    public Menu(@NotNull LocalDate date, @NonNull Restaurant restaurant, List<Dish> dishes) {
+    public Menu(@NotNull LocalDate date, @NotNull Restaurant restaurant, @NotNull List<Dish> dishes) {
         this.id = null;
         this.date = date;
         this.restaurant = restaurant;
         this.dishes = dishes;
     }
 
-    public Menu(@NotNull Restaurant restaurant, List<Dish> dishes) {
+    public Menu(@NotNull Restaurant restaurant, @NotNull List<Dish> dishes) {
         this(LocalDate.now(), restaurant, dishes);
     }
 }

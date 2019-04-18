@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Component
 @NoArgsConstructor
-public class TestData {
+public class DemoData {
 
     private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
