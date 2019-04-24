@@ -1,0 +1,17 @@
+RESTAURANT :
+  - ID: 101
+    NAME: "Restaurant1"
+    ADDRESS: "Address1"
+    EMAIL: "restaurant1@email.com"
+  - ID: 102
+    NAME: "Restaurant2"
+    ADDRESS: "Address2"
+    EMAIL: null
+  - ID: 103
+    NAME: "Restaurant3"
+    ADDRESS: "Address3"
+    EMAIL: "restaurant3@email.com"
+  - ID: 104
+    NAME: "Restaurant4"
+    ADDRESS: "Address4"
+    EMAIL: "restaurant4@email.com"
