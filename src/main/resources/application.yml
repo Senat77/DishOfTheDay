@@ -1,18 +1,21 @@
 spring:
+
+  profiles:
+    active: prod
+
   datasource:
     url: jdbc:h2:mem:dishoftheday
     driverClassName: org.h2.Driver
     username: sa
     password:
     platform: h2
+
   jpa:
     show-sql: true
     properties:
       hibernate:
         format_sql: true
     open-in-view: false
-  profiles:
-    active: test
 
 logging:
   level:

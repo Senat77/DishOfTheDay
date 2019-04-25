@@ -1,19 +1,38 @@
-package rest.DishOfTheDay;
+package rest.DishOfTheDay.util;
 
-import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import rest.DishOfTheDay.domain.*;
 import rest.DishOfTheDay.repository.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+@Profile("demo")
 @Component
-@NoArgsConstructor
-public class DemoData {
+public class DemoData implements AbstractData {
+
+    private final UserRepository userRepository;
+
+    private final RestaurantRepository restaurantRepository;
+
+    private final MenuRepository menuRepository;
+
+    private final PollRepository pollRepository;
+
+    private final VoteRepository voteRepository;
+
+    @Autowired
+    public DemoData(UserRepository userRepository, RestaurantRepository restaurantRepository, MenuRepository menuRepository, PollRepository pollRepository, VoteRepository voteRepository) {
+        this.userRepository = userRepository;
+        this.restaurantRepository = restaurantRepository;
+        this.menuRepository = menuRepository;
+        this.pollRepository = pollRepository;
+        this.voteRepository = voteRepository;
+    }
 
     private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
@@ -59,19 +78,11 @@ public class DemoData {
 
     public final List<Vote> votes = List.of(VOTE1, VOTE2, VOTE3, VOTE4);
 
-    public void populate(RestaurantRepository restaurantRepository,
-                         UserRepository userRepository,
-                         MenuRepository menuRepository,
-                         PollRepository pollRepository,
-                         VoteRepository voteRepository) {
+    public void populate() {
             userRepository.saveAll(users);
             restaurantRepository.saveAll(restaurants);
             menuRepository.saveAll(menus);
             pollRepository.saveAll(Set.of(POLL));
             voteRepository.saveAll(votes);
-    }
-
-    public void populate(UserRepository userRepository) {
-        userRepository.save(ADMIN);
     }
 }

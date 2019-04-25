@@ -1,14 +1,15 @@
 package rest.DishOfTheDay.repository;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import rest.DishOfTheDay.domain.User;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -19,7 +20,7 @@ class UserRepositoryTest {
 
     private User user, admin;
 
-    @BeforeEach
+    @BeforeClass
     void setUp() {
         admin = new User("admin", "admin", "admin@mail.com", Set.of(User.Role.ROLE_ADMIN, User.Role.ROLE_USER));
         user = new User("user", "user", "user@mail.com", Set.of(User.Role.ROLE_USER));
