@@ -38,6 +38,7 @@ public abstract class BaseEntity implements ITransfer {
         return String.format("Entity %s (%s", getClass().getName(), id);
     }
 
+    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,6 +46,7 @@ public abstract class BaseEntity implements ITransfer {
         BaseEntity that = (BaseEntity) o;
         return id != null && id.equals(that.id);
     }
+     */
 
     @Override
     public int hashCode() {return 31;}
