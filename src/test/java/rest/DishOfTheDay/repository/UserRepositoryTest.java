@@ -1,39 +1,39 @@
 package rest.DishOfTheDay.repository;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit4.SpringRunner;
 import rest.DishOfTheDay.domain.User;
 import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
+@Profile("test")
+@RunWith(SpringRunner.class)
 @DataJpaTest
-@ActiveProfiles("test")
-class UserRepositoryTest {
+public class UserRepositoryTest {
 
     @Autowired
     UserRepository repository;
 
-    private User user, admin;
-
-    @BeforeClass
-    void setUp() {
-        admin = new User("admin", "admin", "admin@mail.com", Set.of(User.Role.ROLE_ADMIN, User.Role.ROLE_USER));
-        user = new User("user", "user", "user@mail.com", Set.of(User.Role.ROLE_USER));
-        repository.saveAll(List.of(admin, user));
-    }
-
     @Test
+    @Sql(scripts = {"/TestData/test-users-data.sql"})
     public void findByNameWithRoles() {
         assertEquals(repository.findByName("admin").getRoles(), Set.of(User.Role.ROLE_ADMIN));
     }
 
     @Test
+    @Sql(scripts = {"/TestData/test-users-data.sql"})
     public void userNotFound() {
-        assertEquals(repository.findByName("not_existing_user"), null);
+        assertNull(repository.findByName("not_existing_user"));
     }
 }
