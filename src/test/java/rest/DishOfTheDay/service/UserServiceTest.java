@@ -3,20 +3,21 @@ package rest.DishOfTheDay.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
+import rest.DishOfTheDay.domain.User;
+import rest.DishOfTheDay.domain.dto.UserRespDTO;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED;
+import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@Transactional(propagation = NOT_SUPPORTED)
 @Profile("test")
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class UserServiceTest {
 
     @Autowired
@@ -25,7 +26,9 @@ public class UserServiceTest {
     @Test
     @Sql(scripts = {"/TestData/test-users-data.sql"})
     public void getAll() {
-        assertThat(userService.getAll()).hasSize(5);
+        List<UserRespDTO> users = userService.getAll();
+        assertThat(users).hasSize(6);
+        assertEquals(users.get(0).getName(), "admin");
     }
 
     @Test
