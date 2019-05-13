@@ -38,15 +38,16 @@ public abstract class BaseEntity implements ITransfer {
         return String.format("Entity %s (%s", getClass().getName(), id);
     }
 
-    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!getClass().isInstance(o)) return false;
+        /*
         BaseEntity that = (BaseEntity) o;
         return id != null && id.equals(that.id);
+         */
+        return getId() != null && getId().equals(((BaseEntity) o).getId());
     }
-     */
 
     @Override
     public int hashCode() {return 31;}

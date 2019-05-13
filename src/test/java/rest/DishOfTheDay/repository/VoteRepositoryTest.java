@@ -39,24 +39,11 @@ public class VoteRepositoryTest {
 
     @Test
     @Sql(scripts = {"/TestData/test-users-data.sql",
-                    "/TestData/test-restaurants-data.sql",
-                    "/TestData/test-menus-data.sql",
-                    "/TestData/test-polls-data.sql",
-                    "/TestData/test-votes-data.sql"})
-    public void findByUserAndPollTest() {
-        User user = userRepository.findByName("user3");
-        Poll poll = pollRepository.getOne(LocalDate.now());
-        Menu menu = menuRepository.getOne(204);
-        assertEquals(voteRepository.findByUserAndPoll(user, poll).getId(), Integer.valueOf(303));
-    }
-
-    @Test
-    @Sql(scripts = {"/TestData/test-users-data.sql",
             "/TestData/test-restaurants-data.sql",
             "/TestData/test-menus-data.sql",
             "/TestData/test-polls-data.sql",
             "/TestData/test-votes-data.sql"})
-    public void findByUserAndPollTest2() {
+    public void findByUserAndPollTest() {
         User user = userRepository.findByName("user3");
         Poll poll = pollRepository.getOne(LocalDate.now());
         Menu menu = menuRepository.getOne(204);
