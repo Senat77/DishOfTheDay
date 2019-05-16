@@ -43,8 +43,8 @@ public class UserService {
     }
 
     @Cacheable("users")
-    public UserRespDTO get(int id) throws EntityNotFoundException {
-        return mapper.fromUser(getById(id));
+    public UserRespDTO get(int id) {
+        return mapper.fromUser(repository.getOne(id));
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -58,9 +58,9 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public UserRespDTO update(int id, UserReqDTO userReqDTO) throws EntityNotFoundException {
+    public UserRespDTO update(int id, UserReqDTO userReqDTO) {
         Assert.notNull(userReqDTO, "User must not be null");
-        User user = getById(id);
+        User user = repository.getOne(id);
         mapper.toUpdate(user, userReqDTO);
         log.info("User with id={} updated : {}", id, user);
         return mapper.fromUser(user);
@@ -68,15 +68,7 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public void delete (int id) throws EntityNotFoundException {
-        repository.delete(getById(id));
-    }
-
-    private User getById(Integer id) throws EntityNotFoundException {
-        Optional<User> oUser = repository.findById(id);
-        if(oUser.isPresent())
-            return oUser.get();
-        else
-            throw new EntityNotFoundException();
+    public void delete (int id) {
+        repository.deleteById(id);
     }
 }

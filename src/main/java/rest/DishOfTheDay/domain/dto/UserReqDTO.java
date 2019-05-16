@@ -10,6 +10,12 @@ import javax.validation.constraints.Size;
 @Data
 public class UserReqDTO implements ITransfer {
 
+    public UserReqDTO(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     @NotBlank(groups = {New.class})
     @Size(min = 3, max = 32)
     private String name;
