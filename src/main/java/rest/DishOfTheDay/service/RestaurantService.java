@@ -15,6 +15,7 @@ import rest.DishOfTheDay.domain.dto.RestaurantReqDTO;
 import rest.DishOfTheDay.domain.dto.RestaurantRespDTO;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.service.mapper.RestaurantMapper;
+import rest.DishOfTheDay.service.mapper.RestaurantMapperImpl;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -26,15 +27,19 @@ public class RestaurantService {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final RestaurantRepository repository;
+    @Autowired
+    private RestaurantRepository repository;
 
-    private final RestaurantMapper mapper;
+    @Autowired
+    private RestaurantMapper mapper;
 
+    /*
     @Autowired
     public RestaurantService(RestaurantRepository repository, RestaurantMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
+    */
 
     @Cacheable("restaurants")
     public List<RestaurantRespDTO> getAll() {

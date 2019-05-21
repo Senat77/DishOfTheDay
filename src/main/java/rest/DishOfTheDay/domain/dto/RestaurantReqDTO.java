@@ -1,7 +1,7 @@
 package rest.DishOfTheDay.domain.dto;
 
 import lombok.Data;
-
+import rest.DishOfTheDay.domain.base.ITransfer;
 import javax.validation.constraints.*;
 
 @Data
@@ -17,4 +17,12 @@ public class RestaurantReqDTO extends BaseEntityDTO {
 
     @Email
     private String email;
+
+    public RestaurantReqDTO(@NotBlank(groups = {New.class}) @Size(min = 3, max = 32) String name,
+                            @NotBlank(groups = {New.class}) @Size(min = 3, max = 32) String address,
+                            @Email String email) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+    }
 }
