@@ -56,7 +56,7 @@ public class RestaurantServiceTest {
     @Before
     public void setUp() {
         Restaurant restaurant1 = new Restaurant(0, "Restaurant1","Address1", "restaurant1@site.com");
-        Restaurant restaurant2 = new Restaurant(0, "Restaurant2","Address2", "restaurant2@site.com");
+        Restaurant restaurant2 = new Restaurant(1, "Restaurant2","Address2", "restaurant2@site.com");
         Mockito.when(repository.findByName(restaurant1.getName())).thenReturn(restaurant1);
         Mockito.when(repository.findByName(restaurant2.getName())).thenReturn(restaurant2);
         Mockito.when(repository.findById(1)).thenReturn(java.util.Optional.of(restaurant2));
@@ -74,20 +74,5 @@ public class RestaurantServiceTest {
     public void get() throws EntityNotFoundException {
         RestaurantRespDTO restaurantRespDTO = service.get(1);
         assertThat(restaurantRespDTO.getEmail()).isEqualTo("restaurant2@site.com");
-    }
-
-    @Test
-    public void create() {
-        RestaurantReqDTO restaurant3 = new RestaurantReqDTO ("Restaurant3", "Address3", "Restaurant3@site.com");
-        RestaurantRespDTO restaurantRespDTO = service.create(restaurant3);
-        assertThat(restaurantRespDTO.getName()).isEqualTo(restaurant3.getName());
-    }
-
-    @Test
-    public void update() {
-    }
-
-    @Test
-    public void delete() {
     }
 }

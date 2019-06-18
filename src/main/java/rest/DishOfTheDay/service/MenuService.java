@@ -17,8 +17,6 @@ import rest.DishOfTheDay.repository.MenuRepository;
 import rest.DishOfTheDay.repository.RestaurantRepository;
 import rest.DishOfTheDay.service.mapper.MenuMapper;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
-
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -35,9 +33,9 @@ public class MenuService {
     private final MenuMapper mapper;
 
     @Autowired
-    public MenuService(RestaurantRepository restaurantRepository, MenuRepository repository, RestaurantRepository restaurantRepository1, MenuMapper mapper) {
+    public MenuService(RestaurantRepository restaurantRepository, MenuRepository repository,  MenuMapper mapper) {
         this.repository = repository;
-        this.restaurantRepository = restaurantRepository1;
+        this.restaurantRepository = restaurantRepository;
         this.mapper = mapper;
     }
 
