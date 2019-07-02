@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import rest.DishOfTheDay.domain.dto.MenuRespDTO;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
+import java.time.LocalDate;
 import static org.junit.Assert.*;
 
 @Profile("test")
@@ -34,7 +36,14 @@ public class MenuServiceTest {
     }
 
     @Test
-    public void getLastByRestaurantId() {
+    public void getLastByRestaurantId() throws EntityNotFoundException {
+        MenuRespDTO menu = service.getLastByRestaurantId(101);
+        assertEquals(menu.getDate(), LocalDate.now());
+        assertEquals(menu.getRestaurant().getName(), "Restaurant1");
+    }
 
+    @Test (expected = EntityNotFoundException.class)
+    public void menuNotFound() throws EntityNotFoundException {
+        MenuRespDTO menu = service.getLastByRestaurantId(102);
     }
 }
