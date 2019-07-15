@@ -45,8 +45,8 @@ public class VotingResultService {
     }
 
     @Transactional
-    public void updateResult() {
-        LocalDate date = LocalDate.now();
+    public void updateResult(LocalDate date) {
+        //LocalDate date = LocalDate.now();
         List<Vote> voteCounter = voteRepository.findByPoll(pollRepository.getOne(date));
         Map<Menu, Long> map = voteCounter.stream()
                 .collect(Collectors.groupingBy(Vote::getMenu, Collectors.counting()));
@@ -62,9 +62,11 @@ public class VotingResultService {
     }
 
     public VotingResult getResult(LocalDate date) {
-        if (!date.isBefore(LocalDate.now())) {
-            updateResult();
+        Optional<VotingHistory> oHistory = votingHistoryRepository.findById(date);
+        if(date.isEqual(LocalDate.now()) || oHistory.isEmpty()) {
+            updateResult(date);
+            oHistory = votingHistoryRepository.findById(date);
         }
-        return votingHistoryRepository.getOne(date).getVotingResult();
+        return oHistory.get().getVotingResult();
     }
 }

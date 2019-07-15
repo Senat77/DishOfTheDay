@@ -62,27 +62,33 @@ public class DemoData implements AbstractData {
     public final Menu MENU1_3 = new Menu(date.minusDays(1), RESTAURANT1, List.of(new Dish("Dish3", 3), new Dish("Dish4", 4)));
     public final Menu MENU1_2 = new Menu(date.minusDays(2), RESTAURANT1, List.of(new Dish("Dish5", 5), new Dish("Dish6", 6), new Dish("Dish7", 7)));
     public final Menu MENU2 = new Menu(RESTAURANT2, List.of(new Dish("Dish8", 8), new Dish("Dish9", 9)));
-    public final Menu MENU3 = new Menu(RESTAURANT3, List.of(new Dish("Dish10", 10), new Dish("Dish11", 11)));
+    public final Menu MENU3_1 = new Menu(RESTAURANT3, List.of(new Dish("Dish10", 10), new Dish("Dish11", 11)));
+    public final Menu MENU3_2 = new Menu(date.minusDays(1), RESTAURANT3, List.of(new Dish("Dish12", 12), new Dish("Dish13", 13)));
 
-    public final Set<Menu> menus = Set.of(MENU1_1,MENU1_3,MENU1_2, MENU2, MENU3);
+    public final Set<Menu> menus = Set.of(MENU1_1,MENU1_3,MENU1_2, MENU2, MENU3_1, MENU3_2);
 
     // Polls
 
-    public final Poll POLL = new Poll(date, Set.of(MENU1_1,MENU2,MENU3));
+    public final Poll POLL1 = new Poll(date, Set.of(MENU1_1,MENU2,MENU3_1));
+    public final Poll POLL2 = new Poll(date.minusDays(1), Set.of(MENU1_3, MENU3_2));
 
     // Votes
-    public final Vote VOTE1 = new Vote(POLL, USER1, MENU1_1);
-    public final Vote VOTE2 = new Vote(POLL, USER2, MENU2);
-    public final Vote VOTE3 = new Vote(POLL, USER3, MENU3);
-    public final Vote VOTE4 = new Vote(POLL, USER4, MENU2);
+    public final Vote VOTE1 = new Vote(POLL1, USER1, MENU1_1);
+    public final Vote VOTE2 = new Vote(POLL1, USER2, MENU2);
+    public final Vote VOTE3 = new Vote(POLL1, USER3, MENU3_1);
+    public final Vote VOTE4 = new Vote(POLL1, USER4, MENU2);
+    public final Vote VOTE5 = new Vote(POLL2, USER1, MENU1_3);
+    public final Vote VOTE6 = new Vote(POLL2, USER2, MENU3_2);
+    public final Vote VOTE7 = new Vote(POLL2, USER3, MENU3_2);
+    public final Vote VOTE8 = new Vote(POLL2, USER4, MENU3_2);
 
-    public final List<Vote> votes = List.of(VOTE1, VOTE2, VOTE3, VOTE4);
+    public final List<Vote> votes = List.of(VOTE1, VOTE2, VOTE3, VOTE4, VOTE5, VOTE6, VOTE7, VOTE8);
 
     public void populate() {
             userRepository.saveAll(users);
             restaurantRepository.saveAll(restaurants);
             menuRepository.saveAll(menus);
-            pollRepository.saveAll(Set.of(POLL));
+            pollRepository.saveAll(Set.of(POLL1, POLL2));
             voteRepository.saveAll(votes);
     }
 }
