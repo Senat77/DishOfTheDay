@@ -38,7 +38,8 @@ public class VoteRepositoryTest {
     MenuRepository menuRepository;
 
     @Test
-    @Sql(scripts = {"/TestData/test-users-data.sql",
+    @Sql(scripts = {"/TestData/test-delete-all.sql",
+            "/TestData/test-users-data.sql",
             "/TestData/test-restaurants-data.sql",
             "/TestData/test-menus-data.sql",
             "/TestData/test-polls-data.sql",

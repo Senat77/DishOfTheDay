@@ -19,7 +19,8 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @SqlGroup({@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
-        scripts = {"/TestData/test-restaurants-data.sql",
+        scripts = {"/TestData/test-delete-all.sql",
+                    "/TestData/test-restaurants-data.sql",
                     "/TestData/test-menus-data.sql"})})
 public class MenuServiceTest {
 

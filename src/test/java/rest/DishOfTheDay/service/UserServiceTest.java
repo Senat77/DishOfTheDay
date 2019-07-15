@@ -25,7 +25,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @SqlGroup({@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
-           scripts = "/TestData/test-users-data.sql")})
+           scripts = {"/TestData/test-delete-all.sql",
+                      "/TestData/test-users-data.sql"})})
 public class UserServiceTest {
 
     @Autowired
