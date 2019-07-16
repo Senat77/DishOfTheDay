@@ -11,9 +11,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import rest.DishOfTheDay.domain.Poll;
 import rest.DishOfTheDay.domain.dto.PollReqDTO;
 import rest.DishOfTheDay.domain.dto.PollRespDTO;
+import rest.DishOfTheDay.repository.MenuRepository;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
+import rest.DishOfTheDay.util.exception.IllegalMenuSetOfPollException;
 
 import java.time.LocalDate;
 import java.util.Set;
+
+import static org.junit.Assert.*;
 
 @Profile("test")
 @RunWith(SpringRunner.class)
@@ -28,15 +33,21 @@ public class PollServiceTest {
     @Autowired
     PollService service;
 
+    @Autowired
+    MenuRepository menuRepository;
+
     @Test
-    public void create() {
+    public void create() throws IllegalMenuSetOfPollException, EntityNotFoundException {
         PollReqDTO pollReqDTO = new PollReqDTO();
         pollReqDTO.setId(LocalDate.now().plusDays(1));
         pollReqDTO.setMenu_id(Set.of(204, 205));
         PollRespDTO pollRespDTO = service.create(pollReqDTO);
+        assertEquals(pollRespDTO.getMenus().size(), 2);
+        assertNotNull(service.get(LocalDate.now().plusDays(1)));
     }
 
-    @Test
-    public void get() {
+    @Test (expected = EntityNotFoundException.class)
+    public void get() throws EntityNotFoundException {
+        PollRespDTO resp = service.get(LocalDate.now().plusDays(5));
     }
 }
