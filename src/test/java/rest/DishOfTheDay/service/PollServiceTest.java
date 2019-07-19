@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringRunner;
-import rest.DishOfTheDay.domain.Poll;
 import rest.DishOfTheDay.domain.dto.PollReqDTO;
 import rest.DishOfTheDay.domain.dto.PollRespDTO;
 import rest.DishOfTheDay.repository.MenuRepository;
