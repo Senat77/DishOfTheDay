@@ -100,6 +100,7 @@ public class VoteService {
     }
 
     private boolean ifPollActive() {
+        log.info("===== " + LocalTime.now() + " =====");
         return (LocalTime.now().isBefore(END_OF_POLL_TIME));
     }
 

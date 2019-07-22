@@ -1,5 +1,6 @@
 package rest.DishOfTheDay.service;
 
+import org.h2.util.DateTimeUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,8 @@ import rest.DishOfTheDay.domain.dto.VoteRespDTO;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 import rest.DishOfTheDay.util.exception.PollNotActiveException;
 
-import java.time.LocalDate;
+import java.time.*;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,6 +46,8 @@ public class VoteServiceTest {
 
     @Test
     public void create() throws PollNotActiveException, EntityNotFoundException {
+        //Instant.now(Clock.fixed(Instant.parse(LocalDate.now() + "T07:55:00Z"), ZoneOffset.systemDefault()));
+        Instant.now(Clock.fixed(Instant.parse("2019-07-22T06:00:00Z"), ZoneOffset.systemDefault()));
         VoteReqDTO req = new VoteReqDTO();
         req.setMenu_id(204);
         service.create(4, req);
