@@ -14,7 +14,6 @@ import rest.DishOfTheDay.repository.VoteRepository;
 import rest.DishOfTheDay.service.mapper.VoteMapper;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 import rest.DishOfTheDay.util.exception.PollNotActiveException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
@@ -100,7 +99,7 @@ public class VoteService {
     }
 
     private boolean ifPollActive() {
-        log.info("===== " + LocalTime.now() + " =====");
+        //System.out.println("==========" + LocalTime.now(clock) + " ==========");
         return (LocalTime.now().isBefore(END_OF_POLL_TIME));
     }
 
