@@ -14,6 +14,8 @@ import rest.DishOfTheDay.repository.VoteRepository;
 import rest.DishOfTheDay.service.mapper.VoteMapper;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 import rest.DishOfTheDay.util.exception.PollNotActiveException;
+
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
@@ -30,15 +32,18 @@ public class VoteService {
 
     private final UserRepository userRepository;
 
+    private Clock clock;
+
     private VoteMapper mapper;
 
     public static LocalTime END_OF_POLL_TIME = LocalTime.of(11,0,0);
 
     @Autowired
-    public VoteService(VoteRepository repository, PollRepository pollRepository, UserRepository userRepository, VoteMapper mapper) {
+    public VoteService(VoteRepository repository, PollRepository pollRepository, UserRepository userRepository, Clock clock, VoteMapper mapper) {
         this.repository = repository;
         this.pollRepository = pollRepository;
         this.userRepository = userRepository;
+        this.clock = clock;
         this.mapper = mapper;
     }
 
@@ -95,12 +100,12 @@ public class VoteService {
     }
 
     private boolean ifPollExist() {
-        return (pollRepository.getOne(LocalDate.now()) != null);
+        return (pollRepository.findById(LocalDate.now()).isPresent());
     }
 
     private boolean ifPollActive() {
-        //System.out.println("==========" + LocalTime.now(clock) + " ==========");
-        return (LocalTime.now().isBefore(END_OF_POLL_TIME));
+        System.out.println("========== IN SERVICE " + LocalTime.now(clock) + " ==========");
+        return (LocalTime.now(clock).isBefore(END_OF_POLL_TIME));
     }
 
     private boolean ifVotesEnabled() throws EntityNotFoundException, PollNotActiveException {
@@ -109,5 +114,9 @@ public class VoteService {
         if(!ifPollActive())
             throw new PollNotActiveException();
         return true;
+    }
+
+    public void setClock(Clock clock) {
+        this.clock = clock;
     }
 }

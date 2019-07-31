@@ -1,11 +1,12 @@
 package rest.DishOfTheDay.service;
 
-import org.h2.util.DateTimeUtils;
+import mockit.MockUp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,12 +15,13 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringRunner;
 import rest.DishOfTheDay.domain.dto.VoteReqDTO;
+import rest.DishOfTheDay.domain.dto.VoteRespDTO;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 import rest.DishOfTheDay.util.exception.PollNotActiveException;
 import java.time.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doReturn;
+import static org.junit.Assert.assertNotEquals;
 
 // https://stackoverflow.com/questions/32792000/how-can-i-mock-java-time-localdate-now
 
@@ -50,18 +52,44 @@ public class VoteServiceTest {
 
     @Test
     public void create() throws PollNotActiveException, EntityNotFoundException {
-        //System.out.println("===== " + LocalTime.now(clock) + " =====");
+        setTimeForVoteService(LocalTime.of(9, 0, 0));
         VoteReqDTO req = new VoteReqDTO();
         req.setMenu_id(204);
         service.create(4, req);
         assertEquals(service.getVote(4, LocalDate.now()).getMenu_id(), Integer.valueOf(204));
     }
 
-    @Test
-    public void delete() {
+    @Test (expected = PollNotActiveException.class)
+    public void create_PollNotActive () throws PollNotActiveException, EntityNotFoundException {
+        setTimeForVoteService(LocalTime.of(11, 0, 1));
+        VoteReqDTO req = new VoteReqDTO();
+        req.setMenu_id(204);
+        service.create(4, req);
+    }
+
+    @Test (expected = EntityNotFoundException.class)
+    public void delete() throws EntityNotFoundException, PollNotActiveException {
+        setTimeForVoteService(LocalTime.of(9, 0, 0));
+        VoteRespDTO resp = service.getVote(1, LocalDate.now());
+        assertEquals(resp.getMenu_id(), Integer.valueOf(205));
+        service.delete(1);
+        resp = service.getVote(1, LocalDate.now());
     }
 
     @Test
-    public void update() {
+    public void update() throws EntityNotFoundException, PollNotActiveException {
+        setTimeForVoteService(LocalTime.of(9, 0, 0));
+        VoteRespDTO resp = service.getVote(2, LocalDate.now());
+        VoteReqDTO req = new VoteReqDTO();
+        req.setMenu_id(205);
+        req.setUser_id(2);
+        service.update(2, req);
+        assertNotEquals(resp.getMenu_id(), service.getVote(2, LocalDate.now()).getMenu_id());
+    }
+
+    public void setTimeForVoteService (LocalTime time) {
+        LocalDateTime fixedDateTime = LocalDateTime.of(LocalDate.now(), time);
+        Clock fixedClock = Clock.fixed(fixedDateTime.atZone(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
+        service.setClock(fixedClock);
     }
 }

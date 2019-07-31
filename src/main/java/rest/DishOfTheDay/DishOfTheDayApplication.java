@@ -36,6 +36,11 @@ public class DishOfTheDayApplication {
 	}
 
 	@Bean
+	public Clock clock() {
+		return Clock.systemDefaultZone();
+	}
+
+	@Bean
 	public CacheManager cacheManager() {
 		return new ConcurrentMapCacheManager();
 	}
