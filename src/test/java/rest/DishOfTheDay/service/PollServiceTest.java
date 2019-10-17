@@ -13,10 +13,8 @@ import rest.DishOfTheDay.domain.dto.PollRespDTO;
 import rest.DishOfTheDay.repository.MenuRepository;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 import rest.DishOfTheDay.util.exception.IllegalMenuSetOfPollException;
-
 import java.time.LocalDate;
 import java.util.Set;
-
 import static org.junit.Assert.*;
 
 @Profile("test")
