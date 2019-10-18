@@ -33,14 +33,6 @@ public class RestaurantService {
     @Autowired
     private RestaurantMapper mapper;
 
-    /*
-    @Autowired
-    public RestaurantService(RestaurantRepository repository, RestaurantMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
-    */
-
     @Cacheable("restaurants")
     public List<RestaurantRespDTO> getAll() {
         return mapper.fromRestaurants(repository.findAll(new Sort(Sort.Direction.ASC, "name")));

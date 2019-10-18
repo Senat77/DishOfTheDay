@@ -1,10 +1,12 @@
 package rest.DishOfTheDay.domain.dto;
 
 import lombok.Data;
-import rest.DishOfTheDay.domain.base.ITransfer;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.*;
 
 @Data
+@NoArgsConstructor
 public class RestaurantReqDTO extends BaseEntityDTO {
 
     @NotBlank(groups = {New.class})
