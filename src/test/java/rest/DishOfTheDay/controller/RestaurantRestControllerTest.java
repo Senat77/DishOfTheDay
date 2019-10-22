@@ -7,11 +7,15 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import rest.DishOfTheDay.domain.dto.RestaurantReqDTO;
 import rest.DishOfTheDay.domain.dto.RestaurantRespDTO;
+import rest.DishOfTheDay.util.exception.EntityNotFoundException;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -75,10 +79,38 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void delete() {
+    @WithMockUser(roles = "ADMIN")
+    public void delete() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.delete(RestaurantRestController.REST_URL + "/103")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void update() {
+    @WithMockUser(roles = "ADMIN")
+    @ExceptionHandler(EntityNotFoundException.class)
+    public void delete_EntityNotFoundException() throws Exception {
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(RestaurantRestController.REST_URL + "/999")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andReturn();
+        String content = mvcResult.getResponse().getContentAsString();
+        assertTrue(content.contains("HTTP status\":\"NOT_FOUND"));
+        assertTrue(content.contains("Message\":\"Entity not found exception"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void update() throws Exception {
+        RestaurantReqDTO restaurantReqDTO = new RestaurantReqDTO("NewName", "NewAddress", "");
+        String inputJson = super.mapToJson(restaurantReqDTO);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.patch(RestaurantRestController.REST_URL + "/101")
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson))
+                .andExpect(status().isOk())
+                .andReturn();
+        String content = mvcResult.getResponse().getContentAsString();
+        RestaurantRespDTO restaurantRespDTO = super.mapFromJson(content, RestaurantRespDTO.class);
+        assertEquals(restaurantRespDTO.getName(), "NewName");
+        assertEquals(restaurantRespDTO.getAddress(), "NewAddress");
     }
 }
