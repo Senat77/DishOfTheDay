@@ -1,9 +1,11 @@
 1. Реализовать функционал "активен/неактивен" для пользователя (User)
 2. В PollRespDTO добавить свойство Active
-3. В VoteService добавить проверку на то, что пользователь проголосовал за ресторан, присутствующий в тек. голосовании
+3. В VoteService добавить проверку на то, что пользователь проголосовал за ресторан, присутствующий
+   в тек. голосовании
 4. Почитать для тестов :
     https://www.baeldung.com/spring-tests
     https://flywaydb.org/documentation/plugins/springboot
     https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-use-a-higher-level-database-migration-tool
     https://medium.freecodecamp.org/unit-testing-services-endpoints-and-repositories-in-spring-boot-4b7d9dc2b772
 5. Удаление пользователя с существующими голосами по голосованиям
+6. Тесты - добавить тестирование удаления/обновления связанных объектов
