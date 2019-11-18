@@ -53,8 +53,7 @@ public class VoteServiceTest {
     @Test
     public void create() throws PollNotActiveException, EntityNotFoundException {
         setTimeForVoteService(LocalTime.of(9, 0, 0));
-        VoteReqDTO req = new VoteReqDTO();
-        req.setMenu_id(204);
+        VoteReqDTO req = new VoteReqDTO(204, 4);
         service.create(4, req);
         assertEquals(service.getVote(4, LocalDate.now()).getMenu_id(), Integer.valueOf(204));
     }
@@ -62,8 +61,7 @@ public class VoteServiceTest {
     @Test (expected = PollNotActiveException.class)
     public void create_PollNotActive () throws PollNotActiveException, EntityNotFoundException {
         setTimeForVoteService(LocalTime.of(11, 0, 1));
-        VoteReqDTO req = new VoteReqDTO();
-        req.setMenu_id(204);
+        VoteReqDTO req = new VoteReqDTO(204, 4);
         service.create(4, req);
     }
 
@@ -80,9 +78,7 @@ public class VoteServiceTest {
     public void update() throws EntityNotFoundException, PollNotActiveException {
         setTimeForVoteService(LocalTime.of(9, 0, 0));
         VoteRespDTO resp = service.getVote(2, LocalDate.now());
-        VoteReqDTO req = new VoteReqDTO();
-        req.setMenu_id(205);
-        req.setUser_id(2);
+        VoteReqDTO req = new VoteReqDTO(205, 2);
         service.update(2, req);
         assertNotEquals(resp.getMenu_id(), service.getVote(2, LocalDate.now()).getMenu_id());
     }

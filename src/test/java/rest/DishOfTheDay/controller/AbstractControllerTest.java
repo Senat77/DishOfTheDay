@@ -14,8 +14,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import rest.DishOfTheDay.DishOfTheDayApplication;
+import rest.DishOfTheDay.service.VoteService;
 
 import java.io.IOException;
+import java.time.*;
 
 @Profile("test")
 @RunWith(SpringRunner.class)
@@ -25,6 +27,9 @@ public abstract class AbstractControllerTest {
 
     @Autowired
     protected MockMvc mvc;
+
+    @Autowired
+    private VoteService service;
 
     protected String mapToJson(Object obj) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -36,5 +41,11 @@ public abstract class AbstractControllerTest {
     protected <T> T mapFromJson(String json, Class<T> clazz) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, clazz);
+    }
+
+    public void setTimeForVoteService (LocalTime time) {
+        LocalDateTime fixedDateTime = LocalDateTime.of(LocalDate.now(), time);
+        Clock fixedClock = Clock.fixed(fixedDateTime.atZone(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
+        service.setClock(fixedClock);
     }
 }

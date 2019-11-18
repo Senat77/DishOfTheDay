@@ -40,8 +40,7 @@ public class VotingResultServiceTest {
     @Test
     public void updateResult() throws PollNotActiveException, EntityNotFoundException {
         setTimeForVoteService(LocalTime.of(9, 0, 0));
-        VoteReqDTO voteReqDTO = new VoteReqDTO();
-        voteReqDTO.setMenu_id(204);
+        VoteReqDTO voteReqDTO = new VoteReqDTO(204, 4);
         voteService.create(4, voteReqDTO);
         VotingResult result = service.getResult(LocalDate.now());
         assertEquals(result.getMenuWithVotes().size(), 3);

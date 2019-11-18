@@ -65,7 +65,7 @@ public class PollRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.menus.length()", is(3)))
                 .andExpect(jsonPath("$.menus[0].restaurant.name", is("Restaurant1")))
-                .andExpect(jsonPath("$.menus[1].restaurant.name", is("Restaurant4")))
-                .andExpect(jsonPath("$.menus[2].restaurant.name", is("Restaurant3")));
+                .andExpect(jsonPath("$.menus[1].restaurant.name", is("Restaurant3")))
+                .andExpect(jsonPath("$.menus[2].restaurant.name", is("Restaurant4")));
     }
 }
