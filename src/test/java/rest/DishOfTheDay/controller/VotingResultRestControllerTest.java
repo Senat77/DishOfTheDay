@@ -2,6 +2,7 @@ package rest.DishOfTheDay.controller;
 
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MvcResult;
@@ -45,6 +46,19 @@ public class VotingResultRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void getResultByDate() {
+    @WithMockUser(roles = "USER")
+    public void getResultByDate() throws Exception {
+        String formattedDate = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(VotingResultRestController.REST_URL + "/" + formattedDate)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.date", is(formattedDate)))
+                .andExpect(jsonPath("$.menuWithVotes.size()", is(2)))
+                .andReturn();
+        String content = mvcResult.getResponse().getContentAsString();
+        VotingResult result = super.mapFromJson(content, VotingResult.class);
+        MenuWithVotes menu = result.getWinner();
+        assertEquals(menu.getVoteCounter(), Long.valueOf(3));
+        assertEquals(menu.getMenuRespDTO().getRestaurant().getName(),"Restaurant3");
     }
 }
