@@ -22,6 +22,7 @@ import static org.junit.Assert.*;
         scripts = {"/TestData/test-delete-all.sql",
                     "/TestData/test-restaurants-data.sql",
                     "/TestData/test-menus-data.sql"})})
+
 public class MenuServiceTest {
 
     @Autowired

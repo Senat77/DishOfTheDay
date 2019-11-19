@@ -5,6 +5,7 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@NoArgsConstructor
 @Data
 @AllArgsConstructor
 public class Dish implements Serializable {

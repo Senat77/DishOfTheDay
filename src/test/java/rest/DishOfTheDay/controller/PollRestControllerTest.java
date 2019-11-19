@@ -8,13 +8,17 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import rest.DishOfTheDay.domain.dto.MenuRespDTO;
 import rest.DishOfTheDay.domain.dto.PollReqDTO;
+import rest.DishOfTheDay.domain.dto.PollRespDTO;
 import rest.DishOfTheDay.util.exception.EntityNotFoundException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.Set;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,12 +64,19 @@ public class PollRestControllerTest extends AbstractControllerTest {
     @WithMockUser(roles = "USER")
     public void get() throws Exception {
         String formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        mvc.perform(MockMvcRequestBuilders.get(PollRestController.REST_URL + "/" + formattedDate)
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(PollRestController.REST_URL + "/" + formattedDate)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.menus.length()", is(3)))
-                .andExpect(jsonPath("$.menus[0].restaurant.name", is("Restaurant1")))
-                .andExpect(jsonPath("$.menus[1].restaurant.name", is("Restaurant3")))
-                .andExpect(jsonPath("$.menus[2].restaurant.name", is("Restaurant4")));
+                .andReturn();
+        String content = mvcResult.getResponse().getContentAsString();
+        PollRespDTO result = super.mapFromJson(content, PollRespDTO.class);
+        assertEquals(result.getId(), LocalDate.now());
+        assertEquals(result.getMenus().size(), 3);
+        Set<String> restaurantNames = new HashSet<>();
+        for (MenuRespDTO menuRespDTO : result.getMenus()) {
+            restaurantNames.add(menuRespDTO.getRestaurant().getName());
+        }
+        assertTrue(restaurantNames.containsAll(Set.of("Restaurant1", "Restaurant3", "Restaurant4")));
     }
 }

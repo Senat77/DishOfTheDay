@@ -78,10 +78,10 @@
 		</dependency>
 
 		<!-- H2 database -->
-        	<dependency>
-            		<groupId>com.h2database</groupId>
-            		<artifactId>h2</artifactId>
-        	</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
 
 		<!-- Lombok -->
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -96,6 +96,11 @@
 			<artifactId>jmockit</artifactId>
 			<version>1.47</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 
         <!-- Logging with SLF4J & LogBack -->
