@@ -22,22 +22,18 @@
 											"basic": [
 												{
 													"key": "password",
-													"value": "user4",
+													"value": "user3",
 													"type": "string"
 												},
 												{
 													"key": "username",
-													"value": "user4",
+													"value": "user3",
 													"type": "string"
 												}
 											]
 										},
 										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
 											"raw": "http://localhost:8080/api/users/profile",
 											"protocol": "http",
@@ -55,29 +51,25 @@
 									"response": []
 								},
 								{
-									"name": "delete",
+									"name": "deleteUserWithVotes",
 									"request": {
 										"auth": {
 											"type": "basic",
 											"basic": [
 												{
 													"key": "password",
-													"value": "user3",
+													"value": "admin",
 													"type": "string"
 												},
 												{
 													"key": "username",
-													"value": "user3",
+													"value": "admin",
 													"type": "string"
 												}
 											]
 										},
 										"method": "DELETE",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
 											"raw": "http://localhost:8080/api/users/profile",
 											"protocol": "http",
@@ -102,12 +94,12 @@
 											"basic": [
 												{
 													"key": "password",
-													"value": "user4",
+													"value": "user3",
 													"type": "string"
 												},
 												{
 													"key": "username",
-													"value": "user4",
+													"value": "user3",
 													"type": "string"
 												}
 											]
@@ -123,7 +115,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"name\": \"Four\",\n    \"email\": \"four@site.com\",\n    \"password\": \"four\"\n}"
+											"raw": "{\n    \"name\": \"F\",\n    \"password\": \"f\"\n}"
 										},
 										"url": {
 											"raw": "http://localhost:8080/api/users/profile",
@@ -164,10 +156,6 @@
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "http://localhost:8080/api/users",
 									"protocol": "http",
@@ -184,7 +172,7 @@
 							"response": []
 						},
 						{
-							"name": "AddUser",
+							"name": "create",
 							"request": {
 								"auth": {
 									"type": "noauth"
@@ -194,13 +182,13 @@
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
+										"type": "text",
+										"value": "application/json"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"id\": 100002,\n    \"name\": \"newuser3\",\n    \"email\": \"new_user3@site.com\",\n    \"password\": \"newuser\"\n}"
+									"raw": "{\n    \"name\": \"Newuser\",\n    \"email\": \"newuser3@e.mail\",\n    \"password\": \"password\"\n}"
 								},
 								"url": {
 									"raw": "http://localhost:8080/api/users",
@@ -237,12 +225,8 @@
 								},
 								"method": "DELETE",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
-									"raw": "http://localhost:8080/api/users/100002/delete",
+									"raw": "http://localhost:8080/api/users/100005/delete",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -251,7 +235,44 @@
 									"path": [
 										"api",
 										"users",
-										"100002",
+										"100005",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_EntityNotFoundException",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/users/10111112/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"10111112",
 										"delete"
 									]
 								}
@@ -341,10 +362,6 @@
 												"type": "text"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
 											"raw": "http://localhost:8080/api/admin/restaurants",
 											"protocol": "http",
@@ -373,10 +390,6 @@
 														"disabled": true
 													}
 												],
-												"body": {
-													"mode": "raw",
-													"raw": ""
-												},
 												"url": {
 													"raw": "http://localhost:8080/api/admin/restaurants",
 													"protocol": "http",
@@ -442,10 +455,6 @@
 									"request": {
 										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
 											"raw": "http://localhost:8080/api/admin/restaurants/999999",
 											"protocol": "http",
@@ -468,10 +477,6 @@
 									"request": {
 										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
 											"raw": "http://localhost:8080/api/admin/restaurants/100007",
 											"protocol": "http",
@@ -494,10 +499,6 @@
 									"request": {
 										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
 											"raw": "http://localhost:8080/api/admin/restaurants/abracadabra",
 											"protocol": "http",
@@ -552,12 +553,8 @@
 									"request": {
 										"method": "DELETE",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/100007/delete",
+											"raw": "http://localhost:8080/api/admin/restaurants/100008",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -567,8 +564,7 @@
 												"api",
 												"admin",
 												"restaurants",
-												"100007",
-												"delete"
+												"100008"
 											]
 										}
 									},
@@ -579,12 +575,8 @@
 									"request": {
 										"method": "DELETE",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/999999/delete",
+											"raw": "http://localhost:8080/api/admin/restaurants/999999",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -594,8 +586,7 @@
 												"api",
 												"admin",
 												"restaurants",
-												"999999",
-												"delete"
+												"999999"
 											]
 										}
 									},
@@ -615,7 +606,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"name\": \"Старый Воронцов\",\n    \"address\": \"Новый адрес\"\n}"
+											"raw": "{\n    \"name\": \"Стар\",\n    \"address\": \"Новый адрес\"\n}"
 										},
 										"url": {
 											"raw": "http://localhost:8080/api/admin/restaurants/100006",
@@ -629,6 +620,38 @@
 												"admin",
 												"restaurants",
 												"100006"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "AddRestaurantWithValidationException",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"address\": \"Нет наименования, адрес неизвестен!\",\r\n   \"email\": \"sea_bar@od.ua\"\r\n}"
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/admin/restaurants",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"admin",
+												"restaurants"
 											]
 										}
 									},
@@ -679,6 +702,57 @@
 							"item": [
 								{
 									"name": "getById",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/admin/menus/100009",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"admin",
+												"menus",
+												"100009"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "lastForRestaurant",
 									"request": {
 										"auth": {
 											"type": "basic",
@@ -697,10 +771,169 @@
 										},
 										"method": "GET",
 										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/admin/menus/last_by_restaurant/100006",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"admin",
+												"menus",
+												"last_by_restaurant",
+												"100006"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "AddMenu",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": ""
+											"raw": "{\n    \"restaurant_id\": 100007,\n    \"date\": \"2019-03-01\",\n    \"dishes\": [\n        {\n            \"name\": \"Новое меню - первое\",\n            \"price\": 33\n        },\n        {\n            \"name\": \"Новое меню - второе\",\n            \"price\": 22\n        }\n    ]\n}"
 										},
+										"url": {
+											"raw": "http://localhost:8080/api/admin/menus",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"admin",
+												"menus"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "AddMenu",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"restaurant_id\": 100007,\n    \"date\": \"2019-03-01\",\n    \"dishes\": [\n        {\n            \"name\": \"Новое меню - первое\",\n            \"price\": 33\n        },\n        {\n            \"name\": \"Новое меню - второе\",\n            \"price\": 22\n        }\n    ]\n}"
+												},
+												"url": {
+													"raw": "http://localhost:8080/api/admin/menus",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"admin",
+														"menus"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "1; mode=block"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json;charset=UTF-8"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 28 Feb 2019 14:52:10 GMT"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"id\": 100015,\n    \"restaurant\": {\n        \"id\": 100007,\n        \"name\": null,\n        \"address\": null,\n        \"email\": null\n    },\n    \"date\": \"2019-03-01\",\n    \"dishes\": [\n        {\n            \"name\": \"Новое меню - первое\",\n            \"price\": 33\n        },\n        {\n            \"name\": \"Новое меню - второе\",\n            \"price\": 22\n        }\n    ]\n}"
+										}
+									]
+								},
+								{
+									"name": "Update",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"restaurant_id\": 100008,\n    \"date\": \"2019-12-31\",\n    \"dishes\": [\n        {\n            \"name\": \"PATCH1\",\n            \"price\": 100\n        },\n        {\n            \"name\": \"PATCH2\",\n            \"price\": 200\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/admin/menus/100009",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"admin",
+												"menus",
+												"100009"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete",
+									"request": {
+										"method": "DELETE",
+										"header": [],
 										"url": {
 											"raw": "http://localhost:8080/api/admin/menus/100010",
 											"protocol": "http",
@@ -717,6 +950,43 @@
 										}
 									},
 									"response": []
+								}
+							],
+							"auth": {
+								"type": "basic",
+								"basic": [
+									{
+										"key": "password",
+										"value": "admin",
+										"type": "string"
+									},
+									{
+										"key": "username",
+										"value": "admin",
+										"type": "string"
+									}
+								]
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4ffeff71-17d7-4235-8fbf-34ed4f839310",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "e97dfc9f-3280-4d0c-bc59-3c084b978715",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
 								}
 							],
 							"_postman_isSubFolder": true
@@ -760,6 +1030,529 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "polls",
+					"item": [
+						{
+							"name": "getById",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "516e9cc1-5ee9-4c9c-a269-fad664f45264",
+										"exec": [
+											"var date = new Date();",
+											"var curr_date = date.getDate();",
+											"var curr_month = date.getMonth() + 1;",
+											"var curr_year = date.getFullYear();",
+											"var formatted_date = curr_year + \"-\" + curr_month + \"-\" + curr_date;",
+											"var formatted_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);",
+											"pm.globals.set(\"current_date\", formatted_date);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "user1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/polls/{{current_date}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"polls",
+										"{{current_date}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddPoll",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"2019-03-06\",\n    \"menu_id\": [\n        \"100012\",\n        \"100013\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/polls",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"polls"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IllegalMenuSetOfPollException",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"2019-03-06\",\n    \"menu_id\": [\n    \t\"100010\",\n    \t\"100011\",\n        \"100012\",\n        \"100013\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/polls",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"polls"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "votes",
+					"item": [
+						{
+							"name": "getVoteByUserAndCurrentDate",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "user1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/votes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"votes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getVoteByUserAndDate",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bd890098-43f8-4a45-a3f4-27f76cb75c22",
+										"exec": [
+											"var date = new Date();",
+											"var curr_date = date.getDate();",
+											"var curr_month = date.getMonth() + 1;",
+											"var curr_year = date.getFullYear();",
+											"var formatted_date = curr_year + \"-\" + curr_month + \"-\" + curr_date;",
+											"var formatted_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);",
+											"pm.globals.set(\"current_date\", formatted_date);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "user1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/votes/getbydate/{{current_date}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"votes",
+										"getbydate",
+										"{{current_date}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddVote",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3244ac67-702b-47b3-bfdb-54ab12e0d91c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "user5",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user5",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"menu_id\" : \"100010\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/votes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"votes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteVote",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "user5",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user5",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/votes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"votes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateVote",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "user5",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user5",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"menu_id\" : \"100011\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/votes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"votes"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "dishoftheday",
+					"item": [
+						{
+							"name": "getByDate",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ef0fc6c4-7d7e-4b2e-855b-8dd6f14a4ac5",
+										"exec": [
+											"var date = new Date();",
+											"var curr_date = date.getDate();",
+											"var curr_month = date.getMonth() + 1;",
+											"var curr_year = date.getFullYear();",
+											"var formatted_date = curr_year + \"-\" + curr_month + \"-\" + curr_date;",
+											"var formatted_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);",
+											"pm.environment.set(\"current_date\", formatted_date);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "user1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/dishoftheday/{{current_date}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"dishoftheday",
+										"{{current_date}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "getByDate",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/dishoftheday/{{current_date}}",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"dishoftheday",
+												"{{current_date}}"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "WWW-Authenticate",
+											"value": "Basic realm=\"Realm\""
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json;charset=UTF-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 14 Mar 2019 16:22:27 GMT"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"timestamp\": \"2019-03-14T16:22:27.041+0000\",\n    \"status\": 401,\n    \"error\": \"Unauthorized\",\n    \"message\": \"Unauthorized\",\n    \"path\": \"/api/dishoftheday/yyyy-MM-dd\"\n}"
+								}
+							]
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			],
 			"event": [
@@ -782,174 +1575,6 @@
 							""
 						]
 					}
-				}
-			]
-		},
-		{
-			"name": "OAuth",
-			"item": [
-				{
-					"name": "Token.Create",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "552b71cc-12ca-4283-b878-c045a1eacc70",
-								"exec": [
-									"var json = JSON.parse(responseBody);",
-									"pm.globals.set(\"access_token\", json.access_token);",
-									"pm.globals.set(\"refresh_token\", json.refresh_token);",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{client_password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "grant_type",
-									"value": "password",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "{{password}}",
-									"type": "text"
-								},
-								{
-									"key": "scope",
-									"value": "*",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{host}}/oauth/token",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"oauth",
-								"token"
-							]
-						},
-						"description": "Get access token"
-					},
-					"response": []
-				},
-				{
-					"name": "Token.Refresh",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "552b71cc-12ca-4283-b878-c045a1eacc70",
-								"exec": [
-									"var json = JSON.parse(responseBody);",
-									"pm.globals.set(\"access_token\", json.access_token);",
-									"pm.globals.set(\"refresh_token\", json.refresh_token);",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{client_password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "grant_type",
-									"value": "refresh_token",
-									"type": "text"
-								},
-								{
-									"key": "refresh_token",
-									"value": "{{refresh_token}}",
-									"type": "text"
-								},
-								{
-									"key": "scope",
-									"value": "*",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{host}}/oauth/token",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"oauth",
-								"token"
-							]
-						},
-						"description": "Refresh access token"
-					},
-					"response": []
 				}
 			]
 		}

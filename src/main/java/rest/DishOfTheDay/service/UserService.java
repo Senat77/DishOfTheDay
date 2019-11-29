@@ -68,7 +68,9 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public void delete (int id) {
+    public void delete (int id) throws EntityNotFoundException {
+        if(!repository.existsById(id))
+            throw new EntityNotFoundException();
         repository.deleteById(id);
     }
 }

@@ -67,7 +67,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void delete() {
+    public void delete() throws EntityNotFoundException {
         UserRespDTO userDTO = userService.get(0);
         userService.delete(0);
         assertThat(userService.getAll()).doesNotContain(userDTO);
