@@ -35,12 +35,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/users/profile",
-											"protocol": "http",
+											"raw": "{{host}}/api/users/profile",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"users",
@@ -71,12 +69,10 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/users/profile",
-											"protocol": "http",
+											"raw": "{{host}}/api/users/profile",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"users",
@@ -118,12 +114,10 @@
 											"raw": "{\n    \"name\": \"F\",\n    \"password\": \"f\"\n}"
 										},
 										"url": {
-											"raw": "http://localhost:8080/api/users/profile",
-											"protocol": "http",
+											"raw": "{{host}}/api/users/profile",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"users",
@@ -157,12 +151,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/users",
-									"protocol": "http",
+									"raw": "{{host}}/api/users",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"users"
@@ -191,12 +183,10 @@
 									"raw": "{\n    \"name\": \"Newuser\",\n    \"email\": \"newuser3@e.mail\",\n    \"password\": \"password\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/users",
-									"protocol": "http",
+									"raw": "{{host}}/api/users",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"users"
@@ -226,12 +216,10 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/users/100005/delete",
-									"protocol": "http",
+									"raw": "{{host}}/api/users/100005/delete",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"users",
@@ -263,12 +251,10 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/users/10111112/delete",
-									"protocol": "http",
+									"raw": "{{host}}/api/users/10111112/delete",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"users",
@@ -289,7 +275,7 @@
 							"name": "restaurants",
 							"item": [
 								{
-									"name": "AddRestaurant",
+									"name": "create",
 									"request": {
 										"auth": {
 											"type": "basic",
@@ -311,8 +297,8 @@
 											{
 												"key": "Content-Type",
 												"name": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -320,12 +306,10 @@
 											"raw": "{\r\n   \"name\": \"Тихая гавань\",\r\n   \"address\": \"ул.Уютная, 22\",\r\n   \"email\": \"sea_bar@od.ua\"\r\n}"
 										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/restaurants",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -363,12 +347,10 @@
 											}
 										],
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/restaurants",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -451,17 +433,15 @@
 									]
 								},
 								{
-									"name": "notFoundEntity",
+									"name": "get_EntityNotFoundException",
 									"request": {
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/999999",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/restaurants/999999",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -473,17 +453,15 @@
 									"response": []
 								},
 								{
-									"name": "getById",
+									"name": "get",
 									"request": {
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/100007",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/restaurants/100007",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -495,98 +473,20 @@
 									"response": []
 								},
 								{
-									"name": "getById.InvalidParameter",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/abracadabra",
-											"protocol": "http",
-											"host": [
-												"localhost"
-											],
-											"port": "8080",
-											"path": [
-												"api",
-												"admin",
-												"restaurants",
-												"abracadabra"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "newRestaurant.duplicateValue",
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"name": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\": \"Воронцов\",\n    \"address\": \"ул.Ришельевская, 55\",\n    \"email\": \"vorontsov@od.ua\"\n}"
-										},
-										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants",
-											"protocol": "http",
-											"host": [
-												"localhost"
-											],
-											"port": "8080",
-											"path": [
-												"api",
-												"admin",
-												"restaurants"
-											]
-										}
-									},
-									"response": []
-								},
-								{
 									"name": "delete",
 									"request": {
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/100008",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/restaurants/100023",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
 												"restaurants",
-												"100008"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "delete.NonExistingID",
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/999999",
-											"protocol": "http",
-											"host": [
-												"localhost"
-											],
-											"port": "8080",
-											"path": [
-												"api",
-												"admin",
-												"restaurants",
-												"999999"
+												"100023"
 											]
 										}
 									},
@@ -609,49 +509,15 @@
 											"raw": "{\n    \"name\": \"Стар\",\n    \"address\": \"Новый адрес\"\n}"
 										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants/100006",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/restaurants/100006",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
 												"restaurants",
 												"100006"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "AddRestaurantWithValidationException",
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"name": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n   \"address\": \"Нет наименования, адрес неизвестен!\",\r\n   \"email\": \"sea_bar@od.ua\"\r\n}"
-										},
-										"url": {
-											"raw": "http://localhost:8080/api/admin/restaurants",
-											"protocol": "http",
-											"host": [
-												"localhost"
-											],
-											"port": "8080",
-											"path": [
-												"api",
-												"admin",
-												"restaurants"
 											]
 										}
 									},
@@ -1577,6 +1443,36 @@
 					}
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "61e78713-24f7-43fc-971a-b14179e1537a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fab9b1a4-9320-4d51-9f57-b43c2a9904ed",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d1af4e33-01b7-4580-aff3-4b81a30417d9",
+			"key": "host",
+			"value": "",
+			"type": "string"
 		}
 	]
 }

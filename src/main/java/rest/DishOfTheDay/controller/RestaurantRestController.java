@@ -37,7 +37,7 @@ public class RestaurantRestController {
     }
 
     @GetMapping(value = "/{id}")
-    public RestaurantRespDTO getRestaurant(@PathVariable("id") Integer id) throws EntityNotFoundException {
+    public RestaurantRespDTO get(@PathVariable("id") Integer id) throws EntityNotFoundException {
         log.info("get restaurant with id = {}", id);
         return service.get(id);
     }

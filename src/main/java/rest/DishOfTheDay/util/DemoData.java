@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-@Profile({"demo", "dev"})
+@Profile({"demo"})
 @Component
 public class DemoData implements AbstractData {
 
