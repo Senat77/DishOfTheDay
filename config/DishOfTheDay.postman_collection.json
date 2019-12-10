@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3a9729c3-ef2e-4326-9f72-870ec0311e7a",
+		"_postman_id": "ca21a920-891c-4bf3-9a88-ec039185701b",
 		"name": "DishOfTheDay",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -128,6 +128,7 @@
 									"response": []
 								}
 							],
+							"protocolProfileBehavior": {},
 							"_postman_isSubFolder": true
 						},
 						{
@@ -266,6 +267,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -428,7 +430,7 @@
 												}
 											],
 											"cookie": [],
-											"body": null
+											"body": ""
 										}
 									]
 								},
@@ -493,7 +495,7 @@
 									"response": []
 								},
 								{
-									"name": "Update",
+									"name": "update",
 									"request": {
 										"method": "PATCH",
 										"header": [
@@ -561,13 +563,14 @@
 									}
 								}
 							],
+							"protocolProfileBehavior": {},
 							"_postman_isSubFolder": true
 						},
 						{
 							"name": "menus",
 							"item": [
 								{
-									"name": "getById",
+									"name": "get",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -592,8 +595,8 @@
 											{
 												"key": "Content-Type",
 												"name": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -618,7 +621,7 @@
 									"response": []
 								},
 								{
-									"name": "lastForRestaurant",
+									"name": "lastByRestaurant",
 									"request": {
 										"auth": {
 											"type": "basic",
@@ -656,7 +659,7 @@
 									"response": []
 								},
 								{
-									"name": "AddMenu",
+									"name": "create",
 									"request": {
 										"method": "POST",
 										"header": [
@@ -763,7 +766,7 @@
 									]
 								},
 								{
-									"name": "Update",
+									"name": "update",
 									"request": {
 										"method": "PATCH",
 										"header": [
@@ -796,12 +799,12 @@
 									"response": []
 								},
 								{
-									"name": "Delete",
+									"name": "delete",
 									"request": {
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/admin/menus/100010",
+											"raw": "http://localhost:8080/api/admin/menus/100012",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -811,7 +814,7 @@
 												"api",
 												"admin",
 												"menus",
-												"100010"
+												"100012"
 											]
 										}
 									},
@@ -855,6 +858,7 @@
 									}
 								}
 							],
+							"protocolProfileBehavior": {},
 							"_postman_isSubFolder": true
 						}
 					],
@@ -895,6 +899,7 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -1054,6 +1059,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -1289,6 +1295,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -1418,6 +1425,7 @@
 							]
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
 			],
@@ -1442,7 +1450,8 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
@@ -1474,5 +1483,6 @@
 			"value": "",
 			"type": "string"
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
