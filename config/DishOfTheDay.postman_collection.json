@@ -604,12 +604,10 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/menus/100009",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/menus/100009",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -641,12 +639,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/admin/menus/last_by_restaurant/100006",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/menus/last_by_restaurant/100006",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -666,8 +662,8 @@
 											{
 												"key": "Content-Type",
 												"name": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -675,12 +671,10 @@
 											"raw": "{\n    \"restaurant_id\": 100007,\n    \"date\": \"2019-03-01\",\n    \"dishes\": [\n        {\n            \"name\": \"Новое меню - первое\",\n            \"price\": 33\n        },\n        {\n            \"name\": \"Новое меню - второе\",\n            \"price\": 22\n        }\n    ]\n}"
 										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/menus",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/menus",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -773,8 +767,8 @@
 											{
 												"key": "Content-Type",
 												"name": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -782,12 +776,10 @@
 											"raw": "{\n    \"restaurant_id\": 100008,\n    \"date\": \"2019-12-31\",\n    \"dishes\": [\n        {\n            \"name\": \"PATCH1\",\n            \"price\": 100\n        },\n        {\n            \"name\": \"PATCH2\",\n            \"price\": 200\n        }\n    ]\n}"
 										},
 										"url": {
-											"raw": "http://localhost:8080/api/admin/menus/100009",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/menus/100009",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -804,12 +796,10 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/admin/menus/100012",
-											"protocol": "http",
+											"raw": "{{host}}/api/admin/menus/100012",
 											"host": [
-												"localhost"
+												"{{host}}"
 											],
-											"port": "8080",
 											"path": [
 												"api",
 												"admin",
@@ -906,7 +896,7 @@
 					"name": "polls",
 					"item": [
 						{
-							"name": "getById",
+							"name": "get",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -951,12 +941,10 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/api/polls/{{current_date}}",
-									"protocol": "http",
+									"raw": "{{host}}/api/polls/{{current_date}}",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"polls",
@@ -967,53 +955,7 @@
 							"response": []
 						},
 						{
-							"name": "AddPoll",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "admin",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "admin",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"id\": \"2019-03-06\",\n    \"menu_id\": [\n        \"100012\",\n        \"100013\"\n    ]\n}"
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/polls",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"polls"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "IllegalMenuSetOfPollException",
+							"name": "create_IllegalMenuSetOfPollException",
 							"request": {
 								"auth": {
 									"type": "basic",
@@ -1044,12 +986,59 @@
 									"raw": "{\n    \"id\": \"2019-03-06\",\n    \"menu_id\": [\n    \t\"100010\",\n    \t\"100011\",\n        \"100012\",\n        \"100013\"\n    ]\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/polls",
-									"protocol": "http",
+									"raw": "{{host}}/api/polls",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
+									"path": [
+										"api",
+										"polls"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"2019-12-14\",\n    \"menu_id\": [\n        \"100010\",\n        \"100011\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/polls",
+									"host": [
+										"{{host}}"
+									],
 									"path": [
 										"api",
 										"polls"
@@ -1478,9 +1467,9 @@
 	],
 	"variable": [
 		{
-			"id": "d1af4e33-01b7-4580-aff3-4b81a30417d9",
+			"id": "9a33d744-94ae-4dba-a621-905f6febcc58",
 			"key": "host",
-			"value": "",
+			"value": "http://localhost:8080",
 			"type": "string"
 		}
 	],
